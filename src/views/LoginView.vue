@@ -33,26 +33,31 @@
         <button class="btn btn-primary w-100 py-2 text-light-emphasis" type="submit">
           Acessar
         </button>
-        <small class="text-secondary mx-4" data-bs-toggle="modal" data-bs-target="#signUp"> <a href="#" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Nao possui conta ? Cadastre-se</a> </small>
+        <small class="text-secondary mx-4" data-bs-toggle="modal" data-bs-target="#signUp">  <!--  Ação para o cadastro    -->
+          <a href="#" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+            Nao possui conta ? Cadastre-se
+          </a>
+        </small>
         <h5 class="bg-danger mt-2 rounded-2"></h5>
         <p class="mt-5 mb-3 text-light">&copy; 2017–2024</p>
       </form>
-        <ModalView id-modal="signUp">
+
+        <ModalView id-modal="signUp"> <!--  Modal de Cadastro      -->
           <template v-slot:content>
             <div class="modal-body p-4 pt-0">
-              <form class="" @submit.prevent="submitForm">
+              <form class="" @submit.prevent="handleAccount">
                 <div class="form-floating mb-3 mt-3" >  <!-- form para a criação de usuario -->
 
                   <div class="form-floating mb-1">
-                    <input type="text" name="name" class="form-control rounded-3" id="nameInput" placeholder="Nome"   required>
+                    <input type="text" name="name" class="form-control rounded-3" id="nameInput" placeholder="Nome" v-model="createdAccount.name"   required>
                     <label for="nameInput">Name</label>
                   </div>
                   <div class="form-floating mb-1" >
-                    <input type="email" name="email" class="form-control rounded-3 my-3" id="emailInput" placeholder="Email"   required>
+                    <input type="email" name="email" class="form-control rounded-3 my-3" id="emailInput" placeholder="Email"  v-model="createdAccount.email"  required>
                     <label for="emailInput">Email</label>
                   </div>
                   <div class="form-floating mb-1" >
-                    <input type="password" name="password" class="form-control rounded-3" id="passwordInput" placeholder="Password"   required>
+                    <input type="password" name="password" class="form-control rounded-3" id="passwordInput" placeholder="Password" v-model="createdAccount.password"  required>
                     <label for="passwordInput">Password</label>
                   </div>
                 </div>
@@ -87,11 +92,17 @@ export default {
         email:'',
         password:'',
       },
-      nameSignup:''
+      createdAccount:{
+        name:'',
+        email:'',
+        password:'',
+      },
+
     }
   },
   methods: {
     ...mapActions('auth', ['login']),
+    ...mapActions('user', ['register']),
     async handleLogin() {
       try {
         await this.login({ email: this.loginData.email, password: this.loginData.password})
@@ -100,9 +111,9 @@ export default {
         console.error(error)
       }
     },
-    async createdAccount(){
+    async handleAccount(){
       try{
-
+        await this.register({name:this.createdAccount.name,  email: this.createdAccount.email, password: this.createdAccount.password})
 
       }catch(error){
         console.log(error)
