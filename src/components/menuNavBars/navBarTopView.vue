@@ -17,10 +17,23 @@
       </li>
     </ul>
   </header>
+  <div class="container-fluid  ">
+    <div class="row">
+      <side-bar-view></side-bar-view>
+      <div class="col-10 border border-secondary d-inline-block">
+        <slot name="content"></slot>
+      </div>
+
+    </div>
+  </div>
+
 </template>
 <script>
+import SideBarView from '@/components/menuNavBars/sideBarView.vue'
+
 export default {
-  name: 'navBarTopView'
+  name: 'navBarTopView',
+  components: { SideBarView }
 }
 </script>
 
