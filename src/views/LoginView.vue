@@ -33,16 +33,16 @@
         <button class="btn btn-primary w-100 py-2 text-light-emphasis" type="submit">
           Acessar
         </button>
-        <small class="text-secondary mx-4" data-bs-toggle="modal" data-bs-target="#signUp">  <!--  Ação para o cadastro    -->
-          <a href="#" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
-            Nao possui conta ? Cadastre-se
-          </a>
-        </small>
+<!--        <small class="text-secondary mx-4" data-bs-toggle="modal" data-bs-target="#signUp">  &lt;!&ndash;  Ação para o cadastro    &ndash;&gt;-->
+<!--          <a href="#" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover " >-->
+<!--            Nao possui conta ? Cadastre-se-->
+<!--          </a>-->
+<!--        </small>-->
         <h5 class="bg-danger mt-2 rounded-2"></h5>
         <p class="mt-5 mb-3 text-light">&copy; 2017–2024</p>
       </form>
 
-        <ModalView id-modal="signUp"> <!--  Modal de Cadastro      -->
+        <ModalView id-modal="signUp" > <!--  Modal de Cadastro      -->
           <template v-slot:content>
             <div class="modal-body p-4 pt-0">
               <form class="" @submit.prevent="handleAccount">
