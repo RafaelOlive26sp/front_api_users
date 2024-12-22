@@ -1,16 +1,21 @@
 
 <template>
   <div class="text-light">
-    <h1>Dashboard</h1>
-    <button type="submit" @click="UserLogout">Logout</button>
+    <nav-bar-top-view></nav-bar-top-view>
+    <side-bar-view></side-bar-view>
+
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+
+import SideBarView from '@/components/menuNavBars/sideBarView.vue'
+import NavBarTopView from '@/components/menuNavBars/navBarTopView.vue'
 
 export default {
   name: 'DashboardView',
   components: {
+    NavBarTopView,
+    SideBarView
 
   },
   data() {
@@ -19,12 +24,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['logout']),
-     UserLogout() {
-     this.logout().then(() => {
-       this.$router.push('/')
-     })
-    }
+
   },
   computed:{}
 }
