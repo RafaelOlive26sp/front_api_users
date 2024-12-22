@@ -101,9 +101,7 @@ export default {
   methods: {
     ...mapActions('auth', ['logout']),
     logoutUser() {
-      this.logout().then(() => {
-        this.$router.push('/')
-      })
+      this.logout();
     }
   }
 }
