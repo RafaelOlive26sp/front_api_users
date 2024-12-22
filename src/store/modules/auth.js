@@ -13,7 +13,7 @@ const authModules = {
       Cookies.set('access_token', token)
     },
     LOGOUT(state) {
-      state.AUTH_TOKEN = null
+      state.token = null
         Cookies.remove('access_token')
     }
   },
@@ -33,7 +33,7 @@ const authModules = {
     },
     async logout({ commit }) {
       commit('LOGOUT');
-      router.push({ name: 'dashboard' });
+      await router.push({ name: 'login' });
     }
   },
   getters: {},
