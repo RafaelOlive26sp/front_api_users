@@ -3,8 +3,15 @@ import Cookies from 'js-cookie'
 
 const userModules = {
   namespaced: true,
-  state: {},
-  mutations: {},
+  state: {
+    activeCollapse: null
+  },
+  mutations: {
+    setActiveCollapse(state,id){
+
+      state.activeCollapse = id;
+    }
+  },
   actions: {
     async register({ commit }, data) {
       try{
@@ -14,6 +21,9 @@ const userModules = {
       }catch(error){
         console.log(error)
       }
+    },
+    setActiveCollapse({commit},id){
+      commit('setActiveCollapse',id);
     }
   },
   getters: {},
