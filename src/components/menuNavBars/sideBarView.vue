@@ -24,6 +24,7 @@
             <a class="nav-link d-flex align-items-center gap-2 link-light" href="#"
             data-bs-toggle="collapse" :data-bs-target="'#'+ item.id" aria-expanded="false"
             :aria-controls="item.id" @click="setCollapse(item.id)">
+            <i :class="item.class"></i>
                {{item.label}}
             </a>
           </li>
@@ -34,6 +35,7 @@
         <ul class="nav flex-column mb-auto">
           <li class="nav-item">
             <a class="link-light nav-link d-flex align-items-center gap-2" href="#" >
+              <i class="bi bi-people"></i>
               Current month
             </a>
           </li>
@@ -88,10 +90,10 @@ export default {
   data() {
     return {
       menuItems: [
-        { id: "collapseUsers", label: "Usuários" },
-        { id: "collapseAttendant", label: "Atendentes" },
-        { id: "collapseAccountVerified", label: "Contas Verificadas" },
-        { id: "collapseLogs", label: "Logs" },
+        { id: "collapseUsers", label: "Usuários" , class:"bi bi-people" },
+        { id: "collapseAttendant", label: "Atendentes", class:"bi bi-person-badge" },
+        { id: "collapseAccountVerified", label: "Contas Verificadas", class:"bi bi-envelope-check" },
+        { id: "collapseLogs", label: "Logs", class:"bi bi-file-earmark-bar-graph" },
       ],
     }
   },
