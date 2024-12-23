@@ -10,18 +10,8 @@
 
       <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
         <ul class="nav flex-column t">
-          <li class="nav-item link-light">
-            <a
-              class="nav-link d-flex align-items-center gap-2 active link-light"
-              aria-current="page"
-              href="#"
-            >
-              Dashboard
-            </a>
-          </li>
-
           <li class="nav-item" v-for="item in menuItems" :key="item.id">
-            <a class="nav-link d-flex align-items-center gap-2 link-light" href="#"
+            <a class="nav-link mb-2 fs-6  d-flex align-items-center gap-2 link-body-emphasis" href="#"
             data-bs-toggle="collapse" :data-bs-target="'#'+ item.id" aria-expanded="false"
             :aria-controls="item.id" @click="setCollapse(item.id)">
             <i :class="item.class"></i>
@@ -37,21 +27,6 @@
             <a class="link-light nav-link d-flex align-items-center gap-2" href="#" >
               <i class="bi bi-people"></i>
               Current month
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="link-light nav-link d-flex align-items-center gap-2" href="#">
-              Last quarter
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="link-light nav-link d-flex align-items-center gap-2" href="#">
-              Social engagement
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="link-light nav-link d-flex align-items-center gap-2" href="#">
-              Year-end sale
             </a>
           </li>
         </ul>
