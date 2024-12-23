@@ -3,7 +3,7 @@
   <div class="text-light">
     <nav-bar-top-view>
       <template v-slot:content>
-        <div class="text-dark">
+        <div class="text-dark text-center">
           <CollapesView :id="$store.state.user.activeCollapse">
             <template v-slot:content>
               <component :is="getComponent($store.state.user.activeCollapse)" />
