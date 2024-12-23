@@ -20,7 +20,7 @@
   <div class="container-fluid  ">
     <div class="row">
       <side-bar-view></side-bar-view>
-      <div class="col-10 border border-secondary d-inline-block">
+      <div class="col-10 border border-secondary d-inline-block p-0">
         <slot name="content"></slot>
       </div>
 
