@@ -19,29 +19,21 @@
               Dashboard
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2 link-light" href="#"> Orders </a>
-          </li>
-          <li class="nav-item">
-            <a class="link-light nav-link d-flex align-items-center gap-2" href="#"> Products </a>
-          </li>
-          <li class="nav-item">
-            <a class="link-light nav-link d-flex align-items-center gap-2" href="#"> Customers </a>
-          </li>
-          <li class="nav-item">
-            <a class="link-light nav-link d-flex align-items-center gap-2" href="#"> Reports </a>
-          </li>
-          <li class="nav-item">
-            <a class="link-light nav-link d-flex align-items-center gap-2" href="#">
-              Integrations
+
+          <li class="nav-item" v-for="item in menuItems" :key="item.id">
+            <a class="nav-link d-flex align-items-center gap-2 link-light" href="#"
+            data-bs-toggle="collapse" :data-bs-target="'#'+ item.id" aria-expanded="false"
+            :aria-controls="item.id" @click="setCollapse(item.id)">
+               {{item.label}}
             </a>
           </li>
+
         </ul>
 
         <hr />
         <ul class="nav flex-column mb-auto">
           <li class="nav-item">
-            <a class="link-light nav-link d-flex align-items-center gap-2" href="#">
+            <a class="link-light nav-link d-flex align-items-center gap-2" href="#" >
               Current month
             </a>
           </li>
@@ -95,13 +87,23 @@ export default {
   components: {},
   data() {
     return {
-
+      menuItems: [
+        { id: "collapseUsers", label: "Usuários" },
+        { id: "collapseAttendant", label: "Atendentes" },
+        { id: "collapseAccountVerified", label: "Contas Verificadas" },
+        { id: "collapseLogs", label: "Logs" },
+      ],
     }
   },
   methods: {
     ...mapActions('auth', ['logout']),
     logoutUser() {
       this.logout();
+    },
+    setCollapse(id) {
+      console.log(id);
+      this.$store.dispatch('user/setActiveCollapse', id);
+
     }
   }
 }
