@@ -1,5 +1,5 @@
 <template>
-  <div class="collapse" :id="collapseUsers">
+  <div class="" >
     <div class="card card-body" >
       <slot name="content"></slot>
     </div>
@@ -9,10 +9,7 @@
 export default {
   name: 'CollapesView',
   props: {
-    collapseUsers: {
-      type: String,
-      default: 'collapseChoise'
-    }
+
   }
 
 }
