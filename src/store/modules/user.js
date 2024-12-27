@@ -4,7 +4,8 @@ import Cookies from 'js-cookie'
 const userModules = {
   namespaced: true,
   state: {
-    activeCollapse: null
+    activeCollapse: null,
+
   },
   mutations: {
     setActiveCollapse(state,id){
@@ -23,6 +24,8 @@ const userModules = {
       }
     },
     setActiveCollapse({commit},id){
+
+
       commit('setActiveCollapse',id);
     }
   },
