@@ -2,13 +2,16 @@
   <div class="container ">
     <div class="row justify-content-center">
       <div class="col-md-3 border border-primary ">
-        <h5>{{$store.state.user.StatisticData.totalAccounts}}</h5>
+        <h5>{{dataStatistc.totalAccounts}}</h5>
       </div>
       <div class="col-md-3 border border-primary mx-1">
-        <h5>{{$store.state.user.StatisticData.newstUser}}</h5>
+        <h5>{{dataStatistc.newstUser}}</h5>
       </div>
       <div class="col-md-3 border border-primary">
-        <h5>{{$store.state.user.StatisticData.oldestUser}}</h5>
+        <h5>{{dataStatistc.oldestUser}}</h5>
+      </div>
+      <div class="col-md-3 border border-primary">
+        <h5>{{dataStatistc}}</h5>
       </div>
     </div>
   </div>
@@ -40,6 +43,11 @@ export default {
       }
     }
   },
+  computed:{
+    dataStatistc(){
+      return this.$store.state.user.StatisticData;
+    }
+  }
 
 }
 </script>
