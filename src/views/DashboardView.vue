@@ -4,9 +4,9 @@
     <nav-bar-top-view>
       <template v-slot:content>
         <div class="text-dark text-center">
-          <CollapesView :id="$store.state.user.activeCollapse">
+          <CollapesView >
             <template v-slot:content>
-              <component :is="getComponent($store.state.user.activeCollapse)" />
+              <component :is="isActiveComponent" />
             </template>
           </CollapesView>
         </div>
@@ -44,12 +44,7 @@ export default {
   data() {
     return {
       // activeCollapse: null,
-      menuItens:[
-        {id:"collpaseUsers", component:"UsuariosView"},
-        {id:"collpaseAttendant", component:"AtendenteView"},
-        {id:"collpaseAccountVerified", component:"ContasVerificadasView"},
-        {id:"collpaseLogs", component:"LogsApi"},
-      ]
+
     }
   },
   methods: {
@@ -61,11 +56,17 @@ export default {
           collapseAccountVerified: "ContasVerificadasView",
           collapseLogs: "LogsApi",
         };
-      return components[id] || null;
-    },
+
+
+        return components[id] || 'UsuariosView';
+      },
 
   },
-  computed:{}
+  computed:{
+    isActiveComponent(){
+      return this.getComponent(this.$store.state.user.activeCollapse);
+    }
+  }
 }
 </script>
 
