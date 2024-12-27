@@ -12,7 +12,7 @@
         <ul class="nav flex-column t">
           <li class="nav-item" v-for="item in menuItems" :key="item.id">
             <a class="nav-link mb-2 fs-6  d-flex align-items-center gap-2 link-body-emphasis" href="#"
-            data-bs-toggle="collapse" :data-bs-target="'#'+ item.id" aria-expanded="false"
+            data-bs-toggle="" :data-bs-target="'#'+ item.id " aria-expanded="false"
             :aria-controls="item.id" @click="setCollapse(item.id)">
             <i :class="item.class"></i>
                {{item.label}}
@@ -78,7 +78,7 @@ export default {
       this.logout();
     },
     setCollapse(id) {
-      console.log(id);
+      console.log('Sidebar '+id);
       this.$store.dispatch('user/setActiveCollapse', id);
 
     }
