@@ -5,10 +5,15 @@ const userModules = {
   namespaced: true,
   state: {
     activeCollapse: null,
-    StatisticData: localStorage.getItem('StatisticData') || null
+    StatisticData: localStorage.getItem('StatisticData') || null,
+    users: localStorage.getItem('DataUser') || null
 
   },
   mutations: {
+    SET_USERS(state, users) {
+      state.users = users
+      localStorage.setItem('DataUser', JSON.stringify(users));
+    },
     SET_DATA_STATISTIC(state,StatisticData){
       state.StatisticData = StatisticData
       localStorage.setItem('StatisticData', JSON.stringify(StatisticData));
@@ -33,6 +38,27 @@ const userModules = {
 
       commit('setActiveCollapse',id);
     },
+    async fecthUsers({commit,rootState}){
+      try {
+        const token = rootState.auth.token;
+        if (!token) {
+          throw new Error("No token ");
+
+        }
+
+        const response = await api.get('/users/id',{
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
+        });
+        commit('SET_USERS', response.data.data)
+
+
+      } catch (error) {
+        console.error(error);
+
+      }
+    },
     // ============================================
     async fetchStatisticData({commit,rootState}){
       try {
@@ -56,7 +82,12 @@ const userModules = {
         console.error(error);
 
       }
+    },
+    clearLocalStorage(){
+      localStorage.removeItem('DataUser');
+      localStorage.removeItem('StatisticData');
     }
+
   },
   getters: {},
 
