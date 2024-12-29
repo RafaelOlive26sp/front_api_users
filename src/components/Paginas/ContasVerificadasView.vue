@@ -1,4 +1,4 @@
-<template lang="">
+<template >
   <div class="container ">
     <div class="row justify-content-center ">
       <div class="col-md-3 border border-primary mx-1">
