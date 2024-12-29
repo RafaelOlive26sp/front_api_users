@@ -70,7 +70,7 @@ const userModules = {
 
         }
 
-        const response = await api.get('/statisticdata',{
+        const response = await api.get('/stats/data',{
           headers:{
             Authorization:`Bearer ${token}`
           }
