@@ -24,10 +24,10 @@
 import NavBarTopView from '@/components/menuNavBars/navBarTopView.vue'
 import CollapesView from '@/components/CollapesView.vue'
 // ---------------import components-------------------
-import UsuariosView from '@/components/menuNavBars/acoes/UsuariosView.vue'
-import AtendentesView from '@/components/menuNavBars/acoes/AtendentesView.vue'
-import ContasVerificadasView from '@/components/menuNavBars/acoes/ContasVerificadasView.vue'
-import LogsApi from '@/components/menuNavBars/acoes/LogsApi.vue'
+import UsuariosView from '@/components/Paginas/UsuariosView.vue'
+import AtendentesView from '@/components/Paginas/AtendentesView.vue'
+import ContasVerificadasView from '@/components/Paginas/ContasVerificadasView.vue'
+import LogsApi from '@/components/Paginas/LogsApi.vue'
 
 export default {
   name: 'DashboardView',
