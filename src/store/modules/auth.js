@@ -18,12 +18,13 @@ const authModules = {
     }
   },
   actions: {
-    async login({ commit }, credentials) {
+    async login({ commit, dispatch }, credentials) {
       try{
        // const response = await api.post('/login', credentials ,{headers:{'X-Origin':'dashboard'}});
        const response = await api.post('/login', credentials);
         console.log(response.data)
         commit('SET_AUTH_TOKEN', response.data.access_token);
+        dispatch('user/fecthUsers', null, { root: true });
         await router.push({ name: 'dashboard' });
 
       }catch(error){
@@ -31,8 +32,9 @@ const authModules = {
 
       }
     },
-    async logout({ commit }) {
+    async logout({ commit,dispatch }) {
       commit('LOGOUT');
+      dispatch('user/clearLocalStorage', null, { root: true });
       await router.push({ name: 'login' });
     }
   },
