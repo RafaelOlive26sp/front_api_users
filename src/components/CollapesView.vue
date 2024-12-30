@@ -1,6 +1,6 @@
 <template>
-  <div class="" >
-    <div class="card card-body" >
+  <div :class="classCustom" :id="idCuston" >
+    <div>
       <slot name="content"></slot>
     </div>
   </div>
@@ -9,6 +9,14 @@
 export default {
   name: 'CollapesView',
   props: {
+    idCuston:{
+      type: String,
+      default: ''
+    },
+    classCustom: {
+      type: String,
+      default: 'card card-body'
+    }
 
   }
 
