@@ -23,43 +23,95 @@
 
       <CardsView tittle="Usuario cadastrado Recentemente">
         <template v-slot:content>
-          <p>ID: {{ dataStatistc.newstUser?.id}}</p>
-          <p>Nome: {{ dataStatistc.newstUser?.name }}</p>
-          <p>Email: {{ dataStatistc.newstUser?.email }}</p>
-          <p>Criado em: {{ dataStatistc.newstUser?.created_at }}</p>
+          <ul
+            class="p-0"
+
+          >
+            <li class="border shadow-sm rounded-2 p-0 list-unstyled" >
+              <div class="card-header text-body-secondary p-0">
+                <span><small>ID: {{ dataStatistc.newstUser?.id }}</small></span>
+              </div>
+              <div class="card-body p-0">
+                <p><small>Name: {{ dataStatistc.newstUser?.name }}</small></p>
+                <p><small>Email: {{ dataStatistc.newstUser?.email }}</small></p>
+              </div>
+              <div class=" card-footer text-body-secondary p-0">
+                <small>{{ dataStatistc.newstUser?.created_at }}</small>
+              </div>
+
+            </li>
+          </ul>
         </template>
       </CardsView>
       <CardsView tittle="Usuarios mais antigos">
         <template v-slot:content>
-          <p>ID: {{ dataStatistc.oldestUser?.id }}</p>
-          <p>Nome: {{ dataStatistc.oldestUser?.name }}</p>
-          <p>Email: {{ dataStatistc.oldestUser?.email }}</p>
-          <p>Criado em: {{ dataStatistc.oldestUser?.created_at }}</p>
+          <ul
+            class="p-0"
+
+          >
+            <li class="border shadow-sm rounded-2 p-0 list-unstyled" >
+              <div class="card-header text-body-secondary p-0">
+                <span><small>ID: {{ dataStatistc.oldestUser?.id }}</small></span>
+              </div>
+              <div class="card-body p-0">
+                <p><small>Name: {{ dataStatistc.oldestUser?.name }}</small></p>
+                <p><small>Email: {{ dataStatistc.oldestUser?.email }}</small></p>
+              </div>
+              <div class=" card-footer text-body-secondary p-0">
+                <small>{{ dataStatistc.oldestUser?.created_at }}</small>
+              </div>
+
+            </li>
+          </ul>
         </template>
       </CardsView>
-      <CardsView tittle="Usuarios com email Verificados">
+      <CardsView tittle="Usuarios com email Verificados" classCustom="custom-scroll">
         <template v-slot:content>
-          <ul v-for="userVerified in dataStatistc.verifiedUsers" :key="userVerified.id">
-            <li class="border shadow-sm">
-              id: {{ userVerified.id }} name: {{ userVerified.name }} email:
-              {{ userVerified.email }} created: {{ userVerified.created_at }}
+
+          <ul
+            class="p-0"
+            v-for="userVerified in dataStatistc.verifiedUsers"
+            :key="userVerified.id"
+          >
+            <li class="border shadow-sm rounded-2 p-0 list-unstyled" >
+              <div class="card-header text-body-secondary p-0">
+                <span><small>ID: {{userVerified.id}}</small></span>
+              </div>
+              <div class="card-body p-0">
+                <p><small>Name: {{userVerified.name}}</small></p>
+                <p><small>Email: {{userVerified.email}}</small></p>
+              </div>
+              <div class=" card-footer text-body-secondary p-0">
+                <small>{{userVerified.created_at}}</small>
+              </div>
+
             </li>
           </ul>
         </template>
       </CardsView>
 
-      <CardsView tittle="Usuarios com email Verificados">
+      <CardsView tittle="Usuarios com email Nâo verificados" classCustom="custom-scroll">
         <template v-slot:content>
           <ul
-            class=""
+            class="p-0"
             v-for="userNotVerified in dataStatistc.unverifiedUsers"
             :key="userNotVerified.id"
           >
-            <li class="border shadow-sm">
-              id: {{ userNotVerified.id }} name: {{ userNotVerified.name }} email:
-              {{ userNotVerified.email }} created: {{ userNotVerified.created_at }}
+            <li class="border shadow-sm rounded-2 p-0 list-unstyled" >
+            <div class="card-header text-body-secondary p-0">
+              <span><small>ID: {{userNotVerified.id}}</small></span>
+            </div>
+              <div class="card-body p-0">
+                <p><small>Name: {{userNotVerified.name}}</small></p>
+                <p><small>Email: {{userNotVerified.email}}</small></p>
+              </div>
+            <div class=" card-footer text-body-secondary p-0">
+              <small>{{userNotVerified.created_at}}</small>
+            </div>
+
             </li>
           </ul>
+
         </template>
       </CardsView>
     </div>
@@ -101,4 +153,4 @@ export default {
   },
 }
 </script>
-<style lang=""></style>
+
