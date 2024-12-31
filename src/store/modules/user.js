@@ -6,10 +6,15 @@ const userModules = {
   state: {
     activeCollapse: null,
     StatisticData: localStorage.getItem('StatisticData') || null,
-    users: localStorage.getItem('DataUser') || null
+    users: localStorage.getItem('DataUser') || null,
+    logs: null
 
   },
   mutations: {
+    SET_DATA_LOGS(state,logs){
+      state.logs = logs;
+
+    },
     SET_USERS(state, users) {
       state.users = users
       localStorage.setItem('DataUser', JSON.stringify(users));
@@ -83,13 +88,35 @@ const userModules = {
 
       }
     },
+    async fetchLogs({commit,rootState}){
+      try {
+        const token = rootState.auth.token;
+        if (!token) {
+          throw new Error('no token provide');
+        }
+        const response = await api.get('/stats/logs',{
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
+        });
+        console.log(response.data.data);
+
+
+        commit('SET_DATA_LOGS', response.data.data)
+      } catch (error) {
+        console.log(error);
+
+      }
+    },
     clearLocalStorage(){
       localStorage.removeItem('DataUser');
       localStorage.removeItem('StatisticData');
     }
 
   },
-  getters: {},
+  getters: {
+    isLogs: state => state.logs
+  },
 
 }
 export default userModules
