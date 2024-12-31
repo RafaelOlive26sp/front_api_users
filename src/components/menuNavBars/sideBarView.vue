@@ -30,32 +30,49 @@
             </a>
 
 
-          <CollapesView id="CollapseAcao" classCustom=" collapse card card-body col-11 mx-3 text-body-secondary">
+          <CollapesView id="CollapseAcao" classCustom=" collapse card card-body col-11 mx-3 text-body-secondary" style="box-shadow: black 0px 1px 1px 0px inset; border:none;">
             <template v-slot:content>
               <div class="">
                 <ul class="nav flex-column">
-                  <li class="nav-item" data-bs-toggle="collapse" href="#Consultar">
+                  <li class="nav-item " data-bs-toggle="collapse" href="#Consultar" style="cursor:pointer">
                     <i class="bi bi-search"></i>
                     Consultar
                   </li>
-                    <div class="nav flex-column collapse  mx-3 col-4 text-center rounded-2 p-1" id="Consultar" style="box-shadow: black 0px 0px 4px 0px inset; ">
-                      <small class="border-bottom">Usuarios</small>
+                    <div class="nav flex-column collapse  text-center rounded-2 p-1" id="Consultar" style="box-shadow: black 0px 1px 1px 0px inset; ">
+                      <ul class="list-unstyled submenus">
+                        <li>
+                          <small class="" href="#">Usuarios</small>
+                        </li>
+                        <hr class="p-0 m-0"/>
+                        <li>
+                          <small>Atendentes</small>
 
-                      <small>Atendentes</small>
+                        </li>
+                      </ul>
+
+
                     </div>
-                  <li class="nav-item" data-bs-toggle="collapse" href="#Atualizar">
+                  <li class="nav-item" data-bs-toggle="collapse" href="#Atualizar" style="cursor:pointer">
                     <i class="bi bi-pencil-square"></i>
                     Atualizar
                   </li>
-                  <div class="nav flex-column collapse  mx-3 col-4 text-center rounded-2" id="Atualizar" style="box-shadow: black 0px 0px 4px 0px inset; ">
-                    <small>Contas</small>
+                  <div class="nav flex-column collapse   text-center rounded-2 p-1" id="Atualizar" style="box-shadow: black 0px 1px 1px 0px inset; ">
+                    <ul class="list-unstyled submenus">
+                      <li>
+                        <small>Contas</small>
+                      </li>
+                    </ul>
                   </div>
-                  <li class="nav-item" data-bs-toggle="collapse" href="#Deletar">
+                  <li class="nav-item link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover " data-bs-toggle="collapse" href="#Deletar" style="cursor:pointer">
                     <i class="bi bi-trash3"></i>
                     Deletar
                   </li>
-                  <div class="nav flex-column collapse  mx-3 col-4 text-center rounded-2" id="Deletar" style="box-shadow: black 0px 0px 4px 0px inset; ">
-                    <small>Contas</small>
+                  <div class="nav flex-column collapse  text-center rounded-2 p-1" id="Deletar" style="box-shadow: black 0px 1px 1px 0px inset; ">
+                    <ul class="list-unstyled submenus">
+                      <li>
+                        <small>Contas</small>
+                      </li>
+                    </ul>
                   </div>
 
                 </ul>
@@ -138,6 +155,11 @@ export default {
   .sidebar .nav-link {
     font-size: 0.875rem;
     font-weight: 500;
+  }
+  .submenus >li:hover{
+      border-radius: 4px;
+      background-image: linear-gradient(120deg, #fdfbfb 10%, #ebedee 100%);
+      cursor:pointer;
   }
 
 </style>
