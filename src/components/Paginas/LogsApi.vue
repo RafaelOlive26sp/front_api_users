@@ -11,8 +11,9 @@
             <li>{{itensLogs.action}}</li>
             <li>{{itensLogs.endpoint}}</li>
             <li>{{itensLogs.ip_address}}</li>
-            <li>{{itensLogs.request_data}}</li>
-            <li>{{itensLogs.response_data}}</li>
+            <li>{{itensLogs.request_data.email}}</li>
+            <li>{{itensLogs.response_data.status}}</li>
+              <hr>
           </ul>
         </div>
       </div>
