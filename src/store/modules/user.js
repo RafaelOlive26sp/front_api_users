@@ -7,13 +7,15 @@ const userModules = {
     activeCollapse: null,
     StatisticData: localStorage.getItem('StatisticData') || null,
     users: localStorage.getItem('DataUser') || null,
-    logs: null
-
+    isLogs: [],
+    isLoading:false
   },
   mutations: {
-    SET_DATA_LOGS(state,logs){
-      state.logs = logs;
-
+    SET_LOADING(state, isLoading) {
+      state.isLoading = isLoading
+    },
+    SET_DATA_LOGS(state,isLogs){
+      state.isLogs = isLogs;
     },
     SET_USERS(state, users) {
       state.users = users
@@ -90,6 +92,7 @@ const userModules = {
     },
     async fetchLogs({commit,rootState}){
       try {
+
         const token = rootState.auth.token;
         if (!token) {
           throw new Error('no token provide');
@@ -105,12 +108,14 @@ const userModules = {
         commit('SET_DATA_LOGS', response.data.data)
       } catch (error) {
         console.log(error);
-
+      }finally {
+       commit('SET_LOADING', false);
       }
     },
     clearLocalStorage(){
       localStorage.removeItem('DataUser');
       localStorage.removeItem('StatisticData');
+      localStorage.removeItem('logs');
     }
 
   },
