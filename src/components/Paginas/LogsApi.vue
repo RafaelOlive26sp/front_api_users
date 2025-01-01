@@ -1,9 +1,14 @@
 <template>
-  <div class="container ">
-    <div class="row justify-content-center text-center">
+  <div class="container " >
+    <p v-if="isLoading"> Carregando.....</p>
+    <div class="row justify-content-center text-center"  >
+
       <CardsView tittle="total de logs">
         <template v-slot:content>
-            <p>{{ isLogs.totalLogs }}</p>
+
+          {{isLogs.totalLogs}}
+
+<!--            <p>{{ isLogs.totalLogs }}</p>-->
         </template>
       </CardsView>
       <div class="border d-flex dropend">
@@ -50,7 +55,7 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapState } from 'vuex'
 import CardsView from '../Cards/CardsView.vue';
 
 export default {
@@ -65,6 +70,9 @@ export default {
 
     }
   },
+  created() {
+    this.getLogs();
+  },
   methods: {
     ...mapActions('user',['fetchLogs']),
     async getLogs(){
@@ -78,15 +86,16 @@ export default {
 
   },
   computed:{
-    ...mapGetters('user',['isLogs'])
+    ...mapState('user', ['isLogs','isLoading']),
+    // dataLogsStore(){
+    //   return this.$store.state.user.logs;
+    // }
 
   },
-  mounted() {
-    this.getLogs();
-  },
+
 
 }
 </script>
-<style lang="">
+<style >
 
 </style>
