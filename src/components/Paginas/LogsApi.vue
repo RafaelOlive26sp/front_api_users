@@ -1,11 +1,6 @@
 <template>
   <div class="container">
-    <!-- <p v-if="isLoading">Carregando.....</p> -->
 
-
-
-
-      <!-- {{ isLoading }} -->
         <div class="d-flex align-itens-center mx-2" v-if="isLoading">
 
           <div class="spinner-border mx-2" role="status" >
@@ -26,10 +21,23 @@
       <div class="border d-flex dropend">
         <i class="bi bi-funnel" data-bs-toggle="dropdown" aria-expanded="false"></i>
         <ul class="dropdown-menu shadow-sm">
+          <li><a class="dropdown-item" href="#">Id</a></li>
+          <li><a class="dropdown-item" href="#">User_id</a></li>
           <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <li><a class="dropdown-item" href="#">Ip</a></li>
+          <li><a class="dropdown-item" href="#">Request_data</a></li>
+          <li><a class="dropdown-item" href="#">Origem</a></li>
+          <li><a class="dropdown-item" href="#">Data e hora</a></li>
         </ul>
+        <div class="d-flex mx-2">
+
+          <select class="form-select form-select-sm" aria-label="Small select example">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
       </div>
       <table class="table border">
         <thead>
