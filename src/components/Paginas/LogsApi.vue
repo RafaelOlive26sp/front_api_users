@@ -1,11 +1,17 @@
 <template>
   <div class="container">
-    <p v-if="isLoading">Carregando.....</p>
+    <!-- <p v-if="isLoading">Carregando.....</p> -->
 
-    <div class="row justify-content-center text-center">
+
+
+    <div class="d-flex align-items-center">
+      <div class="spinner-border mx-2" aria-hidden="true"></div>
+      <strong role="status">Loading...</strong>
+    </div>
+    <div class="row justify-content-center text-center" v-if="!isLoading">
       <CardsView tittle="total de logs">
         <template v-slot:content>
-          {{ isLogs.totalLogs }}
+          {{ isLogs?.data.totalLogs }}
 
           <!--            <p>{{ isLogs.totalLogs }}</p>-->
         </template>
@@ -33,7 +39,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="key in isLogs.logs" :key="key.id">
+          <tr v-for="key in isLogs?.data?.logs" :key="key.id">
             <th scope="row">{{ key.id }}</th>
             <td>{{ key.user_id }}</td>
             <td>{{ key.endpoint }}</td>
@@ -46,37 +52,53 @@
           </tr>
         </tbody>
       </table>
-      <nav aria-label="Page navigation example">
+      <nav aria-label="Page navigation example" >
         <ul class="pagination">
-          <li :class="['page-item', { disabled: !isLogs.pagination.prev_page_url }]">
+          <li :class="['page-item', { disabled: !isLogs?.data.pagination.prev_page_url }]">
             <a
               class="page-link"
               href="#"
-              @click.prevent="changePage(isLogs.pagination.prev_page_url)"
+              @click.prevent="changePage(isLogs?.data.pagination.prev_page_url)"
             >
               Previous
             </a>
           </li>
-          <li :class="'page-item', {active: page === isLogs.pagination.current_page}" v-for="page in isLogs.pagination.last_page" :key="page">
-            <a class="page-link" href="#" @click.prevent="changePage(getPageUrl(page))">
-              {{page}}
+          <li
+            v-for="page in isLogs?.data.pagination.last_page"
+            :key="page"
+            :class="{ 'page-item': true, active: page === isLogs?.data.pagination.current_page }"
+          >
+            <a
+              class="page-link"
+              href="#"
+              @click.prevent="changePage(getPageUrl(page))"
+            >
+              {{ page }}
             </a>
           </li>
-          <li :class="'page-item', {disable: !isLogs.pagination.next_page_url} ">
-            <a class="page-link" href="#"  @click.prevent="changePage(isLogs.pagination.next_page_url)">
+          <li :class="['page-item', { disabled: !isLogs?.data.pagination.next_page_url }]">
+            <a
+              class="page-link"
+              href="#"
+              @click.prevent="changePage(isLogs?.data.pagination.next_page_url)"
+            >
               Next
             </a>
           </li>
         </ul>
       </nav>
-    </div>
-    {{ isLogs.pagination.last_page }}
 
-    {{pagination}}
+
+    </div>
+
+
+
+
+
   </div>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import CardsView from '../Cards/CardsView.vue'
 
 export default {
@@ -92,6 +114,7 @@ export default {
   },
   methods: {
     ...mapActions('user', ['fetchLogs']),
+
     async getLogs() {
       try {
         await this.fetchLogs()
@@ -99,17 +122,23 @@ export default {
         console.log(error)
       }
     },
-    changePage(url) {
-      if (!url) return;
-      this.$store.dispatch('fetchLogs', url); // Substitua pela sua action no Vuex
+    async changePage(page) {
+      if (!page) return '#';
+      const url = `/stats/logs?${page.split('?')[1]}`;
+      await this.fetchLogs (url)
     },
     getPageUrl(page) {
-      const baseUrl = this.isLogs.pagination.next_page_url?.split('?')[0];
-      return `${baseUrl}?page=${page}`;
-    },
+      const baseUrl = this.isLogs.data.pagination.next_page_url?.split('?')[0];
+      if (!baseUrl) return '#';
+    return `?page=${page}`;
+},
   },
   computed: {
-    ...mapState('user', ['isLogs', 'isLoading']),
+    ...mapState('user',['isLoading']),
+    ...mapGetters('user',['isLogs']),
+
+
+
 
   },
 }
