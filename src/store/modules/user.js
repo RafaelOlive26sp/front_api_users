@@ -20,7 +20,7 @@ const userModules = {
       state.isLoading = isLoading
     },
     SET_DATA_LOGS(state,data){
-      console.log('Updating Vuex State with:', data);
+
       state.logs = data;
     },
     SET_USERS(state, users) {
@@ -103,17 +103,11 @@ const userModules = {
         if (!token) {
           throw new Error('no token provide');
         }
-
-
-        const response = await api.get(url,{
+          const response = await api.get(url,{
           headers:{
             Authorization:`Bearer ${token}`
           }
         });
-
-
-
-
         commit('SET_DATA_LOGS', response.data)
       } catch (error) {
         console.log(error);
