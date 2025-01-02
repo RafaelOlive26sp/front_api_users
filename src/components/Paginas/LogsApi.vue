@@ -4,10 +4,17 @@
 
 
 
-    <div class="d-flex align-items-center">
-      <div class="spinner-border mx-2" aria-hidden="true"></div>
-      <strong role="status">Loading...</strong>
-    </div>
+
+      <!-- {{ isLoading }} -->
+        <div class="d-flex align-itens-center mx-2" v-if="isLoading">
+
+          <div class="spinner-border mx-2" role="status" >
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <span v-if="isLogs != null">Buscando Informações no banco de dados...</span>
+          <span v-else>Dados Recuperados!</span>
+        </div>
+
     <div class="row justify-content-center text-center" v-if="!isLoading">
       <CardsView tittle="total de logs">
         <template v-slot:content>
@@ -90,6 +97,7 @@
 
 
     </div>
+
 
 
 
