@@ -103,17 +103,14 @@ const userModules = {
         if (!token) {
           throw new Error('no token provide');
         }
-        // console.log('---url em Fetch----',url);
-        // const url = `/stats/logs${urlPage}`;
 
-        console.log('url em fecht----',url);
 
         const response = await api.get(url,{
           headers:{
             Authorization:`Bearer ${token}`
           }
         });
-        console.log('--------', response.data);
+
 
 
 
@@ -121,7 +118,10 @@ const userModules = {
       } catch (error) {
         console.log(error);
       }finally {
-       commit('SET_LOADING', false);
+        setTimeout(() => {
+          commit('SET_LOADING', false);
+
+        }, 3000);
       }
     },
     clearLocalStorage(){
