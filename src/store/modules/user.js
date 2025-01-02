@@ -7,15 +7,21 @@ const userModules = {
     activeCollapse: null,
     StatisticData: localStorage.getItem('StatisticData') || null,
     users: localStorage.getItem('DataUser') || null,
-    isLogs: [],
-    isLoading:false
+
+    isLoading: true,
+    logs: {
+      logs:[],
+      pagination:{}
+    }
   },
   mutations: {
+
     SET_LOADING(state, isLoading) {
       state.isLoading = isLoading
     },
-    SET_DATA_LOGS(state,isLogs){
-      state.isLogs = isLogs;
+    SET_DATA_LOGS(state,data){
+      console.log('Updating Vuex State with:', data);
+      state.logs = data;
     },
     SET_USERS(state, users) {
       state.users = users
@@ -90,22 +96,28 @@ const userModules = {
 
       }
     },
-    async fetchLogs({commit,rootState}){
+    async fetchLogs({commit,rootState},url = '/stats/logs'){
       try {
 
         const token = rootState.auth.token;
         if (!token) {
           throw new Error('no token provide');
         }
-        const response = await api.get('/stats/logs',{
+        // console.log('---url em Fetch----',url);
+        // const url = `/stats/logs${urlPage}`;
+
+        console.log('url em fecht----',url);
+
+        const response = await api.get(url,{
           headers:{
             Authorization:`Bearer ${token}`
           }
         });
-        console.log(response.data.data);
+        console.log('--------', response.data);
 
 
-        commit('SET_DATA_LOGS', response.data.data)
+
+        commit('SET_DATA_LOGS', response.data)
       } catch (error) {
         console.log(error);
       }finally {
@@ -120,7 +132,8 @@ const userModules = {
 
   },
   getters: {
-    isLogs: state => state.logs
+    isLogs: (state) => state.logs,
+
   },
 
 }
