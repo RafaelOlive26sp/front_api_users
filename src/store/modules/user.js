@@ -111,18 +111,21 @@ const userModules = {
         commit('SET_DATA_LOGS', response.data)
       } catch (error) {
         console.log(error);
-      }finally {
-        setTimeout(() => {
-          commit('SET_LOADING', false);
-
-        }, 3000);
       }
     },
     clearLocalStorage(){
       localStorage.removeItem('DataUser');
       localStorage.removeItem('StatisticData');
       localStorage.removeItem('logs');
+    },
+    LazyLoading({ commit }){
+      setTimeout(() => {
+        commit('SET_LOADING', false);
+
+      }, 3000);
     }
+
+
 
   },
   getters: {
