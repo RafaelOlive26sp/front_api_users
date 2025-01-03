@@ -21,7 +21,7 @@ export default {
   props: {
     tittle: {
       type: String,
-      default: 'Titulo',
+      default: 'Coloque seu Titulo, com tittle',
     },
     classCustom: {
       type: String,
