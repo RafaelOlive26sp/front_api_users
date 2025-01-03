@@ -1,7 +1,7 @@
 <template>
   <div class="container">
 
-        <div class="d-flex align-itens-center mx-2" v-if="isLoading">
+        <div class="d-flex align-itens-center mx-2" v-if="  isLoading">
 
           <div class="spinner-border mx-2" role="status" >
             <span class="visually-hidden">Loading...</span>
@@ -10,10 +10,10 @@
           <span v-else>Dados Recuperados!</span>
         </div>
 
-    <div class="row justify-content-center text-center" v-if="!isLoading">
+    <div class="row justify-content-center text-center" v-else>
       <CardsView tittle="total de logs">
         <template v-slot:content>
-          {{ isLogs?.data.totalLogs }}
+          {{ isLogs?.data?.totalLogs }}
 
           <!--            <p>{{ isLogs.totalLogs }}</p>-->
         </template>
@@ -69,19 +69,19 @@
       </table>
       <nav aria-label="Page navigation example" >
         <ul class="pagination">
-          <li :class="['page-item', { disabled: !isLogs?.data.pagination.prev_page_url }]">
+          <li :class="['page-item', { disabled: !isLogs?.data?.pagination.prev_page_url }]">
             <a
               class="page-link"
               href="#"
-              @click.prevent="changePage(isLogs?.data.pagination.prev_page_url)"
+              @click.prevent="changePage(isLogs?.data?.pagination.prev_page_url)"
             >
               Previous
             </a>
           </li>
           <li
-            v-for="page in isLogs?.data.pagination.last_page"
+            v-for="page in isLogs?.data?.pagination.last_page"
             :key="page"
-            :class="{ 'page-item': true, active: page === isLogs?.data.pagination.current_page }"
+            :class="{ 'page-item': true, active: page === isLogs?.data?.pagination.current_page }"
           >
             <a
               class="page-link"
@@ -91,11 +91,11 @@
               {{ page }}
             </a>
           </li>
-          <li :class="['page-item', { disabled: !isLogs?.data.pagination.next_page_url }]">
+          <li :class="['page-item', { disabled: !isLogs?.data?.pagination.next_page_url }]">
             <a
               class="page-link"
               href="#"
-              @click.prevent="changePage(isLogs?.data.pagination.next_page_url)"
+              @click.prevent="changePage(isLogs?.data?.pagination.next_page_url)"
             >
               Next
             </a>
@@ -118,18 +118,24 @@ import { mapActions, mapGetters, mapState } from 'vuex'
 import CardsView from '../Cards/CardsView.vue'
 
 export default {
+
   name: 'LogsApi',
   components: {
     CardsView,
   },
   data() {
-    return {}
+    return {
+      isLoading: true,
+    }
+  },
+  mounted() {
+    this.LazyLoading()
   },
   created() {
     this.getLogs()
   },
   methods: {
-    ...mapActions('user', ['fetchLogs']),
+    ...mapActions('user', ['fetchLogs','LazyLoading']),
 
     async getLogs() {
       try {
@@ -147,16 +153,24 @@ export default {
       const baseUrl = this.isLogs.data.pagination.next_page_url?.split('?')[0];
       if (!baseUrl) return '#';
     return `?page=${page}`;
-},
+  },
+  LazyLoading(){
+      setTimeout(() => {
+        this.isLoading = false
+      }, 2000)
+    }
   },
   computed: {
-    ...mapState('user',['isLoading']),
+    // ...mapState('user',['']),
     ...mapGetters('user',['isLogs']),
 
 
 
 
+
+
   },
+
 }
 </script>
 <style></style>
