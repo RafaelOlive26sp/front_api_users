@@ -3,19 +3,26 @@
     <div class="row justify-content-center">
       <CardsView tittle="Total de Contas">
         <template v-slot:content>
-          <p>{{ dataStatistc.totalAccounts }}</p>
+
+
+          <PlaceHolderLoadingView v-if="isLoading"/>
+
+          <p v-else>{{ dataStatistc.totalAccounts }}</p>
+
         </template>
       </CardsView>
 
       <CardsView tittle="Total de contas Não Verificadas">
         <template v-slot:content>
-          <p>{{ dataStatistc.unverifiedAccounts }}</p>
+          <PlaceHolderLoadingView v-if="isLoading"/>
+          <p v-else>{{ dataStatistc.unverifiedAccounts }}</p>
         </template>
       </CardsView>
 
       <CardsView tittle="Total de contas Verificadas">
         <template v-slot:content>
-          <p>{{ dataStatistc.verifiedAccounts }}</p>
+          <PlaceHolderLoadingView v-if="isLoading"/>
+          <p v-else>{{ dataStatistc.verifiedAccounts }}</p>
         </template>
       </CardsView>
 
@@ -29,14 +36,18 @@
           >
             <li class="border shadow-sm rounded-2 p-0 list-unstyled" >
               <div class="card-header text-body-secondary p-0">
-                <span><small>ID: {{ dataStatistc.newstUser?.id }}</small></span>
+                <PlaceHolderLoadingView v-if="isLoading"/>
+                <span v-else><small>ID: {{ dataStatistc.newstUser?.id }}</small></span>
               </div>
               <div class="card-body p-0">
-                <p><small>Name: {{ dataStatistc.newstUser?.name }}</small></p>
-                <p><small>Email: {{ dataStatistc.newstUser?.email }}</small></p>
+                <PlaceHolderLoadingView ClassCuston="placeholder col-4 rounded-2" v-if="isLoading"/>
+                <p v-else><small>Name: {{ dataStatistc.newstUser?.name }}</small></p>
+                <PlaceHolderLoadingView ClassCuston="placeholder col-7 rounded-2" v-if="isLoading"/>
+                <p v-else><small>Email: {{ dataStatistc.newstUser?.email }}</small></p>
               </div>
               <div class=" card-footer text-body-secondary p-0">
-                <small>{{ dataStatistc.newstUser?.created_at }}</small>
+                <PlaceHolderLoadingView ClassCuston="placeholder col-10 rounded-2" v-if="isLoading"/>
+                <small v-else>{{ dataStatistc.newstUser?.created_at }}</small>
               </div>
 
             </li>
@@ -51,14 +62,18 @@
           >
             <li class="border shadow-sm rounded-2 p-0 list-unstyled" >
               <div class="card-header text-body-secondary p-0">
-                <span><small>ID: {{ dataStatistc.oldestUser?.id }}</small></span>
+                <PlaceHolderLoadingView v-if="isLoading"/>
+                <span v-else><small>ID: {{ dataStatistc.oldestUser?.id }}</small></span>
               </div>
               <div class="card-body p-0">
-                <p><small>Name: {{ dataStatistc.oldestUser?.name }}</small></p>
-                <p><small>Email: {{ dataStatistc.oldestUser?.email }}</small></p>
+                <PlaceHolderLoadingView ClassCuston="placeholder col-4 rounded-2" v-if="isLoading"/>
+                <p v-else><small>Name: {{ dataStatistc.oldestUser?.name }}</small></p>
+                <PlaceHolderLoadingView ClassCuston="placeholder col-7 rounded-2" v-if="isLoading"/>
+                <p v-else><small>Email: {{ dataStatistc.oldestUser?.email }}</small></p>
               </div>
               <div class=" card-footer text-body-secondary p-0">
-                <small>{{ dataStatistc.oldestUser?.created_at }}</small>
+                <PlaceHolderLoadingView ClassCuston="placeholder col-10 rounded-2" v-if="isLoading"/>
+                <small v-else>{{ dataStatistc.oldestUser?.created_at }}</small>
               </div>
 
             </li>
@@ -70,19 +85,23 @@
 
           <ul
             class="p-0"
-            v-for="userVerified in dataStatistc.verifiedUsers"
+            v-for="userVerified in dataStatistc?.verifiedUsers"
             :key="userVerified.id"
           >
             <li class="border shadow-sm rounded-2 p-0 list-unstyled" >
               <div class="card-header text-body-secondary p-0">
-                <span><small>ID: {{userVerified.id}}</small></span>
+                <PlaceHolderLoadingView v-if="isLoading"/>
+                <span v-else><small>ID: {{userVerified.id}}</small></span>
               </div>
               <div class="card-body p-0">
-                <p><small>Name: {{userVerified.name}}</small></p>
-                <p><small>Email: {{userVerified.email}}</small></p>
+                <PlaceHolderLoadingView ClassCuston="placeholder col-3 rounded-2" v-if="isLoading"/>
+                <p v-else><small>Name: {{userVerified.name}}</small></p>
+                <PlaceHolderLoadingView ClassCuston="placeholder col-7 rounded-2" v-if="isLoading"/>
+                <p v-else><small>Email: {{userVerified.email}}</small></p>
               </div>
               <div class=" card-footer text-body-secondary p-0">
-                <small>{{userVerified.created_at}}</small>
+                <PlaceHolderLoadingView ClassCuston="placeholder col-10 rounded-2" v-if="isLoading"/>
+                <small v-else>{{userVerified.created_at}}</small>
               </div>
 
             </li>
@@ -99,14 +118,18 @@
           >
             <li class="border shadow-sm rounded-2 p-0 list-unstyled" >
             <div class="card-header text-body-secondary p-0">
-              <span><small>ID: {{userNotVerified.id}}</small></span>
+              <PlaceHolderLoadingView v-if="isLoading"/>
+              <span v-else><small>ID: {{userNotVerified.id}}</small></span>
             </div>
               <div class="card-body p-0">
-                <p><small>Name: {{userNotVerified.name}}</small></p>
-                <p><small>Email: {{userNotVerified.email}}</small></p>
+                <PlaceHolderLoadingView ClassCuston="placeholder col-3 rounded-2" v-if="isLoading"/>
+                <p v-else><small>Name: {{userNotVerified.name}}</small></p>
+                <PlaceHolderLoadingView ClassCuston="placeholder col-7 rounded-2" v-if="isLoading"/>
+                <p v-else><small>Email: {{userNotVerified.email}}</small></p>
               </div>
             <div class=" card-footer text-body-secondary p-0">
-              <small>{{userNotVerified.created_at}}</small>
+              <PlaceHolderLoadingView ClassCuston="placeholder col-10 rounded-2" v-if="isLoading"/>
+              <small v-else>{{userNotVerified.created_at}}</small>
             </div>
 
             </li>
@@ -118,18 +141,23 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions,mapState } from 'vuex'
 import CardsView from '@/components/Cards/CardsView.vue'
+import PlaceHolderLoadingView from '@/components/PlaceHolderLoading/PlaceHolderLoadingView.vue'
 
 export default {
+  mounted() {
+    this.LazyLoading()
+  },
+
   created() {
     this.fetchdatas()
+
   },
-  // mounted() {
-  //   this.fetchdatas()
-  // },
+
   components: {
     CardsView,
+    PlaceHolderLoadingView
   },
   data() {
     return {
@@ -137,7 +165,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('user', ['fetchStatisticData']),
+    ...mapActions('user', ['fetchStatisticData','LazyLoading']),
     async fetchdatas() {
       try {
         await this.fetchStatisticData()
@@ -147,6 +175,7 @@ export default {
     },
   },
   computed: {
+    ...mapState('user', ['isLoading']),
     dataStatistc() {
       return this.$store.state.user.StatisticData
     },
