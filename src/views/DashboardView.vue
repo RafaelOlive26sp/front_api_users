@@ -4,7 +4,7 @@
     <nav-bar-top-view>
       <template v-slot:content>
         <div class="text-dark text-center">
-          <CollapesView >
+          <CollapesView class-custom="card card-body" >
             <template v-slot:content>
               <component :is="isActiveComponent" />
             </template>
