@@ -113,7 +113,7 @@
         <template v-slot:content>
           <ul
             class="p-0"
-            v-for="userNotVerified in dataStatistc.unverifiedUsers"
+            v-for="userNotVerified in dataStatistc?.unverifiedUsers"
             :key="userNotVerified.id"
           >
             <li class="border shadow-sm rounded-2 p-0 list-unstyled" >
