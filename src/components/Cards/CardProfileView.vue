@@ -1,16 +1,10 @@
 <template>
-  <div class="col-md-3">
-    <div class="card">
+  <div class="col-md-3 ">
+    <div class="card shadow-sm">
       <div class="card-header">
         <slot name="header"></slot>
       </div>
-      <div :class="' '+classCustom">
-        <blockquote class="blockquote mb-0">
-          <slot name="content"></slot>
-        </blockquote>
-
-      </div>
-
+      <slot name="content"></slot>
     </div>
   </div>
 </template>

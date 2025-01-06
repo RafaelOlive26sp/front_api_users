@@ -4,7 +4,7 @@
     <nav-bar-top-view>
       <template v-slot:content>
         <div class="text-dark text-center">
-          <CollapesView >
+          <CollapesView class-custom="card card-body" >
             <template v-slot:content>
               <component :is="isActiveComponent" />
             </template>
@@ -28,6 +28,7 @@ import UsuariosView from '@/components/Paginas/UsuariosView.vue'
 import AtendentesView from '@/components/Paginas/AtendentesView.vue'
 import ContasVerificadasView from '@/components/Paginas/ContasVerificadasView.vue'
 import LogsApi from '@/components/Paginas/LogsApi.vue'
+import AcoesView from '@/components/Paginas/AcoesView.vue'
 
 export default {
   name: 'DashboardView',
@@ -38,6 +39,7 @@ export default {
     AtendentesView,
     ContasVerificadasView,
     LogsApi,
+    AcoesView
 
 
   },
@@ -55,6 +57,7 @@ export default {
           collapseAttendant: "AtendentesView",
           collapseAccountVerified: "ContasVerificadasView",
           collapseLogs: "LogsApi",
+          collapseAcoes: "AcoesView",
         };
 
 

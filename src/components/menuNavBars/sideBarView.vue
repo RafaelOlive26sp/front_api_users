@@ -1,4 +1,3 @@
-
 <template>
   <div class="sidebar border border-dark col-md-3 col-lg-2 p-0 border-opacity-25">
     <div
@@ -7,89 +6,116 @@
       id="sidebarMenu"
       aria-labelledby="sidebarMenuLabel"
     >
-
       <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
         <ul class="nav flex-column t">
           <li class="nav-item" v-for="item in menuItems" :key="item.id">
-            <a class="nav-link mb-2 fs-6  d-flex align-items-center gap-2 link-body-emphasis" href="#"
-            data-bs-toggle="" :data-bs-target="'#'+ item.id " aria-expanded="false"
-            :aria-controls="item.id" @click="setCollapse(item.id)">
-            <i :class="item.class"></i>
-               {{item.label}}
+            <a
+              class="nav-link mb-2 fs-6 d-flex align-items-center gap-2 link-body-emphasis"
+              href="#"
+              data-bs-toggle=""
+              :data-bs-target="'#' + item.id"
+              aria-expanded="false"
+              :aria-controls="item.id"
+              @click="setCollapse(item.id)"
+            >
+              <i :class="item.class"></i>
+              {{ item.label }}
             </a>
           </li>
-
         </ul>
 
         <hr />
-        <div class="nav flex-column mb-auto" >
 
-            <a class=" mx-3 nav-link gap-2 fs-6  d-flex align-items-center link-body-emphasis  p-0" data-bs-toggle="collapse" href="#CollapseAcao" role="button" aria-expanded="false" aria-controls="collapseExample">
-          <i class="bi bi-menu-button"></i>
-              Ações
-            </a>
+        <div class="nav flex-column mb-auto">
+          <a
+            class="mx-3 nav-link gap-2 fs-6 d-flex align-items-center link-body-emphasis p-0"
+            data-bs-toggle="collapse"
+            href="#CollapseAcao"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample"
+          >
+            <i :class="menuItems.find((item) => item.id === 'collapseAcoes').class"></i>
+            {{ menuItems.find((item) => item.id === 'collapseAcoes').label }}
+          </a>
 
-
-          <CollapesView id="CollapseAcao" classCustom=" collapse card card-body col-11 mx-3 text-body-secondary" style="box-shadow: black 0px 1px 1px 0px inset; border:none;">
+          <CollapesView
+            id="CollapseAcao"
+            classCustom=" collapse card card-body col-11 mx-3 text-body-secondary"
+            style="box-shadow: black 0px 1px 1px 0px inset; border: none"
+          >
             <template v-slot:content>
               <div class="">
-                <ul class="nav flex-column">
-                  <li class="nav-item " data-bs-toggle="collapse" href="#Consultar" style="cursor:pointer">
-                    <i class="bi bi-search"></i>
-                    Consultar
-                  </li>
-                    <div class="nav flex-column collapse  text-center rounded-2 p-1" id="Consultar" style="box-shadow: black 0px 1px 1px 0px inset; ">
-                      <ul class="list-unstyled submenus">
-                        <li>
-                          <small class="" href="#">Usuarios</small>
-                        </li>
-                        <hr class="p-0 m-0"/>
-                        <li>
-                          <small>Atendentes</small>
+                <ul class="nav flex-column" v-if="menuItensAcoes.length">
+                  <li
+                    :class="itensAcoes.class"
+                    style="cursor: pointer"
+                    v-for="itensAcoes in menuItensAcoes"
+                    :key="itensAcoes.id"
+                  >
+                    <div
 
-                        </li>
-                      </ul>
+                      class="d-flex align-items-center "
+                      style="cursor: pointer"
+                      data-bs-toggle="collapse"
+                      :data-bs-target="`#collapse-${itensAcoes.id}`"
+                      aria-expanded="false"
+                      :aria-controls="`collapse-${itensAcoes.id}`"
 
-
+                    >
+                      <i :class="itensAcoes.icon"></i>
+                      {{ itensAcoes.label }}
                     </div>
-                  <li class="nav-item" data-bs-toggle="collapse" href="#Atualizar" style="cursor:pointer">
-                    <i class="bi bi-pencil-square"></i>
-                    Atualizar
-                  </li>
-                  <div class="nav flex-column collapse   text-center rounded-2 p-1" id="Atualizar" style="box-shadow: black 0px 1px 1px 0px inset; ">
-                    <ul class="list-unstyled submenus">
-                      <li>
-                        <small>Contas</small>
-                      </li>
-                    </ul>
-                  </div>
-                  <li class="nav-item link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover " data-bs-toggle="collapse" href="#Deletar" style="cursor:pointer">
-                    <i class="bi bi-trash3"></i>
-                    Deletar
-                  </li>
-                  <div class="nav flex-column collapse  text-center rounded-2 p-1" id="Deletar" style="box-shadow: black 0px 1px 1px 0px inset; ">
-                    <ul class="list-unstyled submenus">
-                      <li>
-                        <small>Contas</small>
-                      </li>
-                    </ul>
-                  </div>
 
+                    <div
+                      class="nav flex-column collapse text-center rounded-2 p-1"
+                      :id="`collapse-${itensAcoes?.id}`"
+                      style="box-shadow: black 0px 1px 1px 0px inset"
+                    >
+                      <ul class="list-unstyled submenus">
+                        <li
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal"
+                          v-for="submenus in itensAcoes?.submenus"
+                          :key="submenus.id"
+                        >
+                          <small class="" href="#">{{ submenus.label }}</small>
+                        </li>
+                        <hr class="p-0 m-0" />
+                      </ul>
+                    </div>
+                  </li>
                 </ul>
+                <div v-else>
+                  <p >Carregando informaçoes....</p>
+                </div>
               </div>
             </template>
           </CollapesView>
-
-<!--          <div class="collapse " id="CollapseAcao">-->
-<!--            <div class="card card-body col-11 mx-3 text-body-secondary">-->
-<!--              <ul class="nav flex-column mr-auto">-->
-<!--                <li class="nav-item">Acao</li>-->
-<!--                <li class="nav-item">Acao</li>-->
-<!--                <li class="nav-item">Acao</li>-->
-<!--                <li class="nav-item">Acao</li>-->
-<!--              </ul>-->
-<!--            </div>-->
-<!--          </div>-->
+          <ModalView id="exampleModal">
+            <template v-slot:content>
+              <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <p>Modal body text goes here.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary" data-bs-target="collapseAcoes">
+                  Save changes
+                </button>
+              </div>
+            </template>
+          </ModalView>
         </div>
 
         <hr class="my-3" />
@@ -114,52 +140,78 @@
         </ul>
       </div>
     </div>
-
   </div>
 </template>
 <script>
 import { mapActions } from 'vuex'
 import CollapesView from '@/components/CollapesView.vue'
-
-
+import ModalView from '@/components/ModalView.vue'
 
 export default {
   name: 'sideBarView',
-  components: { CollapesView },
+  components: { ModalView, CollapesView },
   data() {
     return {
       menuItems: [
-        { id: "collapseUsers", label: "Resumo" , class:"bi bi-people" },
-        { id: "collapseAttendant", label: "Atendentes", class:"bi bi-person-badge" },
-        { id: "collapseAccountVerified", label: "Contas Verificadas", class:"bi bi-envelope-check" },
-        { id: "collapseLogs", label: "Logs", class:"bi bi-file-earmark-bar-graph" },
+        { id: 'collapseUsers', label: 'Resumo', class: 'bi bi-people' },
+        { id: 'collapseAttendant', label: 'Atendentes', class: 'bi bi-person-badge' },
+        {
+          id: 'collapseAccountVerified',
+          label: 'Contas Verificadas',
+          class: 'bi bi-envelope-check',
+        },
+        { id: 'collapseLogs', label: 'Logs', class: 'bi bi-file-earmark-bar-graph' },
+        { id: 'collapseAcoes', label: 'Ações', class: 'bi bi-menu-button' },
+      ],
+      menuItensAcoes: [
+        {
+          id: 'Consultar',
+          label: 'Consultar',
+          class: 'nav-item',
+          icon: 'bi bi-search',
+          submenus: [
+            { id: 'Usuarios', label: 'Usuarios' },
+            { id: 'Atendentes', label: 'Atendentes' },
+          ],
+        },
+        {
+          id: 'Atualizar',
+          label: 'Atualizar',
+          class: 'nav-item',
+          icon: 'bi bi-pencil-square',
+          submenus: [{ id: 'contas', label: 'Contas' }],
+        },
+        {
+          id: 'Deletar',
+          label: 'Deletar',
+          class: 'nav-item link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover',
+          icon: 'bi bi-trash3',
+          submenus: [{ id: 'contas', label: 'Contas' }],
+        },
       ],
     }
   },
   methods: {
     ...mapActions('auth', ['logout']),
     logoutUser() {
-      this.logout();
+      this.logout()
     },
     setCollapse(id) {
-      console.log('Sidebar '+id);
-      this.$store.dispatch('user/setActiveCollapse', id);
-
-    }
-  }
+      console.log('Sidebar ' + id)
+      this.$store.dispatch('user/setActiveCollapse', id)
+    },
+  },
 }
 </script>
 
 <style scoped>
-
-  .sidebar .nav-link {
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
-  .submenus >li:hover{
-      border-radius: 4px;
-      background-image: linear-gradient(120deg, #fdfbfb 10%, #ebedee 100%);
-      cursor:pointer;
-  }
-
+.sidebar .nav-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.submenus > li:hover {
+  border-radius: 4px;
+  background-image: linear-gradient(120deg, #fdfbfb 10%, #ebedee 100%);
+  cursor: pointer;
+}
 </style>

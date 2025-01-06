@@ -123,7 +123,8 @@ const userModules = {
         commit('SET_LOADING', false);
 
       }, 3000);
-    }
+    },
+
 
 
 

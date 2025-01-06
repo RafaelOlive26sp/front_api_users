@@ -1,8 +1,6 @@
 <template>
   <div :class="classCustom" :id="idCuston" >
-    <div>
-      <slot name="content"></slot>
-    </div>
+    <slot name="content"></slot>
   </div>
 </template>
 <script>
@@ -15,8 +13,9 @@ export default {
     },
     classCustom: {
       type: String,
-      default: 'card card-body'
-    }
+      default: ''
+    },
+
 
   }
 
