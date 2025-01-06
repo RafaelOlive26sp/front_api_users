@@ -10,6 +10,7 @@
         <ul class="nav flex-column t">
           <li class="nav-item" v-for="item in menuItems" :key="item.id">
             <a
+              v-if="item.id !== 'collapseAcoes'"
               class="nav-link mb-2 fs-6 d-flex align-items-center gap-2 link-body-emphasis"
               href="#"
               data-bs-toggle=""
@@ -25,7 +26,6 @@
         </ul>
 
         <hr />
-
         <div class="nav flex-column mb-auto">
           <a
             class="mx-3 nav-link gap-2 fs-6 d-flex align-items-center link-body-emphasis p-0"
@@ -36,7 +36,7 @@
             aria-controls="collapseExample"
           >
             <i :class="menuItems.find((item) => item.id === 'collapseAcoes').class"></i>
-            {{ menuItems.find((item) => item.id === 'collapseAcoes').label }}
+              {{ menuItems.find((item) => item.id === 'collapseAcoes').label }}
           </a>
 
           <CollapesView
@@ -75,13 +75,14 @@
                       <ul class="list-unstyled submenus">
                         <li
                           data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"
+                          :data-bs-target="`#${itensAcoes.idmodal}`"
                           v-for="submenus in itensAcoes?.submenus"
                           :key="submenus.id"
                         >
+                          <hr class="p-0 m-0" />
                           <small class="" href="#">{{ submenus.label }}</small>
                         </li>
-                        <hr class="p-0 m-0" />
+
                       </ul>
                     </div>
                   </li>
@@ -92,10 +93,10 @@
               </div>
             </template>
           </CollapesView>
-          <ModalView id="exampleModal">
+          <ModalView :id="itens.idmodal"  v-for="itens in menuItensAcoes" :key="itens.id">
             <template v-slot:content>
               <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">{{itens.label}}</h5>
                 <button
                   type="button"
                   class="btn-close"
@@ -103,14 +104,45 @@
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="modal-body">
-                <p>Modal body text goes here.</p>
+              <div class="modal-body conteiner-fluid">
+                <div class="row">
+                  <div class="input-group mb-3 col-1" >
+                    <div class="input-group-text">
+                      <input class="form-check-input mt-0" v-tooltip title="Pesquisar por nome" type="checkbox"
+                       aria-label="Checkbox for following text input" v-model="searchName" >
+                    </div>
+
+
+                    <input class="form-control disable" list="datalistOptions" id="exampleDataList"
+                    placeholder="Digite o nome para pesquisar"  v-model="valueInp" :disabled="!searchName" @change="inputName(valueInp,itens.label)">
+
+                    <datalist id="datalistOptions">
+                      <option :value="itens.name"  v-for="itens in $store.state.user.StatisticData.verifiedUsers" :key="itens.id"></option>
+                      <option :value="itens.name"  v-for="itens in $store.state.user.StatisticData.unverifiedUsers" :key="itens.id"></option>
+                    </datalist>
+
+
+
+
+
+                  </div>
+
+
+                </div>
+                  <hr>
+                  <!-- {{ valueInp }} -->
+                  <p v-for="itens in $store.state.user.StatisticData.unverifiedUsers" :key="itens.id">
+                    {{ itens.name === valueInp ? valueInp :'nome nao encontrado'  }}</p>
+
+
+
+
+
+
+
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                  Close
-                </button>
-                <button type="button" class="btn btn-primary" data-bs-target="collapseAcoes">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" :data-bs-target="`collapse-${itens.id}`" @click="setCollapse('collapseAcoes')">
                   Save changes
                 </button>
               </div>
@@ -161,7 +193,7 @@ export default {
           class: 'bi bi-envelope-check',
         },
         { id: 'collapseLogs', label: 'Logs', class: 'bi bi-file-earmark-bar-graph' },
-        { id: 'collapseAcoes', label: 'Ações', class: 'bi bi-menu-button' },
+        { id: 'collapseAcoes',label:'Ações', class: 'bi bi-menu-button' },
       ],
       menuItensAcoes: [
         {
@@ -169,6 +201,7 @@ export default {
           label: 'Consultar',
           class: 'nav-item',
           icon: 'bi bi-search',
+          idmodal:'ModalConsultar',
           submenus: [
             { id: 'Usuarios', label: 'Usuarios' },
             { id: 'Atendentes', label: 'Atendentes' },
@@ -179,6 +212,7 @@ export default {
           label: 'Atualizar',
           class: 'nav-item',
           icon: 'bi bi-pencil-square',
+          idmodal:'ModalAtualizar',
           submenus: [{ id: 'contas', label: 'Contas' }],
         },
         {
@@ -186,9 +220,12 @@ export default {
           label: 'Deletar',
           class: 'nav-item link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover',
           icon: 'bi bi-trash3',
+          idmodal:'ModalDeletar',
           submenus: [{ id: 'contas', label: 'Contas' }],
         },
       ],
+      searchName: false,
+      valueInp:''
     }
   },
   methods: {
@@ -197,9 +234,27 @@ export default {
       this.logout()
     },
     setCollapse(id) {
-      console.log('Sidebar ' + id)
+      console.log('Sidebar ---' + id)
       this.$store.dispatch('user/setActiveCollapse', id)
     },
+    inputName(value,actions){
+      const valueInp = value;
+
+      const pesquisa = this.$store.state.user.StatisticData.unverifiedUsers;
+
+      for (let index = 0; index < pesquisa; index++) {
+
+        console.log('elemento ',index);
+
+
+      }
+
+
+
+      console.log('metodo ',actions , '---' , valueInp);
+
+    }
+
   },
 }
 </script>
