@@ -12,7 +12,8 @@ const userModules = {
     logs: {
       logs:[],
       pagination:{}
-    }
+    },
+    datas: ''
   },
   mutations: {
 
@@ -31,9 +32,12 @@ const userModules = {
       state.StatisticData = StatisticData
       localStorage.setItem('StatisticData', JSON.stringify(StatisticData));
     },
-    setActiveCollapse(state,id){
+    setActiveCollapse(state,id,dadosDoUsuario){
 
       state.activeCollapse = id;
+      console.log(id);
+      state.datas = dadosDoUsuario
+      console.log(datas);
     }
   },
   actions: {
