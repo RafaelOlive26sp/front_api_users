@@ -143,7 +143,8 @@
                   </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" :data-bs-target="`collapse-${itens.id}`" @click="setCollapse('collapseAcoes')">
+                <button type="button" class="btn btn-primary"
+                data-bs-dismiss="modal" :data-bs-target="`collapse-${itens.id}`" @click="setCollapse('collapseAcoes', dadosDoUsuario)">
                   Save changes
                 </button>
               </div>
@@ -238,9 +239,10 @@ export default {
     logoutUser() {
       this.logout()
     },
-    setCollapse(id) {
+    setCollapse(id,dadosDoUsuario) {
       console.log('Sidebar ---' + id)
-      this.$store.dispatch('user/setActiveCollapse', id)
+      console.log('Dados ---' + dadosDoUsuario)
+      this.$store.dispatch('user/setActiveCollapse', {id, dadosDoUsuario})
     },
     searchUserByField(field, value, action ) {
       const searchValue = value;
