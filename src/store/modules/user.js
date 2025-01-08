@@ -1,6 +1,36 @@
 import api from '@/services/api.js'
 import Cookies from 'js-cookie'
 
+
+
+
+
+// const state = {
+//   activeCollapse: null,
+//   datas: null,
+// };
+
+// const mutations = {
+//   setActiveCollapse(state, { id, dadosDoUsuario }) {
+//     state.activeCollapse = id;
+//     console.log(id);
+//     state.datas = dadosDoUsuario;
+//     console.log(state.datas);
+//   }
+// };
+
+// const actions = {
+//   setActiveCollapse({ commit }, payload) {
+//     commit('setActiveCollapse', payload);
+//   }
+// };
+
+// export default {
+//   state,
+//   mutations,
+//   actions,
+// };
+
 const userModules = {
   namespaced: true,
   state: {
