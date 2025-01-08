@@ -95,7 +95,7 @@
           </CollapesView>
           <ModalView :id="itens.idmodal"  v-for="itens in menuItensAcoes" :key="itens.id">
             <template v-slot:content>
-              <div class="modal-header">
+              <div class="modal-header border ">
                 <h5 class="modal-title">{{itens.label}}</h5>
                 <button
                   type="button"
@@ -104,42 +104,56 @@
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="modal-body conteiner-fluid">
-                <div class="row">
+              <div class="modal-body conteiner border border-danger">
+                <div class="row  ">
+
                   <div class="input-group mb-3 col-1" >
-                    <div class="input-group-text">
+
+
+                    <!-- <div class="input-group-text col-auto">
                       <input class="form-check-input mt-0" v-tooltip title="Pesquisar por nome" type="checkbox"
                        aria-label="Checkbox for following text input" v-model="searchName" >
                     </div>
 
-
-                    <input class="form-control disable" list="datalistOptions" id="exampleDataList"
-                    placeholder="Digite o nome para pesquisar"  v-model="valueInp" :disabled="!searchName" @change="inputName(valueInp,itens.label)">
-
-                    <datalist id="datalistOptions">
-                      <option :value="itens.name"  v-for="itens in $store.state.user.StatisticData.verifiedUsers" :key="itens.id"></option>
-                      <option :value="itens.name"  v-for="itens in $store.state.user.StatisticData.unverifiedUsers" :key="itens.id"></option>
-                    </datalist>
+                    <div class="col-auto">
+                      <input type="text" class="form-control col-2" list="datalistOptions" id="exampleDataList"
+                      placeholder="Digite o nome para pesquisar"  v-model="valueInp" :disabled="!searchName" @change="inputName(valueInp,itens.label)">
+                    </div> -->
 
 
 
 
 
+                  <div class="input-group input-group-sm">
+
+                    <div class="input-group-text col-auto">
+                      <input class="form-check-input mt-0" v-tooltip title="Pesquisar por nome" type="checkbox"
+                       aria-label="Checkbox for following text input" v-model="searchName" >
+                    </div>
+
+                    <input type="text" class="form-control col-2" list="datalistOptions" id="exampleDataList"
+                    placeholder="Digite o nome para pesquisar"  v-model="inputNameSearch" :disabled="!searchName" @change="inputName(inputNameSearch,itens.label)">
+                    <!-- ---------------------------------------------------------------------- -->
+                    <div class="input-group-text col-auto">
+                      <input class="form-check-input mt-0" v-tooltip title="Pesquisar por Email" type="checkbox"
+                       aria-label="Checkbox for following text input" v-model="searchName" >
+                    </div>
+
+                     <input type="email" class="form-control col-2" list="datalistOptions" id="exampleDataList"
+                    placeholder="Digite E-mail para pesquisar"  v-model="inputEmail" :disabled="!searchName" @change="inputName(valueInp,itens.label)">
                   </div>
+
+                  <datalist id="datalistOptions">
+                      <option :value="verifiedUser.name"  v-for="verifiedUser in $store.state.user.StatisticData.verifiedUsers" :key="verifiedUser.id"></option>
+                      <option :value="unverifiedUser.name"  v-for="unverifiedUser in $store.state.user.StatisticData.unverifiedUsers" :key="unverifiedUser.id"></option>
+                    </datalist>
+                  </div>
+
 
 
                 </div>
                   <hr>
-                  <!-- {{ valueInp }} -->
-                  <p v-for="itens in $store.state.user.StatisticData.unverifiedUsers" :key="itens.id">
-                    {{ itens.name === valueInp ? valueInp :'nome nao encontrado'  }}</p>
-
-
-
-
-
-
-
+                  <p> {{ dadosDoUsuario }}</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" :data-bs-target="`collapse-${itens.id}`" @click="setCollapse('collapseAcoes')">
@@ -225,7 +239,8 @@ export default {
         },
       ],
       searchName: false,
-      valueInp:''
+      inputNameSearch:'',
+      dadosDoUsuario:''
     }
   },
   methods: {
@@ -237,21 +252,30 @@ export default {
       console.log('Sidebar ---' + id)
       this.$store.dispatch('user/setActiveCollapse', id)
     },
-    inputName(value,actions){
-      const valueInp = value;
-
+    inputName(value, actions) {
+      const inputNameSearch = value;
       const pesquisa = this.$store.state.user.StatisticData.unverifiedUsers;
+      const dados = this.$store.state.user.StatisticData.verifiedUsers;
+      const todos = [...pesquisa, ...dados];
 
-      for (let index = 0; index < pesquisa; index++) {
+      const resultado = todos.find(user => user.name === inputNameSearch);
+      if (resultado) {
 
-        console.log('elemento ',index);
+         this.dadosDoUsuario = resultado;
+      } else {
 
-
+       this.dadosDoUsuario = 'Nome nao encontrado!';
       }
 
 
 
-      console.log('metodo ',actions , '---' , valueInp);
+
+
+
+
+
+
+      console.log('metodo ',actions , '---' , inputNameSearch);
 
     }
 
