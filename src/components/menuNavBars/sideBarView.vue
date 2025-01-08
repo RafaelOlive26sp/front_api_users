@@ -105,55 +105,42 @@
                 ></button>
               </div>
               <div class="modal-body conteiner border border-danger">
-                <div class="row  ">
+                <div class="row">
 
-                  <div class="input-group mb-3 col-1" >
+                  <div class="input-group " >
+                    <div class="input-group input-group-sm">
 
+                      <div class="input-group-text col-auto">
+                        <input class="form-check-input mt-0" v-tooltip title="Pesquisar por nome" type="checkbox"
+                        aria-label="Checkbox for following text input" v-model="searchName" >
+                      </div>
 
-                    <!-- <div class="input-group-text col-auto">
-                      <input class="form-check-input mt-0" v-tooltip title="Pesquisar por nome" type="checkbox"
-                       aria-label="Checkbox for following text input" v-model="searchName" >
-                    </div>
-
-                    <div class="col-auto">
                       <input type="text" class="form-control col-2" list="datalistOptions" id="exampleDataList"
-                      placeholder="Digite o nome para pesquisar"  v-model="valueInp" :disabled="!searchName" @change="inputName(valueInp,itens.label)">
-                    </div> -->
+                      placeholder="Digite o nome para pesquisar"
+                      v-model="inputNameSearch" :disabled="!searchName" @change="inputName(inputNameSearch,'name',itens.label)">
 
+                      <datalist id="datalistOptions">
+                        <option :value="verifiedUser.name"  v-for="verifiedUser in $store.state.user.StatisticData.verifiedUsers" :key="verifiedUser.id"></option>
+                        <option :value="unverifiedUser.name"  v-for="unverifiedUser in $store.state.user.StatisticData.unverifiedUsers" :key="unverifiedUser.id"></option>
+                      </datalist>
+                      <!-- ---------------------------------------------------------------------- -->
 
+                      <div class="input-group-text col-auto">
+                        <input class="form-check-input mt-0" v-tooltip title="Pesquisar por Email" type="checkbox"
+                        aria-label="Checkbox for following text input" v-model="searchEmail" >
+                      </div>
 
-
-
-                  <div class="input-group input-group-sm">
-
-                    <div class="input-group-text col-auto">
-                      <input class="form-check-input mt-0" v-tooltip title="Pesquisar por nome" type="checkbox"
-                       aria-label="Checkbox for following text input" v-model="searchName" >
+                      <input type="email" class="form-control col-2"
+                      placeholder="Digite E-mail para pesquisar"
+                       v-model="inputEmailSearch" :disabled="!searchEmail" @change="inputEmail(inputEmailSearch,'email',itens.label)">
                     </div>
-
-                    <input type="text" class="form-control col-2" list="datalistOptions" id="exampleDataList"
-                    placeholder="Digite o nome para pesquisar"  v-model="inputNameSearch" :disabled="!searchName" @change="inputName(inputNameSearch,itens.label)">
-                    <!-- ---------------------------------------------------------------------- -->
-                    <div class="input-group-text col-auto">
-                      <input class="form-check-input mt-0" v-tooltip title="Pesquisar por Email" type="checkbox"
-                       aria-label="Checkbox for following text input" v-model="searchName" >
-                    </div>
-
-                     <input type="email" class="form-control col-2" list="datalistOptions" id="exampleDataList"
-                    placeholder="Digite E-mail para pesquisar"  v-model="inputEmail" :disabled="!searchName" @change="inputName(valueInp,itens.label)">
                   </div>
-
-                  <datalist id="datalistOptions">
-                      <option :value="verifiedUser.name"  v-for="verifiedUser in $store.state.user.StatisticData.verifiedUsers" :key="verifiedUser.id"></option>
-                      <option :value="unverifiedUser.name"  v-for="unverifiedUser in $store.state.user.StatisticData.unverifiedUsers" :key="unverifiedUser.id"></option>
-                    </datalist>
-                  </div>
-
-
-
                 </div>
-                  <hr>
-                  <p> {{ dadosDoUsuario }}</p>
+                  <div class=" ">
+
+
+                    <p> {{ dadosDoUsuario }}</p>
+                  </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" :data-bs-target="`collapse-${itens.id}`" @click="setCollapse('collapseAcoes')">
@@ -239,8 +226,11 @@ export default {
         },
       ],
       searchName: false,
+      searchEmail: false,
       inputNameSearch:'',
-      dadosDoUsuario:''
+      inputEmailSearch:'',
+      dadosDoUsuario: null,
+
     }
   },
   methods: {
@@ -252,31 +242,32 @@ export default {
       console.log('Sidebar ---' + id)
       this.$store.dispatch('user/setActiveCollapse', id)
     },
-    inputName(value, actions) {
-      const inputNameSearch = value;
-      const pesquisa = this.$store.state.user.StatisticData.unverifiedUsers;
-      const dados = this.$store.state.user.StatisticData.verifiedUsers;
-      const todos = [...pesquisa, ...dados];
+    searchUserByField(field, value, action ) {
+      const searchValue = value;
+      const unverifiedUsers = this.$store.state.user.StatisticData.unverifiedUsers;
+      const verifiedUsers = this.$store.state.user.StatisticData.verifiedUsers;
+      const allUsers = [...unverifiedUsers, ...verifiedUsers];
 
-      const resultado = todos.find(user => user.name === inputNameSearch);
+      const resultado = allUsers.find(user => user[field] === searchValue);
       if (resultado) {
 
-         this.dadosDoUsuario = resultado;
+
+        this.dadosDoUsuario = resultado;
       } else {
 
        this.dadosDoUsuario = 'Nome nao encontrado!';
       }
+      console.log(field , '---' , searchValue);
+      console.log('Metodo ------', action);
 
+    },
 
+    inputName(value, field, action ) {
+      this.searchUserByField(field, value, action);
+    },
 
-
-
-
-
-
-
-      console.log('metodo ',actions , '---' , inputNameSearch);
-
+    inputEmail(value, field, action) {
+      this.searchUserByField(field, value, action);
     }
 
   },
