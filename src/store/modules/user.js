@@ -14,6 +14,7 @@ const userModules = {
       pagination: {},
     },
     datas: null,
+    action: null,
   },
   mutations: {
     SET_LOADING(state, isLoading) {
@@ -30,10 +31,11 @@ const userModules = {
       state.StatisticData = StatisticData
       localStorage.setItem('StatisticData', JSON.stringify(StatisticData))
     },
-    setActiveCollapse(state, { id, dadosDoUsuario }) {
+    setActiveCollapse(state, { id, dadosDoUsuario,metodo }) {
       state.activeCollapse = id
       console.log(id)
-      state.datas = dadosDoUsuario
+      state.datas = dadosDoUsuario,
+        state.action = metodo
       console.log(state.datas)
     },
   },
@@ -114,6 +116,7 @@ const userModules = {
       }, 3000)
     },
     setActiveCollapse({ commit }, payload) {
+      console.log(payload)
     commit('setActiveCollapse', payload);
     }
   },
