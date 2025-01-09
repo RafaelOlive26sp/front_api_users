@@ -1,5 +1,5 @@
 <template>
-  <p>Açoes</p>
+  <p>{{ action }}</p>
   <CardsView classDivFather="col-md-3" :tittle="'Id: ' + datas?.id">
     <template v-slot:content>
       <div class="">
@@ -10,24 +10,20 @@
                 <img
                   src="https://www.w3schools.com/howto/img_avatar.png"
                   alt="Avatar"
-                  class="avatar rounded-4 "
+                  class="avatar rounded-4"
                   height="100"
                   width="100"
-                  style="
-                    box-shadow: 2px 2px 5px -2px black;"
+                  style="box-shadow: 2px 2px 5px -2px black"
                 />
               </div>
               <div class="mt-3">
-                <small>Name:
-                  {{ datas?.name }}</small>
-                <br>
-                <small>Email:
-                  {{ datas?.email }}</small>
-<!--                <p>Created At: {{ datas?.created_at }}</p>-->
+                <small>Name: {{ datas?.name }}</small>
+                <br />
+                <small>Email: {{ datas?.email }}</small>
+                <!--                <p>Created At: {{ datas?.created_at }}</p>-->
               </div>
             </div>
             <div class="card-footer text-body-secondary p-0">
-
               <small>{{ datas?.created_at }}</small>
             </div>
           </div>
@@ -36,8 +32,9 @@
     </template>
   </CardsView>
   <pre>
-
-    <!-- {{ $store.state }} -->
+    {{ datas }}
+    {{ action }}
+     {{ $store.state.datas }}
   </pre>
 </template>
 <script>
@@ -53,7 +50,7 @@ export default {
   },
   methods: {},
   computed: {
-    ...mapState('user', ['datas']),
+    ...mapState('user', ['datas', 'action']),
   },
 }
 </script>
