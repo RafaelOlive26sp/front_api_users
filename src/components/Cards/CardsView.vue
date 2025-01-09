@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-3">
+  <div :class="classDivFather">
     <div class="card">
       <div class="card-header">
         <small>{{ tittle }}</small>
@@ -26,6 +26,10 @@ export default {
     classCustom: {
       type: String,
       default: 'card-body',
+    },
+    classDivFather: {
+      type: String,
+      default: 'col-md-3',
     },
   },
 }
