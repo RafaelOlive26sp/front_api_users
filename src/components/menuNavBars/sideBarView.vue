@@ -205,7 +205,7 @@
                   class="btn btn-primary"
                   data-bs-dismiss="modal"
                   :data-bs-target="`collapse-${itens.id}`"
-                  @click="setCollapse('collapseAcoes', dadosDoUsuario)"
+                  @click="setCollapse('collapseAcoes', dadosDoUsuario, itens.label)"
                   v-if="dadosDoUsuario"
                 >
                   {{itens.label}}
@@ -303,26 +303,29 @@ export default {
     logoutUser() {
       this.logout()
     },
-    setCollapse(id, dadosDoUsuario) {
+    setCollapse(id, dadosDoUsuario, metodo) {
       console.log('Sidebar ---' + id)
       console.log('Dados ---' + dadosDoUsuario)
-      this.$store.dispatch('user/setActiveCollapse', { id, dadosDoUsuario })
+      console.log('Metodo ------', metodo)
+      this.$store.dispatch('user/setActiveCollapse', { id, dadosDoUsuario, metodo })
     },
-    searchUserByField(field, value, action) {
-      const searchValue = value
+    searchUserByField(field, value) {
+      const searchValue = value;
+
       const unverifiedUsers = this.$store.state.user.StatisticData.unverifiedUsers
       const verifiedUsers = this.$store.state.user.StatisticData.verifiedUsers
       const allUsers = [...unverifiedUsers, ...verifiedUsers]
 
       const resultado = allUsers.find((user) => user[field] === searchValue)
+
       if (resultado) {
-        this.dadosDoUsuario = resultado
-        console.log('Resultado ------', resultado)
+        this.dadosDoUsuario = resultado;
+
       } else {
         this.dadosDoUsuario = 'Nome nao encontrado!'
       }
       console.log(field, '---', searchValue)
-      console.log('Metodo ------', action)
+      // console.log('Metodo ------', action)
     },
 
     inputName(value, field, action) {
