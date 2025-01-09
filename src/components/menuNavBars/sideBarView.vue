@@ -36,7 +36,7 @@
             aria-controls="collapseExample"
           >
             <i :class="menuItems.find((item) => item.id === 'collapseAcoes').class"></i>
-              {{ menuItems.find((item) => item.id === 'collapseAcoes').label }}
+            {{ menuItems.find((item) => item.id === 'collapseAcoes').label }}
           </a>
 
           <CollapesView
@@ -54,14 +54,12 @@
                     :key="itensAcoes.id"
                   >
                     <div
-
-                      class="d-flex align-items-center "
+                      class="d-flex align-items-center"
                       style="cursor: pointer"
                       data-bs-toggle="collapse"
                       :data-bs-target="`#collapse-${itensAcoes.id}`"
                       aria-expanded="false"
                       :aria-controls="`collapse-${itensAcoes.id}`"
-
                     >
                       <i :class="itensAcoes.icon"></i>
                       {{ itensAcoes.label }}
@@ -82,21 +80,20 @@
                           <hr class="p-0 m-0" />
                           <small class="" href="#">{{ submenus.label }}</small>
                         </li>
-
                       </ul>
                     </div>
                   </li>
                 </ul>
                 <div v-else>
-                  <p >Carregando informaçoes....</p>
+                  <p>Carregando informaçoes....</p>
                 </div>
               </div>
             </template>
           </CollapesView>
-          <ModalView :id="itens.idmodal"  v-for="itens in menuItensAcoes" :key="itens.id">
+          <ModalView :id="itens.idmodal" v-for="itens in menuItensAcoes" :key="itens.id">
             <template v-slot:content>
-              <div class="modal-header border ">
-                <h5 class="modal-title">{{itens.label}}</h5>
+              <div class="modal-header border">
+                <h5 class="modal-title">{{ itens.label }}</h5>
                 <button
                   type="button"
                   class="btn-close"
@@ -106,46 +103,112 @@
               </div>
               <div class="modal-body conteiner border border-danger">
                 <div class="row">
-
-                  <div class="input-group " >
+                  <div class="input-group">
                     <div class="input-group input-group-sm">
-
                       <div class="input-group-text col-auto">
-                        <input class="form-check-input mt-0" v-tooltip title="Pesquisar por nome" type="checkbox"
-                        aria-label="Checkbox for following text input" v-model="searchName" >
+                        <input
+                          class="form-check-input mt-0"
+                          v-tooltip
+                          title="Pesquisar por nome"
+                          type="checkbox"
+                          aria-label="Checkbox for following text input"
+                          v-model="searchName"
+                        />
                       </div>
 
-                      <input type="text" class="form-control col-2" list="datalistOptions" id="exampleDataList"
-                      placeholder="Digite o nome para pesquisar"
-                      v-model="inputNameSearch" :disabled="!searchName" @change="inputName(inputNameSearch,'name',itens.label)">
+                      <input
+                        type="text"
+                        class="form-control col-2"
+                        list="datalistOptions"
+                        id="exampleDataList"
+                        placeholder="Digite o nome para pesquisar"
+                        v-model="inputNameSearch"
+                        :disabled="!searchName"
+                        @change="inputName(inputNameSearch, 'name', itens.label)"
+                      />
 
                       <datalist id="datalistOptions">
-                        <option :value="verifiedUser.name"  v-for="verifiedUser in $store.state.user.StatisticData.verifiedUsers" :key="verifiedUser.id"></option>
-                        <option :value="unverifiedUser.name"  v-for="unverifiedUser in $store.state.user.StatisticData.unverifiedUsers" :key="unverifiedUser.id"></option>
+                        <option
+                          :value="verifiedUser.name"
+                          v-for="verifiedUser in $store.state.user.StatisticData.verifiedUsers"
+                          :key="verifiedUser.id"
+                        ></option>
+                        <option
+                          :value="unverifiedUser.name"
+                          v-for="unverifiedUser in $store.state.user.StatisticData.unverifiedUsers"
+                          :key="unverifiedUser.id"
+                        ></option>
                       </datalist>
                       <!-- ---------------------------------------------------------------------- -->
 
                       <div class="input-group-text col-auto">
-                        <input class="form-check-input mt-0" v-tooltip title="Pesquisar por Email" type="checkbox"
-                        aria-label="Checkbox for following text input" v-model="searchEmail" >
+                        <input
+                          class="form-check-input mt-0"
+                          v-tooltip
+                          title="Pesquisar por Email"
+                          type="checkbox"
+                          aria-label="Checkbox for following text input"
+                          v-model="searchEmail"
+                        />
                       </div>
 
-                      <input type="email" class="form-control col-2"
-                      placeholder="Digite E-mail para pesquisar"
-                       v-model="inputEmailSearch" :disabled="!searchEmail" @change="inputEmail(inputEmailSearch,'email',itens.label)">
+                      <input
+                        type="email"
+                        class="form-control col-2"
+                        placeholder="Digite E-mail para pesquisar"
+                        v-model="inputEmailSearch"
+                        :disabled="!searchEmail"
+                        @change="inputEmail(inputEmailSearch, 'email', itens.label)"
+                      />
                     </div>
                   </div>
                 </div>
-                  <div class=" ">
+                <CardsView classDivFather="col-md-auto shadow-sm mt-4" :tittle="'Id do Usuario. ' + dadosDoUsuario?.id" v-if="dadosDoUsuario">
+                  <template v-slot:content>
+                    <div class=" ">
+                      <div class="col-12">
+                        <div class="card">
+                          <div class="card-body d-flex align-items-start">
+                            <div class="me-3">
+                              <img
+                                src="https://www.w3schools.com/howto/img_avatar.png"
+                                alt="Avatar"
+                                class="avatar rounded-4 "
+                                height="100"
+                                width="100"
+                                style="
+                    box-shadow: 2px 2px 5px -2px black;"
+                              />
+                            </div>
+                            <div class="mt-3">
+                              <small>Name:
+                                {{ dadosDoUsuario?.name }}</small>
+                              <br>
+                              <small>Email:
+                                {{ dadosDoUsuario?.email }}</small>
+                              <!--                <p>Created At: {{ datas?.created_at }}</p>-->
+                            </div>
+                          </div>
+                          <div class="card-footer text-body-secondary d-flex justify-content-center ">
 
-
-                    <p> {{ dadosDoUsuario }}</p>
-                  </div>
+                            <small>{{ dadosDoUsuario?.created_at }}</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+                </CardsView>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary"
-                data-bs-dismiss="modal" :data-bs-target="`collapse-${itens.id}`" @click="setCollapse('collapseAcoes', dadosDoUsuario)">
-                  Save changes
+              <div class="modal-footer" >
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-dismiss="modal"
+                  :data-bs-target="`collapse-${itens.id}`"
+                  @click="setCollapse('collapseAcoes', dadosDoUsuario)"
+                  v-if="dadosDoUsuario"
+                >
+                  {{itens.label}}
                 </button>
               </div>
             </template>
@@ -180,10 +243,11 @@
 import { mapActions } from 'vuex'
 import CollapesView from '@/components/CollapesView.vue'
 import ModalView from '@/components/ModalView.vue'
+import CardsView from '@/components/Cards/CardsView.vue'
 
 export default {
   name: 'sideBarView',
-  components: { ModalView, CollapesView },
+  components: { CardsView, ModalView, CollapesView },
   data() {
     return {
       menuItems: [
@@ -195,7 +259,7 @@ export default {
           class: 'bi bi-envelope-check',
         },
         { id: 'collapseLogs', label: 'Logs', class: 'bi bi-file-earmark-bar-graph' },
-        { id: 'collapseAcoes',label:'Ações', class: 'bi bi-menu-button' },
+        { id: 'collapseAcoes', label: 'Ações', class: 'bi bi-menu-button' },
       ],
       menuItensAcoes: [
         {
@@ -203,7 +267,7 @@ export default {
           label: 'Consultar',
           class: 'nav-item',
           icon: 'bi bi-search',
-          idmodal:'ModalConsultar',
+          idmodal: 'ModalConsultar',
           submenus: [
             { id: 'Usuarios', label: 'Usuarios' },
             { id: 'Atendentes', label: 'Atendentes' },
@@ -214,24 +278,24 @@ export default {
           label: 'Atualizar',
           class: 'nav-item',
           icon: 'bi bi-pencil-square',
-          idmodal:'ModalAtualizar',
+          idmodal: 'ModalAtualizar',
           submenus: [{ id: 'contas', label: 'Contas' }],
         },
         {
           id: 'Deletar',
           label: 'Deletar',
-          class: 'nav-item link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover',
+          class:
+            'nav-item link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover',
           icon: 'bi bi-trash3',
-          idmodal:'ModalDeletar',
+          idmodal: 'ModalDeletar',
           submenus: [{ id: 'contas', label: 'Contas' }],
         },
       ],
       searchName: false,
       searchEmail: false,
-      inputNameSearch:'',
-      inputEmailSearch:'',
+      inputNameSearch: '',
+      inputEmailSearch: '',
       dadosDoUsuario: null,
-
     }
   },
   methods: {
@@ -239,39 +303,35 @@ export default {
     logoutUser() {
       this.logout()
     },
-    setCollapse(id,dadosDoUsuario) {
+    setCollapse(id, dadosDoUsuario) {
       console.log('Sidebar ---' + id)
       console.log('Dados ---' + dadosDoUsuario)
-      this.$store.dispatch('user/setActiveCollapse', {id, dadosDoUsuario})
+      this.$store.dispatch('user/setActiveCollapse', { id, dadosDoUsuario })
     },
-    searchUserByField(field, value, action ) {
-      const searchValue = value;
-      const unverifiedUsers = this.$store.state.user.StatisticData.unverifiedUsers;
-      const verifiedUsers = this.$store.state.user.StatisticData.verifiedUsers;
-      const allUsers = [...unverifiedUsers, ...verifiedUsers];
+    searchUserByField(field, value, action) {
+      const searchValue = value
+      const unverifiedUsers = this.$store.state.user.StatisticData.unverifiedUsers
+      const verifiedUsers = this.$store.state.user.StatisticData.verifiedUsers
+      const allUsers = [...unverifiedUsers, ...verifiedUsers]
 
-      const resultado = allUsers.find(user => user[field] === searchValue);
+      const resultado = allUsers.find((user) => user[field] === searchValue)
       if (resultado) {
-
-
-        this.dadosDoUsuario = resultado;
+        this.dadosDoUsuario = resultado
+        console.log('Resultado ------', resultado)
       } else {
-
-       this.dadosDoUsuario = 'Nome nao encontrado!';
+        this.dadosDoUsuario = 'Nome nao encontrado!'
       }
-      console.log(field , '---' , searchValue);
-      console.log('Metodo ------', action);
-
+      console.log(field, '---', searchValue)
+      console.log('Metodo ------', action)
     },
 
-    inputName(value, field, action ) {
-      this.searchUserByField(field, value, action);
+    inputName(value, field, action) {
+      this.searchUserByField(field, value, action)
     },
 
     inputEmail(value, field, action) {
-      this.searchUserByField(field, value, action);
-    }
-
+      this.searchUserByField(field, value, action)
+    },
   },
 }
 </script>
