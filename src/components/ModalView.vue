@@ -4,6 +4,7 @@
     <div class="modal-dialog">
       <div class="modal-content text-dark">
         <slot name="content"></slot>
+
       </div>
     </div>
   </div>
