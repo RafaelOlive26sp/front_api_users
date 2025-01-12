@@ -40,7 +40,7 @@
           </div>
           <div class="border border-warning mt-3" v-if="action === 'Deletar' || action === 'Atualizar'">
             <div class="card-footer text-body-secondary p-0">
-              <a href="" @click="updateAccountUsers(datas?.id)" >{{ action }}</a>
+              <a href="" @click.prevent="updateAccountUsers(datas?.id)" >{{ action }}</a>
             </div>
 
           </div>
