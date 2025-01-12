@@ -121,7 +121,7 @@ const userModules = {
       if (!token) {
         throw new Error('No token provide')
       }
-      const response = await api.patch(`/users/${id}`, data, {
+      const response = await api.put(`/users/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
