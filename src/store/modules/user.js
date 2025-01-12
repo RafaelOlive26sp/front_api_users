@@ -1,4 +1,6 @@
 import api from '@/services/api.js'
+import axios from 'axios'
+
 
 
 const userModules = {
@@ -103,6 +105,37 @@ const userModules = {
         commit('SET_DATA_LOGS', response.data)
       } catch (error) {
         console.log(error)
+      }
+    },
+    async updateAccount({ rootState }, data) {
+      try {
+      console.log(data)
+      console.log('Token:', rootState.auth.token);
+      const token = rootState.auth.token
+
+      const id = data.id;
+
+      console.log('id ', id);
+      console.log('data ', data);
+
+      if (!token) {
+        throw new Error('No token provide')
+      }
+      const response = await api.patch(`/users/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        timeout: 20000, // 20 segundos
+      });
+      console.log(response.data)
+      } catch (error) {
+        console.error('Request failed:', {
+          message: error.message,
+          code: error.code,
+          response: error.response ? error.response.data : null,
+          config: error.config,
+        });
+
       }
     },
     clearLocalStorage() {
