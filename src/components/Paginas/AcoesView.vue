@@ -19,14 +19,14 @@
                 <div class="mt-3">
                 <span class="">Name:</span>
                 <small class="mx-2" v-if="inputsUpdateName">
-                  <input type="text" name="" id="" class="rounded-2 col-3" :placeholder="datas?.name" />
+                  <input type="text" name="" id="" class="rounded-2 col-3" :placeholder="datas?.name" v-model="inputsUpdate.name"/>
                 </small>
                 <small class="mx-2" v-else>{{ datas?.name }}</small>
                 <i class="bi bi-pencil-square" @click="toggleInput('name')" style="cursor: pointer;"></i>
                 <br />
                 <span>Email:</span>
                 <small class="mx-2" v-if="inputsUpdateEmail">
-                  <input type="text" name="" id="" class="rounded-2" :placeholder="datas?.email" />
+                  <input type="text" name="" id="" class="rounded-2" :placeholder="datas?.email" v-model="inputsUpdate.email" />
                 </small>
 
                 <small class="mx-2" v-else>{{ datas?.email }}</small>
@@ -40,7 +40,7 @@
           </div>
           <div class="border border-warning mt-3" v-if="action === 'Deletar' || action === 'Atualizar'">
             <div class="card-footer text-body-secondary p-0">
-              <a href="" data-bs-toggle="modal" data-bs-target="#updateModal" >{{ action }}</a>
+              <a href="" @click="updateAccountUsers(datas?.id)" >{{ action }}</a>
             </div>
 
           </div>
@@ -66,8 +66,9 @@
   </pre> -->
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState,mapActions } from 'vuex'
 import CardsView from '@/components/Cards/CardsView.vue'
+
 // import ModalView from '@/components/ModalView.vue'
 // import PlaceHolderLoadingView from '@/components/PlaceHolderLoading/PlaceHolderLoadingView.vue'
 
@@ -82,10 +83,15 @@ export default {
     return {
       inputsUpdateName: false,
       inputsUpdateEmail: false,
+      inputsUpdate:{
+        name: '',
+        email: '',
+      },
 
     }
   },
   methods: {
+    ...mapActions('user', ['updateAccount']),
     toggleInput(input) {
 
       if(input === 'name'){
@@ -98,6 +104,16 @@ export default {
 
       }
     },
+    async updateAccountUsers(Id){
+      try {
+        console.log(Id);
+
+         await this.updateAccount({name: this.inputsUpdate.name, email: this.inputsUpdate.email, id: Id})
+      } catch (error) {
+        console.log(error)
+
+      }
+    }
   },
   computed: {
     ...mapState('user', ['datas', 'action']),
