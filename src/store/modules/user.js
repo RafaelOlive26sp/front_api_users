@@ -1,5 +1,5 @@
 import api from '@/services/api.js'
-import axios from 'axios'
+
 
 
 
@@ -46,18 +46,16 @@ const userModules = {
     }
   },
   actions: {
-    async register({ commit }, data) {
-      try {
-        console.log(data)
-        const response = await api.post('/register', data)
-        console.log(response.data)
-      } catch (error) {
-        console.log(error)
-      }
-    },
-    // setActiveCollapse({ commit }, id) {
-    //   commit('setActiveCollapse', id)
+    // async register({  }, data) {
+    //   try {
+    //     console.log(data)
+    //     const response = await api.post('/register', data)
+    //     console.log(response.data)
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
     // },
+
     async fecthUsers({ commit, rootState }) {
       try {
         const token = rootState.auth.token
