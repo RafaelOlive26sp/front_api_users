@@ -1,6 +1,13 @@
 <template>
   <p>{{ action }}</p>
-  <CardsView classDivFather="col-md-7 mx-auto" :tittle="'Id: ' + datas?.id">
+  <div v-if="successMessage" class="alert alert-success mt-3" role="alert">
+    {{ successMessage }}
+  </div>
+  <div v-if="deleteAccount" class="alert alert-danger mt-3" role="alert">
+    {{ deleteAccount.message }}
+  </div>
+
+  <CardsView classDivFather="col-md-7 mx-auto" :tittle="'Id: ' + datas?.id" v-else>
     <template v-slot:content>
       <div class="">
         <div class="col-12">
@@ -16,54 +23,47 @@
                   style="box-shadow: 2px 2px 5px -2px black"
                 />
               </div>
-                <div class="mt-3">
-                <span class="">Name:</span>
-                <small class="mx-2" v-if="inputsUpdateName">
-                  <input type="text" name="" id="" class="rounded-2 col-3" :placeholder="datas?.name" v-model="inputsUpdate.name"/>
-                </small>
-                <small class="mx-2" v-else>{{ datas?.name }}</small>
-                <i class="bi bi-pencil-square" @click="toggleInput('name')" style="cursor: pointer;"></i>
-                <br />
-                <span>Email:</span>
-                <small class="mx-2" v-if="inputsUpdateEmail">
-                  <input type="text" name="" id="" class="rounded-2" :placeholder="datas?.email" v-model="inputsUpdate.email" />
-                </small>
+                <div class="mt-3 col-7">
+                  <span class="" style="font-size: 15px;">Nome:</span>
+                  <small class="mx-2" v-if="inputsUpdateName && action === 'Atualizar'">
+                    <input type="text" name="" id="" class="rounded-2 col-3" :placeholder="datas?.name" v-model="inputsUpdate.name"/>
+                  </small>
+                  <small class="mx-2" v-else>{{ datas?.name }}</small>
+                  <i class="bi bi-pencil-square" @click="toggleInput('name')" style="cursor: pointer;" v-if="action === 'Atualizar'"></i>
+                  <br />
+                  <span style="font-size: 15px;">Email:</span>
+                  <small class="mx-2" v-if="inputsUpdateEmail && action === 'Atualizar'">
+                    <input type="email" name="" id="" class="rounded-2" :placeholder="datas?.email" v-model="inputsUpdate.email" />
+                  </small>
 
-                <small class="mx-2" v-else>{{ datas?.email }}</small>
-                <i class="bi bi-pencil-square" @click="toggleInput('email')"></i>
-                <!--                <p>Created At: {{ datas?.created_at }}</p>-->
+                  <small class="mx-2" v-else>{{ datas?.email }}</small>
+                  <i class="bi bi-pencil-square" @click="toggleInput('email')" v-if="action === 'Atualizar'"></i>
+                  <!--                <p>Created At: {{ datas?.created_at }}</p>-->
                 </div>
             </div>
-            <div class="card-footer text-body-secondary p-0">
-              <small>{{ datas?.created_at }}</small>
+            <div class="card-footer text-body-secondary p-0 text-start" >
+              <span class="ms-2">Data de Criação: </span>
+              <span class="">{{ datas?.created_at }}</span>
+
+                <span class="ms-2">Data da Ultima Atualização: </span>
+              <span>{{ datas?.updated_at }}</span>
+
             </div>
           </div>
-          <div class="border border-warning mt-3" v-if="action === 'Deletar' || action === 'Atualizar'">
-            <div class="card-footer text-body-secondary p-0">
+          <div class=" mt-3 " v-if="action === 'Deletar' || action === 'Atualizar'">
+            <div class="card-footer text-body-secondary p-0" v-if="inputsUpdate.name || inputsUpdate.email ">
               <a href="" @click.prevent="updateAccountUsers(datas?.id)" >{{ action }}</a>
             </div>
-
+          </div>
+          <div class="d-flex justify-content-center" v-if="btnAction">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
           </div>
         </div>
       </div>
     </template>
   </CardsView>
-  <!-- <ModalView id="updateModal">
-    <template v-slot:content>
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-    </template>
-  </ModalView> -->
-  <!-- <pre>
-    {{ datas }}
-    {{ action }}
-     {{ $store.state.datas }}
-  </pre> -->
 </template>
 <script>
 import { mapState,mapActions } from 'vuex'
@@ -87,6 +87,8 @@ export default {
         name: '',
         email: '',
       },
+      btnAction: false,
+      successMessage: ''
 
     }
   },
@@ -94,31 +96,56 @@ export default {
     ...mapActions('user', ['updateAccount']),
     toggleInput(input) {
 
-      if(input === 'name'){
-        this.inputsUpdateName = !this.inputsUpdateName
-
-      }
-
-      if(input === 'email'){
-        this.inputsUpdateEmail = !this.inputsUpdateEmail
-
-      }
+      if(input === 'name') this.inputsUpdateName = !this.inputsUpdateName
+      if(input === 'email') this.inputsUpdateEmail = !this.inputsUpdateEmail
     },
     async updateAccountUsers(Id){
       try {
-        console.log(Id);
+        const updateData = {
+          name: this.inputsUpdate.name || this.datas?.name,
+          email: this.inputsUpdate.email || this.datas?.email,
+          id: Id
+        };
 
-         await this.updateAccount({name: this.inputsUpdate.name, email: this.inputsUpdate.email, id: Id})
+
+         await this.updateAccount(updateData)
+          this.clearInputs();
+          this.$store.dispatch('user/setActiveCollapse', updateData);
+
+          const fullData = {...this.datas, ...updateData};
+          this.setCollapse('collapseAcoes', fullData  , 'Consultar');
+          this.successMessage = 'Conta Atualizada com sucesso!';
+          setTimeout(() => {
+            this.successMessage = '';
+          }, 1220);
+
       } catch (error) {
         console.log(error)
 
       }
-    }
+
+    },
+    clearInputs(){
+      this.inputsUpdate.name = '';
+      this.inputsUpdate.email = '';
+    },
+    setCollapse(id, dadosDoUsuario, metodo){
+
+      this.$store.dispatch('user/setActiveCollapse', {id,dadosDoUsuario,metodo});
+    },
+
+
   },
   computed: {
-    ...mapState('user', ['datas', 'action']),
+    ...mapState('user', ['datas', 'action','deleteAccount']),
   },
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.card-footer >span {
+  font-size: 12px;
+}
+
+
+</style>
