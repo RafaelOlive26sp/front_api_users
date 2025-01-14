@@ -17,6 +17,7 @@ const userModules = {
     },
     datas: null,
     action: null,
+    deleteAccount: null
   },
   mutations: {
     SET_LOADING(state, isLoading) {
@@ -40,6 +41,9 @@ const userModules = {
         state.action = metodo
       console.log(state.datas)
     },
+    DELETE_ACCOUNT(state, deleteAccount){
+      state.deleteAccount = deleteAccount
+    }
   },
   actions: {
     async register({ commit }, data) {
@@ -85,7 +89,7 @@ const userModules = {
             Authorization: `Bearer ${token}`,
           },
         })
-        // console.log(response.data.data);
+        console.log(response.data.data);
         commit('SET_DATA_STATISTIC', response.data.data)
       } catch (error) {
         console.error(error)
@@ -109,14 +113,14 @@ const userModules = {
     },
     async updateAccount({ rootState }, data) {
       try {
-      console.log(data)
-      console.log('Token:', rootState.auth.token);
+      // console.log(data)
+      // console.log('Token:', rootState.auth.token);
       const token = rootState.auth.token
 
       const id = data.id;
 
-      console.log('id ', id);
-      console.log('data ', data);
+      // console.log('id ', id);
+      // console.log('data ', data);
 
       if (!token) {
         throw new Error('No token provide')
@@ -135,6 +139,27 @@ const userModules = {
           response: error.response ? error.response.data : null,
           config: error.config,
         });
+
+      }
+    },
+    async  deleteAccounts({commit, rootState},idUser) {
+      try {
+        // console.log(idUser);
+        const token = rootState.auth.token
+        if (!token) {
+          throw new Error('No token provide')
+        }
+
+        const response = await api.delete(`/users/${idUser}`,{
+          headers:{
+            Authorization: `Bearer ${token}`
+          },
+        })
+
+        // console.log('Delete ', response.data);
+        commit('DELETE_ACCOUNT', response.data)
+      } catch (error) {
+        console.error(error);
 
       }
     },
