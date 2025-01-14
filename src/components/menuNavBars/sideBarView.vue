@@ -101,7 +101,7 @@
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="modal-body conteiner border border-danger">
+              <div class="modal-body conteiner ">
                 <div class="row">
                   <div class="input-group">
                     <div class="input-group input-group-sm">
@@ -177,21 +177,21 @@
                                 height="100"
                                 width="100"
                                 style="
-                    box-shadow: 2px 2px 5px -2px black;"
+                                box-shadow: 2px 2px 5px -2px black;"
                               />
                             </div>
                             <div class="mt-3">
-                              <small>Name:
-                                {{ dadosDoUsuario?.name }}</small>
+                              <span class="" style="font-size: 15px;">Nome: </span>
+                              <small>{{ dadosDoUsuario?.name }}</small>
                               <br>
-                              <small>Email:
+                              <span class="" style="font-size: 15px;">Email: </span>
+                              <small>
                                 {{ dadosDoUsuario?.email }}</small>
-                              <!--                <p>Created At: {{ datas?.created_at }}</p>-->
                             </div>
                           </div>
-                          <div class="card-footer text-body-secondary d-flex justify-content-center ">
-
-                            <small>{{ dadosDoUsuario?.created_at }}</small>
+                          <div class="card-footer text-body-secondary p-0 text-start ">
+                            <span class="ms-2">Data de Criação: </span>
+                            <span>{{ dadosDoUsuario?.created_at }}</span>
                           </div>
                         </div>
                       </div>
@@ -288,6 +288,7 @@ export default {
             'nav-item link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover',
           icon: 'bi bi-trash3',
           idmodal: 'ModalDeletar',
+
           submenus: [{ id: 'contas', label: 'Contas' }],
         },
       ],
@@ -299,14 +300,16 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['logout']),
+    ...mapActions('auth', ['logout',]),
+    ...mapActions('user', ['deleteAccounts',]),
     logoutUser() {
       this.logout()
     },
     setCollapse(id, dadosDoUsuario, metodo) {
-      console.log('Sidebar ---' + id)
-      console.log('Dados ---' + dadosDoUsuario)
-      console.log('Metodo ------', metodo)
+      // console.log('Sidebar ---' + id)
+      // console.log('Dados ---' + dadosDoUsuario)
+      // console.log('Metodo ------', metodo)
+      if(metodo === 'Deletar') this.deleteAccount(dadosDoUsuario)
       this.$store.dispatch('user/setActiveCollapse', { id, dadosDoUsuario, metodo })
     },
     searchUserByField(field, value) {
@@ -335,6 +338,18 @@ export default {
     inputEmail(value, field, action) {
       this.searchUserByField(field, value, action)
     },
+    async deleteAccount(data){
+      // console.log('estamos no delete',   data.id);
+      try {
+        const idUser = data.id;
+        await this.deleteAccounts(idUser)
+
+      } catch (error) {
+        console.error(error);
+
+      }
+
+    }
   },
 }
 </script>
@@ -348,5 +363,8 @@ export default {
   border-radius: 4px;
   background-image: linear-gradient(120deg, #fdfbfb 10%, #ebedee 100%);
   cursor: pointer;
+}
+.card-footer >span {
+  font-size: 12px;
 }
 </style>
