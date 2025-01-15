@@ -35,11 +35,11 @@ const userModules = {
       localStorage.setItem('StatisticData', JSON.stringify(StatisticData))
     },
     setActiveCollapse(state, { id, dadosDoUsuario,metodo }) {
-      state.activeCollapse = id
-      console.log(id)
-      state.datas = dadosDoUsuario,
-        state.action = metodo
-      console.log(state.datas)
+        state.activeCollapse = id;
+      // console.log(id)
+        state.datas = {...state.datas, ...dadosDoUsuario};
+        state.action = metodo;
+      // console.log(state.datas)
     },
     DELETE_ACCOUNT(state, deleteAccount){
       state.deleteAccount = deleteAccount
@@ -59,11 +59,12 @@ const userModules = {
     async fecthUsers({ commit, rootState }) {
       try {
         const token = rootState.auth.token
+        const userId = rootState.auth.user.id;
         if (!token) {
           throw new Error('No token ')
         }
 
-        const response = await api.get('/users/id', {
+        const response = await api.get(`/users/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -87,7 +88,7 @@ const userModules = {
             Authorization: `Bearer ${token}`,
           },
         })
-        console.log(response.data.data);
+        console.log('fetchStatisticData ',response.data.data);
         commit('SET_DATA_STATISTIC', response.data.data)
       } catch (error) {
         console.error(error)
@@ -111,25 +112,18 @@ const userModules = {
     },
     async updateAccount({ rootState }, data) {
       try {
-      // console.log(data)
-      // console.log('Token:', rootState.auth.token);
-      const token = rootState.auth.token
+        const token = rootState.auth.token
+        const id = data.id;
+        if (!token) {
+          throw new Error('No token provide')
+        }
+        const response = await api.put(`/users/${id}`, data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      const id = data.id;
-
-      // console.log('id ', id);
-      // console.log('data ', data);
-
-      if (!token) {
-        throw new Error('No token provide')
-      }
-      const response = await api.put(`/users/${id}`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        timeout: 20000, // 20 segundos
-      });
-      console.log(response.data)
+        console.log('updateAccount ',response.data)
       } catch (error) {
         console.error('Request failed:', {
           message: error.message,
@@ -142,7 +136,7 @@ const userModules = {
     },
     async  deleteAccounts({commit, rootState},idUser) {
       try {
-        // console.log(idUser);
+
         const token = rootState.auth.token
         if (!token) {
           throw new Error('No token provide')
@@ -161,6 +155,7 @@ const userModules = {
 
       }
     },
+
     clearLocalStorage() {
       localStorage.removeItem('DataUser')
       localStorage.removeItem('StatisticData')
@@ -172,7 +167,7 @@ const userModules = {
       }, 3000)
     },
     setActiveCollapse({ commit }, payload) {
-      console.log(payload)
+      console.log('setActiveCollapse PayLoad ',payload)
     commit('setActiveCollapse', payload);
     }
   },
