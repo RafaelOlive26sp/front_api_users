@@ -5,12 +5,15 @@ import Cookies from 'js-cookie'
 const authModules = {
   namespaced: true,
   state: {
+    // token: Cookies.get('access_token') || null,
     token: Cookies.get('access_token') || null,
+    user: JSON.parse(localStorage.getItem('user')) || null,
+
   },
   mutations: {
-    SET_AUTH_TOKEN(state, token) {
-      state.token = token
-      Cookies.set('access_token', token)
+    SET_AUTH_TOKEN(state, payload) {
+      state.token = payload.access_token;
+      state.user = payload.user
     },
     LOGOUT(state) {
       state.token = null
@@ -22,9 +25,16 @@ const authModules = {
       try{
        // const response = await api.post('/login', credentials ,{headers:{'X-Origin':'dashboard'}});
        const response = await api.post('/login', credentials);
-        console.log(response.data)
-        commit('SET_AUTH_TOKEN', response.data.access_token);
+
+
+        Cookies.set('access_token', response.data.access_token, {secure: true, sameSite: 'Strict'});
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+
+
+        commit('SET_AUTH_TOKEN', response.data);
+
         dispatch('user/fecthUsers', null, { root: true });
+
         await router.push({ name: 'dashboard' });
 
       }catch(error){
