@@ -147,10 +147,12 @@ import PlaceHolderLoadingView from '@/components/PlaceHolderLoading/PlaceHolderL
 
 export default {
   mounted() {
+    console.log('Component mounted');
     this.LazyLoading()
   },
 
   created() {
+    console.log('Component created');
     this.fetchdatas()
 
   },
