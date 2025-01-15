@@ -130,12 +130,12 @@
                       <datalist id="datalistOptions">
                         <option
                           :value="verifiedUser.name"
-                          v-for="verifiedUser in $store.state.user.StatisticData.verifiedUsers"
+                          v-for="verifiedUser in dataStatistic?.verifiedUsers"
                           :key="verifiedUser.id"
                         ></option>
                         <option
                           :value="unverifiedUser.name"
-                          v-for="unverifiedUser in $store.state.user.StatisticData.unverifiedUsers"
+                          v-for="unverifiedUser in dataStatistic?.unverifiedUsers"
                           :key="unverifiedUser.id"
                         ></option>
                       </datalist>
@@ -351,6 +351,11 @@ export default {
 
     }
   },
+  computed:{
+    dataStatistic(){
+      return this.$store.state.user.StatisticData
+    }
+  }
 }
 </script>
 
