@@ -64,6 +64,7 @@
       </div>
     </template>
   </CardsView>
+  {{datas}}
 </template>
 <script>
 import { mapState,mapActions } from 'vuex'
@@ -93,7 +94,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('user', ['updateAccount']),
+    ...mapActions('user', ['updateAccount','getUserById']),
     toggleInput(input) {
 
       if(input === 'name') this.inputsUpdateName = !this.inputsUpdateName
@@ -107,17 +108,28 @@ export default {
           id: Id
         };
 
+        console.log('update ',updateData);
 
-         await this.updateAccount(updateData)
+
+         // await this.updateAccount(updateData)
+
+
           this.clearInputs();
-          this.$store.dispatch('user/setActiveCollapse', updateData);
 
-          const fullData = {...this.datas, ...updateData};
-          this.setCollapse('collapseAcoes', fullData  , 'Consultar');
+         this.$store.dispatch('user/setActiveCollapse',{
+           id: Id,
+           dadosDoUsuario: updateData,
+           metodo:'Consultar'
+         });
+
+          const fullData = {...updateData};
+
+          this.setCollapse('collapseAcoes',fullData,'Consultar');
+
           this.successMessage = 'Conta Atualizada com sucesso!';
           setTimeout(() => {
             this.successMessage = '';
-          }, 1220);
+          }, 3000);
 
       } catch (error) {
         console.log(error)
