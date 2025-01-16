@@ -64,7 +64,7 @@
       </div>
     </template>
   </CardsView>
-  <!-- {{datas}} -->
+  {{datas}}
 </template>
 <script>
 import { mapState,mapActions } from 'vuex'
@@ -111,7 +111,7 @@ export default {
         console.log('update ',updateData);
 
 
-         await this.updateAccount(updateData)
+         // await this.updateAccount(updateData)
 
 
           this.clearInputs();
