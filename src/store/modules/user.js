@@ -36,10 +36,8 @@ const userModules = {
     },
     setActiveCollapse(state, { id, dadosDoUsuario,metodo }) {
         state.activeCollapse = id;
-      // console.log(id)
-        state.datas = {...state.datas, ...dadosDoUsuario};
+        state.datas = {...dadosDoUsuario};
         state.action = metodo;
-      // console.log(state.datas)
     },
     DELETE_ACCOUNT(state, deleteAccount){
       state.deleteAccount = deleteAccount
@@ -110,14 +108,13 @@ const userModules = {
         console.log(error)
       }
     },
-    async updateAccount({ rootState }, data) {
+    async updateAccount({ rootState,dispatch }, data) {
       try {
         const token = rootState.auth.token
         const id = data.id;
         if (!token) {
           throw new Error('No token provided')
         }
-        console.log('dados enviado para o metodo PUT',data);
 
         const response = await api.put(`/users/${id}`, data, {
           headers: {
@@ -125,7 +122,11 @@ const userModules = {
           },
         });
 
-        console.log('Response do metodo PUT ',response.data)
+         dispatch('setActiveCollapse',{
+          dadosDoUsuario: response.data.data,
+          metodo: 'consultar',
+          id: 'collapseAcoes'
+         })
       } catch (error) {
         console.error('Request failed:', {
           message: error.message,
