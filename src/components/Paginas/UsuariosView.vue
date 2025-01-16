@@ -96,13 +96,13 @@
                 <span v-else><small>ID: {{userVerified.id}}</small></span>
               </div>
               <div class="card-body p-0">
-                <span class=" d-flex   justify-content-end shadown-sm" v-tooltip
-                title="Administrador" v-if="userVerified.privilege_id === 1">
-                  <img src="@/components/icons/admin.png" alt="" height="20" width="20">
+                <span class=" d-flex   justify-content-end shadown-sm"  v-if="userVerified.privilege_id === 1">
+                  <img src="@/components/icons/admin.png" alt="" height="20" width="20" v-tooltip
+                  title="Administrador">
                 </span>
-                <span class=" d-flex   justify-content-end shadown-sm" v-tooltip
-                title="Atendente" v-else-if="userVerified.privilege_id === 2">
-                  <img src="@/components/icons/atten.png" alt="" height="20" width="20">
+                <span class=" d-flex   justify-content-end shadown-sm"  v-else-if="userVerified.privilege_id === 2">
+                  <img src="@/components/icons/atten.png" alt="" height="20" width="20" v-tooltip
+                  title="Atendente">
                 </span>
                 <PlaceHolderLoadingView ClassCuston="placeholder col-3 rounded-2" v-if="isLoading"/>
                 <p v-else><small>Name: {{userVerified.name}}</small></p>
@@ -134,13 +134,13 @@
               <span v-else><small>ID: {{userNotVerified.id}}</small></span>
             </div>
               <div class="card-body p-0">
-                <span class=" d-flex   justify-content-end shadown-sm" v-tooltip
-                title="Administrador" v-if="userNotVerified.privilege_id === 1">
-                  <img src="@/components/icons/admin.png" alt="" height="20" width="20">
+                <span class=" d-flex   justify-content-end shadown-sm"  v-if="userNotVerified.privilege_id === 1">
+                  <img src="@/components/icons/admin.png" alt="" height="20" width="20" v-tooltip
+                  title="Administrador">
                 </span>
-                <span class=" d-flex   justify-content-end shadown-sm" v-tooltip
-                title="Atendente" v-else-if="userNotVerified.privilege_id === 2">
-                  <img src="@/components/icons/atten.png" alt="" height="20" width="20">
+                <span class=" d-flex   justify-content-end shadown-sm"  v-else-if="userNotVerified.privilege_id === 2">
+                  <img src="@/components/icons/atten.png" alt="" height="20" width="20" v-tooltip
+                  title="Atendente">
                 </span>
 
 
