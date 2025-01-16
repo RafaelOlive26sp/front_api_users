@@ -27,16 +27,16 @@ router.beforeEach((to, from, next) => {
   const isAuthenticated = store.state.auth.token;
   const userPrivilege = store.state.auth.user?.privilege_id;
 
-  console.log('To route:', to.name);
-  console.log('Is authenticated:', isAuthenticated);
-  console.log('User privilege:', userPrivilege);
+  // console.log('To route:', to.name);
+  // console.log('Is authenticated:', isAuthenticated);
+  // console.log('User privilege:', userPrivilege);
 
   if (to.meta.requiresAuth && !isAuthenticated) {
     return next({ name: 'login' });
   }
 
   if (to.meta.guest && isAuthenticated) {
-    console.log('Redirecting to dashboard');
+    // console.log('Redirecting to dashb/oard');
     return next({ name: 'dashboard' });
   }
 

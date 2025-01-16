@@ -80,7 +80,7 @@ const userModules = {
         const token = rootState.auth.token
 
         if (!token) {
-          throw new Error('No token procide')
+          throw new Error('No token provided')
         }
 
         const response = await api.get('/stats/data', {
@@ -88,7 +88,7 @@ const userModules = {
             Authorization: `Bearer ${token}`,
           },
         })
-        console.log('fetchStatisticData ',response.data.data);
+        console.log('Response fetchStatisticData ',response.data.data);
         commit('SET_DATA_STATISTIC', response.data.data)
       } catch (error) {
         console.error(error)
@@ -98,7 +98,7 @@ const userModules = {
       try {
         const token = rootState.auth.token
         if (!token) {
-          throw new Error('no token provide')
+          throw new Error('No token provided')
         }
         const response = await api.get(url, {
           headers: {
@@ -115,15 +115,17 @@ const userModules = {
         const token = rootState.auth.token
         const id = data.id;
         if (!token) {
-          throw new Error('No token provide')
+          throw new Error('No token provided')
         }
+        console.log('dados enviado para o metodo PUT',data);
+
         const response = await api.put(`/users/${id}`, data, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        console.log('updateAccount ',response.data)
+        console.log('Response do metodo PUT ',response.data)
       } catch (error) {
         console.error('Request failed:', {
           message: error.message,
