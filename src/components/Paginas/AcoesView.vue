@@ -41,13 +41,11 @@
                   <!--                <p>Created At: {{ datas?.created_at }}</p>-->
                 </div>
             </div>
-            <div class="card-footer text-body-secondary p-0 text-start" >
+            <div class="card-footer text-body-secondary p-0 text-start" v-if="datas?.created_at" >
               <span class="ms-2">Data de Criação: </span>
               <span class="">{{ datas?.created_at }}</span>
-
-                <span class="ms-2">Data da Ultima Atualização: </span>
+              <span class="ms-2">Data da Ultima Atualização: </span>
               <span>{{ datas?.updated_at }}</span>
-
             </div>
           </div>
           <div class=" mt-3 " v-if="action === 'Deletar' || action === 'Atualizar'">
@@ -107,25 +105,8 @@ export default {
           email: this.inputsUpdate.email || this.datas?.email,
           id: Id
         };
-
-        console.log('update ',updateData);
-
-
-         await this.updateAccount(updateData)
-
-
+          await this.updateAccount(updateData)
           this.clearInputs();
-
-         this.$store.dispatch('user/setActiveCollapse',{
-           id: Id,
-           dadosDoUsuario: updateData,
-           metodo:'Consultar'
-         });
-
-          const fullData = {...updateData};
-
-          this.setCollapse('collapseAcoes',fullData,'Consultar');
-
           this.successMessage = 'Conta Atualizada com sucesso!';
           setTimeout(() => {
             this.successMessage = '';
