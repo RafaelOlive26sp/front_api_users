@@ -54,6 +54,7 @@
                     :key="itensAcoes.id"
                   >
                     <div
+
                       class="d-flex align-items-center"
                       style="cursor: pointer"
                       data-bs-toggle="collapse"
@@ -68,10 +69,12 @@
                     <div
                       class="nav flex-column collapse text-center rounded-2 p-1"
                       :id="`collapse-${itensAcoes?.id}`"
+                      data-bs-parent="#CollapseAcao"
                       style="box-shadow: black 0px 1px 1px 0px inset"
                     >
                       <ul class="list-unstyled submenus">
                         <li
+
                           data-bs-toggle="modal"
                           :data-bs-target="`#${itensAcoes.idmodal}`"
                           v-for="submenus in itensAcoes?.submenus"
