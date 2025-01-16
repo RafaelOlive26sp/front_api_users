@@ -46,8 +46,9 @@
                 <p v-else><small>Email: {{ dataStatistc.newstUser?.email }}</small></p>
               </div>
               <div class=" card-footer text-body-secondary p-0">
+                <span class="ms-2">Data de Criação: </span>
                 <PlaceHolderLoadingView ClassCuston="placeholder col-10 rounded-2" v-if="isLoading"/>
-                <small v-else>{{ dataStatistc.newstUser?.created_at }}</small>
+                <span v-else>{{ dataStatistc.newstUser?.created_at }}</span>
               </div>
 
             </li>
@@ -72,8 +73,9 @@
                 <p v-else><small>Email: {{ dataStatistc.oldestUser?.email }}</small></p>
               </div>
               <div class=" card-footer text-body-secondary p-0">
+                <span class="ms-2">Data de Criação: </span>
                 <PlaceHolderLoadingView ClassCuston="placeholder col-10 rounded-2" v-if="isLoading"/>
-                <small v-else>{{ dataStatistc.oldestUser?.created_at }}</small>
+                <span v-else>{{ dataStatistc.oldestUser?.created_at }}</span>
               </div>
 
             </li>
@@ -94,14 +96,24 @@
                 <span v-else><small>ID: {{userVerified.id}}</small></span>
               </div>
               <div class="card-body p-0">
+                <span class=" d-flex   justify-content-end shadown-sm" v-tooltip
+                title="Administrador" v-if="userVerified.privilege_id === 1">
+                  <img src="@/components/icons/admin.png" alt="" height="20" width="20">
+                </span>
+                <span class=" d-flex   justify-content-end shadown-sm" v-tooltip
+                title="Atendente" v-else-if="userVerified.privilege_id === 2">
+                  <img src="@/components/icons/atten.png" alt="" height="20" width="20">
+                </span>
                 <PlaceHolderLoadingView ClassCuston="placeholder col-3 rounded-2" v-if="isLoading"/>
                 <p v-else><small>Name: {{userVerified.name}}</small></p>
                 <PlaceHolderLoadingView ClassCuston="placeholder col-7 rounded-2" v-if="isLoading"/>
                 <p v-else><small>Email: {{userVerified.email}}</small></p>
               </div>
               <div class=" card-footer text-body-secondary p-0">
+                <span class="ms-2">Data de Criação: </span>
                 <PlaceHolderLoadingView ClassCuston="placeholder col-10 rounded-2" v-if="isLoading"/>
-                <small v-else>{{userVerified.created_at}}</small>
+                <span v-else>{{userVerified.created_at}}</span>
+
               </div>
 
             </li>
@@ -122,14 +134,25 @@
               <span v-else><small>ID: {{userNotVerified.id}}</small></span>
             </div>
               <div class="card-body p-0">
+                <span class=" d-flex   justify-content-end shadown-sm" v-tooltip
+                title="Administrador" v-if="userNotVerified.privilege_id === 1">
+                  <img src="@/components/icons/admin.png" alt="" height="20" width="20">
+                </span>
+                <span class=" d-flex   justify-content-end shadown-sm" v-tooltip
+                title="Atendente" v-else-if="userNotVerified.privilege_id === 2">
+                  <img src="@/components/icons/atten.png" alt="" height="20" width="20">
+                </span>
+
+
                 <PlaceHolderLoadingView ClassCuston="placeholder col-3 rounded-2" v-if="isLoading"/>
                 <p v-else><small>Name: {{userNotVerified.name}}</small></p>
                 <PlaceHolderLoadingView ClassCuston="placeholder col-7 rounded-2" v-if="isLoading"/>
                 <p v-else><small>Email: {{userNotVerified.email}}</small></p>
               </div>
             <div class=" card-footer text-body-secondary p-0">
+              <span class="ms-2">Data de Criação: </span>
               <PlaceHolderLoadingView ClassCuston="placeholder col-10 rounded-2" v-if="isLoading"/>
-              <small v-else>{{userNotVerified.created_at}}</small>
+              <span v-else>{{userNotVerified.created_at}}</span>
             </div>
 
             </li>
@@ -184,4 +207,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.card-footer >span {
+  font-size: 12px;
+}
+</style>
 
