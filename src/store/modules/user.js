@@ -86,7 +86,7 @@ const userModules = {
             Authorization: `Bearer ${token}`,
           },
         })
-        console.log('Response fetchStatisticData ',response.data.data);
+        // console.log('Response fetchStatisticData ',response.data.data);
         commit('SET_DATA_STATISTIC', response.data.data)
       } catch (error) {
         console.error(error)
@@ -116,11 +116,14 @@ const userModules = {
           throw new Error('No token provided')
         }
 
+
         const response = await api.put(`/users/${id}`, data, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+
+        dispatch('fetchStatisticData');
 
          dispatch('setActiveCollapse',{
           dadosDoUsuario: response.data.data,
@@ -170,7 +173,7 @@ const userModules = {
       }, 3000)
     },
     setActiveCollapse({ commit }, payload) {
-      console.log('setActiveCollapse PayLoad ',payload)
+
     commit('setActiveCollapse', payload);
     }
   },
