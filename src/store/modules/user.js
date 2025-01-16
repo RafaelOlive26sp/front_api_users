@@ -36,10 +36,8 @@ const userModules = {
     },
     setActiveCollapse(state, { id, dadosDoUsuario,metodo }) {
         state.activeCollapse = id;
-      // console.log(id)
-        state.datas = {...state.datas, ...dadosDoUsuario};
+        state.datas = {...dadosDoUsuario};
         state.action = metodo;
-      // console.log(state.datas)
     },
     DELETE_ACCOUNT(state, deleteAccount){
       state.deleteAccount = deleteAccount
@@ -89,6 +87,7 @@ const userModules = {
           },
         })
         console.log('fetchStatisticData ',response.data.data);
+        // console.log('Response fetchStatisticData ',response.data.data);
         commit('SET_DATA_STATISTIC', response.data.data)
       } catch (error) {
         console.error(error)
@@ -110,13 +109,15 @@ const userModules = {
         console.log(error)
       }
     },
-    async updateAccount({ rootState }, data) {
+    async updateAccount({ rootState,dispatch }, data) {
       try {
         const token = rootState.auth.token
         const id = data.id;
         if (!token) {
           throw new Error('No token provide')
         }
+
+
         const response = await api.put(`/users/${id}`, data, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -124,6 +125,13 @@ const userModules = {
         });
 
         console.log('updateAccount ',response.data)
+        dispatch('fetchStatisticData');
+
+         dispatch('setActiveCollapse',{
+          dadosDoUsuario: response.data.data,
+          metodo: 'consultar',
+          id: 'collapseAcoes'
+         })
       } catch (error) {
         console.error('Request failed:', {
           message: error.message,
@@ -167,7 +175,7 @@ const userModules = {
       }, 3000)
     },
     setActiveCollapse({ commit }, payload) {
-      console.log('setActiveCollapse PayLoad ',payload)
+
     commit('setActiveCollapse', payload);
     }
   },
