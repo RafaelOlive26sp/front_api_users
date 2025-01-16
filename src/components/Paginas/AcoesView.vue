@@ -51,8 +51,16 @@
                   <small class="mx-2" v-else>{{ datas?.email }}</small>
                   <i class="bi bi-pencil-square" @click="toggleInput('email')" v-if="action === 'Atualizar'"></i>
                   <br/>
-                  <span style="font-size:15px;">Privilegio</span>
-                  {{ datas?.privilege_id }}
+                  <div class=" p-0 m-0 col-5 mx-auto" v-if="action === 'Atualizar'">
+                    <span style="font-size:15px;" >Privilegio</span>
+                    <select class="form-select form-select-sm" aria-label="Small select example" v-model="inputsUpdate.privilege_id">
+                      <option selected>Selecione uma opção</option>
+                      <option value="1">Administrador</option>
+                      <option value="2">Atendente</option>
+                      <option value="3">Cliente</option>
+                    </select>
+                  </div>
+                  {{ inputsUpdate.privilege_id }}
 
                 </div>
             </div>
@@ -64,7 +72,7 @@
             </div>
           </div>
           <div class=" mt-3 " v-if="action === 'Deletar' || action === 'Atualizar'">
-            <div class="card-footer text-body-secondary p-0" v-if="inputsUpdate.name || inputsUpdate.email ">
+            <div class="card-footer text-body-secondary p-0" v-if="inputsUpdate.name || inputsUpdate.email || inputsUpdate.privilege_id ">
               <a href="" @click.prevent="updateAccountUsers(datas?.id)" >{{ action }}</a>
             </div>
           </div>
@@ -100,7 +108,7 @@ export default {
       inputsUpdate:{
         name: '',
         email: '',
-        privilege_id:null
+        privilege_id:''
       },
       btnAction: false,
       successMessage: ''
@@ -119,6 +127,7 @@ export default {
         const updateData = {
           name: this.inputsUpdate.name || this.datas?.name,
           email: this.inputsUpdate.email || this.datas?.email,
+          privilege_id: this.inputsUpdate.privilege_id || this.datas?.privilege_id,
           id: Id
         };
           await this.updateAccount(updateData)
