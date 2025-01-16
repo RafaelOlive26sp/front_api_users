@@ -23,14 +23,26 @@
                   style="box-shadow: 2px 2px 5px -2px black"
                 />
               </div>
+                <span class="position-absolute top-0 start-40 translate-middle  badge rounded-pill text-bg-secondary p-1" >
+                  <small v-if="datas?.privilege_id === 1">Administrador</small>
+                  <small v-else-if="datas?.privilege_id === 2">Atendente</small>
+                  <small v-else>Cliente</small>
+                </span>
+
+
                 <div class="mt-3 col-7">
+
                   <span class="" style="font-size: 15px;">Nome:</span>
+
                   <small class="mx-2" v-if="inputsUpdateName && action === 'Atualizar'">
                     <input type="text" name="" id="" class="rounded-2 col-3" :placeholder="datas?.name" v-model="inputsUpdate.name"/>
                   </small>
+
                   <small class="mx-2" v-else>{{ datas?.name }}</small>
                   <i class="bi bi-pencil-square" @click="toggleInput('name')" style="cursor: pointer;" v-if="action === 'Atualizar'"></i>
+
                   <br />
+
                   <span style="font-size: 15px;">Email:</span>
                   <small class="mx-2" v-if="inputsUpdateEmail && action === 'Atualizar'">
                     <input type="email" name="" id="" class="rounded-2" :placeholder="datas?.email" v-model="inputsUpdate.email" />
@@ -38,7 +50,10 @@
 
                   <small class="mx-2" v-else>{{ datas?.email }}</small>
                   <i class="bi bi-pencil-square" @click="toggleInput('email')" v-if="action === 'Atualizar'"></i>
-                  <!--                <p>Created At: {{ datas?.created_at }}</p>-->
+                  <br/>
+                  <span style="font-size:15px;">Privilegio</span>
+                  {{ datas?.privilege_id }}
+
                 </div>
             </div>
             <div class="card-footer text-body-secondary p-0 text-start" v-if="datas?.created_at" >
@@ -85,6 +100,7 @@ export default {
       inputsUpdate:{
         name: '',
         email: '',
+        privilege_id:null
       },
       btnAction: false,
       successMessage: ''
