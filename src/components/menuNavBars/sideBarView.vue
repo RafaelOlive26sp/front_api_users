@@ -309,10 +309,7 @@ export default {
       this.logout()
     },
     setCollapse(id, dadosDoUsuario, metodo) {
-      // console.log('Sidebar ---' + id)
-      // console.log('Dados ---' + dadosDoUsuario)
-      // console.log('Metodo ------', metodo)
-      if(metodo === 'Deletar') this.deleteAccount(dadosDoUsuario)
+     if(metodo === 'Deletar') this.deleteAccount(dadosDoUsuario)
       this.$store.dispatch('user/setActiveCollapse', { id, dadosDoUsuario, metodo })
     },
     searchUserByField(field, value) {
@@ -331,7 +328,7 @@ export default {
         this.dadosDoUsuario = 'Nome nao encontrado!'
       }
       console.log(field, '---', searchValue)
-      // console.log('Metodo ------', action)
+
     },
 
     inputName(value, field, action) {
@@ -342,7 +339,7 @@ export default {
       this.searchUserByField(field, value, action)
     },
     async deleteAccount(data){
-      // console.log('estamos no delete',   data.id);
+
       try {
         const idUser = data.id;
         await this.deleteAccounts(idUser)
