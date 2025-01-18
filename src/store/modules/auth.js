@@ -23,12 +23,12 @@ const authModules = {
   actions: {
     async login({ commit, dispatch }, credentials) {
       try{
-       // const response = await api.post('/login', credentials ,{headers:{'X-Origin':'dashboard'}});
+
        const response = await api.post('/login', credentials);
 
 
         Cookies.set('access_token', response.data.access_token, {secure: true, sameSite: 'Strict'});
-        console.log(response.data);
+
 
         localStorage.setItem('user', JSON.stringify(response.data.user));
 

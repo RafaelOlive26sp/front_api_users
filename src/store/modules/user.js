@@ -1,8 +1,4 @@
 import api from '@/services/api.js'
-
-
-
-
 const userModules = {
   namespaced: true,
   state: {
@@ -86,8 +82,7 @@ const userModules = {
             Authorization: `Bearer ${token}`,
           },
         })
-        console.log('fetchStatisticData ',response.data.data);
-        // console.log('Response fetchStatisticData ',response.data.data);
+
         commit('SET_DATA_STATISTIC', response.data.data)
       } catch (error) {
         console.error(error)
@@ -156,7 +151,6 @@ const userModules = {
           },
         })
 
-        // console.log('Delete ', response.data);
         commit('DELETE_ACCOUNT', response.data)
       } catch (error) {
         console.error(error);
