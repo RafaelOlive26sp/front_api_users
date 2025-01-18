@@ -13,14 +13,15 @@ const authModules = {
   mutations: {
     SET_AUTH_TOKEN(state, payload) {
       state.token = payload.access_token;
-      state.user = payload.user
+      state.user = payload.user;
+      state.errorMessage = '';
     },
     LOGOUT(state) {
       state.token = null
         Cookies.remove('access_token')
     },
     SET_ERROR_MESSAGE(state, message){
-      state.errorMessage = message;
+      state.errorMessage = message || '';
 
     }
 
