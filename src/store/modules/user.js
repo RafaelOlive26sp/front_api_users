@@ -112,12 +112,9 @@ const userModules = {
       try {
         const token = rootState.auth.token
         const id = data.id;
-        console.log(data)
         if (!token) {
           throw new Error('No token provide')
         }
-
-
         const response = await api.put(`/users/${id}`, data, {
           headers: {
             'Content-Type': 'application/json',
