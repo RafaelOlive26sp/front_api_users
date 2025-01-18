@@ -116,7 +116,8 @@ export default {
         await this.register({name:this.createdAccount.name,  email: this.createdAccount.email, password: this.createdAccount.password})
 
       }catch(error){
-        console.log(error)
+        console.error(error.message); // Mostra apenas a mensagem do erro
+         alert('Ocorreu um erro: ' + (error.response?.data?.message || 'Erro desconhecido'));
       }
     }
 
