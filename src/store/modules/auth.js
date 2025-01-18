@@ -28,6 +28,8 @@ const authModules = {
 
 
         Cookies.set('access_token', response.data.access_token, {secure: true, sameSite: 'Strict'});
+        console.log(response.data);
+
         localStorage.setItem('user', JSON.stringify(response.data.user));
 
 
