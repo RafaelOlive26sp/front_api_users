@@ -55,11 +55,12 @@ const userModules = {
         const token = rootState.auth.token
         const userId = rootState.auth.user.id;
         if (!token) {
-          throw new Error('No token ')
+          throw new Error('No token provide')
         }
 
         const response = await api.get(`/users/${userId}`, {
           headers: {
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
         })
@@ -98,6 +99,7 @@ const userModules = {
         }
         const response = await api.get(url, {
           headers: {
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
         })
@@ -118,6 +120,7 @@ const userModules = {
 
         const response = await api.put(`/users/${id}`, data, {
           headers: {
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
         });
@@ -148,6 +151,7 @@ const userModules = {
 
         const response = await api.delete(`/users/${idUser}`,{
           headers:{
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
           },
         })
