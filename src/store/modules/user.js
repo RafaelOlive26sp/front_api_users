@@ -66,6 +66,7 @@ const userModules = {
         commit('SET_USERS', response.data.data)
       } catch (error) {
         console.error(error)
+        throw error;
       }
     },
     // ============================================
@@ -118,8 +119,6 @@ const userModules = {
             Authorization: `Bearer ${token}`,
           },
         });
-
-        console.log('updateAccount ',response.data)
         dispatch('fetchStatisticData');
 
          dispatch('setActiveCollapse',{
@@ -162,6 +161,7 @@ const userModules = {
       localStorage.removeItem('DataUser')
       localStorage.removeItem('StatisticData')
       localStorage.removeItem('logs')
+
     },
     LazyLoading({ commit }) {
       setTimeout(() => {
