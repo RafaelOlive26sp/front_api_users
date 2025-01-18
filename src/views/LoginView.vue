@@ -3,6 +3,10 @@
     <main class="form-signin w-100 m-auto">
       <form @submit.prevent="handleLogin">
         >
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="errorMessage">
+          <strong>Oops! Parece que a senha ou o e-mail estão incorretos.</strong> Por favor, verifique e tente novamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <h1 class="h3 mb-3 fw-normal text-dark-emphasis">DashBoard - Admin</h1>
 
         <div class="form-floating">
@@ -40,6 +44,7 @@
 <!--        </small>-->
         <h5 class="bg-danger mt-2 rounded-2"></h5>
         <p class="mt-5 mb-3 text-light">&copy; 2017–2024</p>
+
       </form>
 
         <ModalView id-modal="signUp" > <!--  Modal de Cadastro      -->
@@ -122,6 +127,11 @@ export default {
     }
 
 
+  },
+  computed:{
+    errorMessage(){
+      return this.$store.state.auth.errorMessage;
+    }
   },
   mounted() {
 
