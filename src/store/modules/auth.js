@@ -19,6 +19,7 @@ const authModules = {
     LOGOUT(state) {
       state.token = null
         Cookies.remove('access_token')
+        localStorage.removeItem('user')
     },
     SET_ERROR_MESSAGE(state, message){
       state.errorMessage = message || '';
