@@ -13,8 +13,12 @@
 <!--            <input type="file" name="" id="">-->
             <i class="bi bi-pencil-square " v-tooltip title="Adicionar Foto" type="file" style="position: absolute;right: 110px;top: 189px;
                   " onclick="document.getElementById('fileInput').click()"></i>
-            <img class="rounded-circle border border-secondary shadow-sm" src="" alt="" width="150" height="150"
-                 style="background-image: linear-gradient(120deg, #a1c4fd 0%, #6bbdde 100%); " />
+            <img src="https://www.w3schools.com/howto/img_avatar.png"
+                  alt="Avatar"
+                  class="avatar rounded-4"
+                  height="150"
+                  width="150"
+                  style="box-shadow: 2px 2px 5px -2px black" />
             <input  type="file" id="fileInput" style="display: none ;" accept="image/*" onchange="handleFileChange">
           </div>
 
