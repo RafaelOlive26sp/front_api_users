@@ -75,11 +75,12 @@ const userModules = {
         const token = rootState.auth.token
 
         if (!token) {
-          throw new Error('No token procide')
+          throw new Error('No token provide')
         }
 
         const response = await api.get('/stats/data', {
           headers: {
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
         })
@@ -109,6 +110,7 @@ const userModules = {
       try {
         const token = rootState.auth.token
         const id = data.id;
+        console.log(data)
         if (!token) {
           throw new Error('No token provide')
         }
