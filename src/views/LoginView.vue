@@ -3,8 +3,12 @@
     <main class="form-signin w-100 m-auto">
       <form @submit.prevent="handleLogin">
         >
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="errorMessage">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="errorMessage === 'Unauthorized'">
           <strong>Oops! Parece que a senha ou o e-mail estão incorretos.</strong> Por favor, verifique e tente novamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" v-else-if="errorMessage !== ''">
+          <strong>Oops! Tivemos um erro inesperavel.</strong> Por favor, tente novamente mais tarde.
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <h1 class="h3 mb-3 fw-normal text-dark-emphasis">DashBoard - Admin</h1>
