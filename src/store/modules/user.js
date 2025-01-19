@@ -3,8 +3,14 @@ const userModules = {
   namespaced: true,
   state: {
     activeCollapse: null,
-    StatisticData: localStorage.getItem('StatisticData') || null,
+    // StatisticData: localStorage.getItem('StatisticData') || null,
     users: localStorage.getItem('DataUser') || null,
+     stats:{
+      totalAccounts: 0,
+      verifiedAccounts: 0,
+      unverifiedAccounts: 0
+     },
+    statsUsers:'',
 
     isLoading: true,
     logs: {
@@ -13,7 +19,8 @@ const userModules = {
     },
     datas: null,
     action: null,
-    deleteAccount: null
+    deleteAccount: null,
+    errorMessage: ''
   },
   mutations: {
     SET_LOADING(state, isLoading) {
@@ -24,11 +31,13 @@ const userModules = {
     },
     SET_USERS(state, users) {
       state.users = users
-      localStorage.setItem('DataUser', JSON.stringify(users))
+
     },
-    SET_DATA_STATISTIC(state, StatisticData) {
-      state.StatisticData = StatisticData
-      localStorage.setItem('StatisticData', JSON.stringify(StatisticData))
+    SET_STATS(state, stats){
+      state.stats = stats
+    },
+    SET_DADA_USERS(state,statsUsers){
+      state.stastsUsers = statsUsers
     },
     setActiveCollapse(state, { id, dadosDoUsuario,metodo }) {
         state.activeCollapse = id;
@@ -37,6 +46,9 @@ const userModules = {
     },
     DELETE_ACCOUNT(state, deleteAccount){
       state.deleteAccount = deleteAccount
+    },
+    SET_ERROR_MESSAGE(state,message){
+      state.errorMessage = message
     }
   },
   actions: {
@@ -74,9 +86,13 @@ const userModules = {
     async fetchStatisticData({ commit, rootState }) {
       try {
         const token = rootState.auth.token
-
         if (!token) {
           throw new Error('No token provide')
+        }
+
+        const storedStats = JSON.parse(localStorage.getItem('stats'));
+        if (storedStats) {
+          commit('SET_STATS', storedStats);
         }
 
         const response = await api.get('/stats/data', {
@@ -86,9 +102,32 @@ const userModules = {
           },
         })
 
-        commit('SET_DATA_STATISTIC', response.data.data)
+          const stats = {
+            totalAccounts: response.data.data.totalAccounts,
+            verifiedAccounts: response.data.data.verifiedAccounts,
+            unverifiedAccounts: response.data.data.unverifiedAccounts
+          };
+        const dataUsers= {
+          newestUser: response.data.data.newestUser,
+          oldestUser: response.data.data.oldestUser,
+          unverifiedUsers: response.data.data.unverifiedUsers,
+          verifiedUsers: response.data.data.verifiedUsers,
+        }
+
+          localStorage.setItem('stats',JSON.stringify(stats))
+
+
+
+        commit('SET_STATS', response.data.data)
+        commit('SET_DADA_USERS', dataUsers)
+
+
+
+
       } catch (error) {
-        console.error(error)
+        const errorMessage = error.response?.data?.message || 'Erro Inesperado.';
+        commit('SET_ERROR_MESSAGE', errorMessage);
+
       }
     },
     async fetchLogs({ commit, rootState }, url = '/stats/logs') {
