@@ -89,6 +89,7 @@
 import { mapState,mapActions } from 'vuex'
 import CardsView from '@/components/Cards/CardsView.vue'
 
+
 export default {
   name: 'AcoesView',
   components: {
@@ -127,13 +128,15 @@ export default {
           await this.updateAccount(updateData)
           this.clearInputs();
           this.successMessage = 'Conta Atualizada com sucesso!';
-          setTimeout(() => {
-            this.successMessage = '';
-          }, 3000);
+
 
       } catch (error) {
         console.log(error)
 
+      }finally {
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 3000);
       }
 
     },
