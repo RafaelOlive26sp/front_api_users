@@ -50,7 +50,7 @@ const authModules = {
 
         const errorMessage = error.response?.data?.message || 'Erro Inesperado.';
         commit('SET_ERROR_MESSAGE', errorMessage);
-        throw errorMessage;
+
       }
     },
     async logout({ commit,dispatch }) {
