@@ -117,6 +117,7 @@
                           aria-label="Checkbox for following text input"
                           v-model="searchName"
                         />
+
                       </div>
 
                       <input
@@ -315,8 +316,8 @@ export default {
     searchUserByField(field, value) {
       const searchValue = value;
 
-      const unverifiedUsers = this.$store.state.user.StatisticData.unverifiedUsers
-      const verifiedUsers = this.$store.state.user.StatisticData.verifiedUsers
+      const unverifiedUsers = this.$store.state.user.stats.unverifiedUsers
+      const verifiedUsers = this.$store.state.user.stats.verifiedUsers
       const allUsers = [...unverifiedUsers, ...verifiedUsers]
 
       const resultado = allUsers.find((user) => user[field] === searchValue)
@@ -327,7 +328,7 @@ export default {
       } else {
         this.dadosDoUsuario = 'Nome nao encontrado!'
       }
-      console.log(field, '---', searchValue)
+
 
     },
 
@@ -353,7 +354,7 @@ export default {
   },
   computed:{
     dataStatistic(){
-      return this.$store.state.user.StatisticData
+      return this.$store.state.user.stats
     }
   }
 }
