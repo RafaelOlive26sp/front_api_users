@@ -200,7 +200,7 @@ const userModules = {
     },
 
     clearLocalStorage() {
-      localStorage.removeItem('DataUser')
+      localStorage.removeItem('stats')
       localStorage.removeItem('StatisticData')
       localStorage.removeItem('logs')
 
