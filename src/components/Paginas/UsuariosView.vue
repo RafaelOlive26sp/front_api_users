@@ -1,18 +1,24 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
+      <p class="bg-danger">
+        {{store.state.user.errorMessage}}
+      </p>
+
       <CardsView tittle="Total de Contas">
         <template v-slot:content>
 
 
+
           <PlaceHolderLoadingView v-if="isLoading"/>
 
-          <p v-else>{{ dataStatistc.totalAccounts }}</p>
+          <p v-else>{{store.state.user.stats.totalAccounts}}</p>
+
 
         </template>
       </CardsView>
 
-      <CardsView tittle="Total de contas Não Verificadas">
+      <CardsView tittle="Total de contas Não Verificadas" >
         <template v-slot:content>
           <PlaceHolderLoadingView v-if="isLoading"/>
           <p v-else>{{ dataStatistc.unverifiedAccounts }}</p>
@@ -167,6 +173,7 @@
 import { mapActions,mapState } from 'vuex'
 import CardsView from '@/components/Cards/CardsView.vue'
 import PlaceHolderLoadingView from '@/components/PlaceHolderLoading/PlaceHolderLoadingView.vue'
+import store from '../../store/index.js'
 
 export default {
   mounted() {
@@ -200,10 +207,17 @@ export default {
     },
   },
   computed: {
-    ...mapState('user', ['isLoading']),
-    dataStatistc() {
-      return this.$store.state.user.StatisticData
+    store() {
+      return store
     },
+    ...mapState('user', ['isLoading','stats','statsUsers']),
+    dataStatistc() {
+      return this.$store.state.user.stats
+    },
+    stats() {
+      return this.$store.state.user.stats;
+    },
+
   },
 }
 </script>
