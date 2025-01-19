@@ -60,8 +60,6 @@
                       <option value="3">Cliente</option>
                     </select>
                   </div>
-                  {{ inputsUpdate.privilege_id }}
-
                 </div>
             </div>
             <div class="card-footer text-body-secondary p-0 text-start" v-if="datas?.created_at" >
@@ -91,15 +89,11 @@
 import { mapState,mapActions } from 'vuex'
 import CardsView from '@/components/Cards/CardsView.vue'
 
-// import ModalView from '@/components/ModalView.vue'
-// import PlaceHolderLoadingView from '@/components/PlaceHolderLoading/PlaceHolderLoadingView.vue'
-
 export default {
   name: 'AcoesView',
   components: {
     CardsView,
-    // ModalView,
-    // PlaceHolderLoadingView
+
    },
   data() {
     return {
@@ -147,10 +141,10 @@ export default {
       this.inputsUpdate.name = '';
       this.inputsUpdate.email = '';
     },
-    setCollapse(id, dadosDoUsuario, metodo){
-
-      this.$store.dispatch('user/setActiveCollapse', {id,dadosDoUsuario,metodo});
-    },
+    // setCollapse(id, dadosDoUsuario, metodo){
+    //
+    //   this.$store.dispatch('user/setActiveCollapse', {id,dadosDoUsuario,metodo});
+    // },
 
 
   },
