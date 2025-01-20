@@ -1,5 +1,6 @@
 <template>
   <div class="sidebar border border-dark col-md-3 col-lg-2 p-0 border-opacity-25">
+
     <div
       class="offcanvas-md offcanvas-end text-bg-secondary"
       tabindex="-1"
