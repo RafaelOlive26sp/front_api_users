@@ -1,6 +1,6 @@
 <template>
   <p>{{ action }}</p>
-  <div v-if="successMessage" class="alert alert-success mt-3" role="alert">
+  <div v-if="successMessage && userUnauthorized === 1" class="alert alert-success mt-3" role="alert">
     {{ successMessage }}
   </div>
   <div  class="alert alert-danger " role="alert" v-if="errorMessage.errorUpdate">
@@ -158,6 +158,9 @@ export default {
     ...mapState('user', ['datas', 'action','deleteAccount']),
     errorMessage() {
         return this.$store.state.user;
+    },
+    userUnauthorized(){
+      return this.$store.state.auth.user.privilege_id;
     }
   },
 }
