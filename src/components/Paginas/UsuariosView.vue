@@ -127,13 +127,14 @@
         </template>
       </CardsView>
 
-      <CardsView tittle="Usuarios com email Nâo verificados" classCustom="custom-scroll" v-if="dataStatistc.unverifiedAccounts && dataStatistc.unverifiedAccounts.length > 0">
+      <CardsView tittle="Usuarios com email Nâo verificados" classCustom="custom-scroll" v-if="NotAccountsUnverified">
         <template v-slot:content>
           <ul
             class="p-0"
             v-for="userNotVerified in dataStatistc?.unverifiedUsers"
             :key="userNotVerified.id"
           >
+
             <li class="border shadow-sm rounded-2 p-0 list-unstyled" >
             <div class="card-header text-body-secondary p-0">
               <PlaceHolderLoadingView v-if="isLoading"/>
@@ -179,12 +180,13 @@ export default {
   mounted() {
 
     this.LazyLoading()
+
   },
 
   created() {
 
     this.fetchdatas()
-
+    this.cardUnVerified()
   },
 
   components: {
@@ -193,6 +195,7 @@ export default {
   },
   data() {
     return {
+      NotAccountsUnverified: true
 
     }
   },
@@ -205,6 +208,13 @@ export default {
         console.error(error)
       }
     },
+    cardUnVerified(){
+      const numberAccountsUnverified =  this.$store.state.user.stats.unverifiedAccounts
+      if (!numberAccountsUnverified > 0){
+
+        this.NotAccountsUnverified = false
+      }
+    }
   },
   computed: {
     store() {
@@ -217,6 +227,7 @@ export default {
     stats() {
       return this.$store.state.user.stats;
     },
+
 
   },
 }
