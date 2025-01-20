@@ -127,7 +127,7 @@
         </template>
       </CardsView>
 
-      <CardsView tittle="Usuarios com email Nâo verificados" classCustom="custom-scroll">
+      <CardsView tittle="Usuarios com email Nâo verificados" classCustom="custom-scroll" v-if="dataStatistc.unverifiedAccounts && dataStatistc.unverifiedAccounts.length > 0">
         <template v-slot:content>
           <ul
             class="p-0"
