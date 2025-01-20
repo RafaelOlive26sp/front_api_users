@@ -94,140 +94,140 @@
               </div>
             </template>
           </CollapesView>
-            <ModalView :id="itens.idmodal" v-for="itens in menuItensAcoes" :key="itens.id" @hidden="clearInputs(itens.id)">
-            <template v-slot:content>
-              <div class="modal-header border">
-              <h5 class="modal-title">{{ itens.label }}</h5>
+            <ModalView :id="itens.idmodal" v-for="itens in menuItensAcoes" :key="itens.id"  @hidden="clearInputs(item.id)">
+              <template v-slot:content>
+                <div class="modal-header border">
+                  <h5 class="modal-title">{{ itens.label }}</h5>
 
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
 
-              </div>
-              <div class="modal-body conteiner ">
-              <div class="row">
-                <div class="input-group">
-                <div class="input-group input-group-sm">
-                  <div class="input-group-text col-auto">
-
-                  <input
-                    class="form-check-input mt-0"
-                    v-tooltip
-                    title="Pesquisar por nome"
-                    type="checkbox"
-                    aria-label="Checkbox for following text input"
-                    v-model="inputsSearch.searchName"
-                    @change="inputSearch('name')"
-
-
-                  />
-
-
-                  </div>
-                  <!-- Input de pesquisa por nome -->
-                  <input
-                  type="text"
-                  class="form-control col-2"
-                  list="datalistOptions"
-                  id="exampleDataList"
-                  placeholder="Digite o nome para pesquisar"
-                  v-model="inputNameSearch"
-                  :disabled="!inputsSearch.searchName"
-                  @change="inputName(inputNameSearch, 'name', itens.label)"
-                  />
-
-
-                  <datalist id="datalistOptions">
-                  <option
-                    :value="verifiedUser.name"
-                    v-for="verifiedUser in dataStatistic?.verifiedUsers"
-                    :key="verifiedUser.id"
-                  ></option>
-                  <option
-                    :value="unverifiedUser.name"
-                    v-for="unverifiedUser in dataStatistic?.unverifiedUsers"
-                    :key="unverifiedUser.id"
-                  ></option>
-                  </datalist>
-
-
-                  <div class="input-group-text col-auto">
-                  <input
-                    class="form-check-input mt-0"
-                    v-tooltip
-                    title="Pesquisar por Email"
-                    type="checkbox"
-                    aria-label="Checkbox for following text input"
-                    v-model="inputsSearch.searchEmail"
-                    @change="inputSearch('email')"
-
-
-                  />
-                  </div>
-                  <!-- Input de pesquisa por E-mail -->
-                  <input
-                  type="email"
-                  class="form-control col-2"
-                  placeholder="Digite E-mail para pesquisar"
-                  v-model="inputEmailSearch"
-                  :disabled="!inputsSearch.searchEmail"
-                  @change="inputEmail(inputEmailSearch, 'email', itens.label)"
-                  />
                 </div>
-                </div>
-              </div>
-              <CardsView classDivFather="col-md-auto shadow-sm mt-4" :tittle="'Id do Usuario. ' + dadosDoUsuario?.id" v-if="dadosDoUsuario">
-                <template v-slot:content>
-                <div class=" ">
-                  <div class="col-12">
-                  <div class="card">
-                    <div class="card-body d-flex align-items-start">
-                    <div class="me-3">
-                      <img
-                      src="https://www.w3schools.com/howto/img_avatar.png"
-                      alt="Avatar"
-                      class="avatar rounded-4 "
-                      height="100"
-                      width="100"
-                      style="
-                      box-shadow: 2px 2px 5px -2px black;"
-                      />
+                <div class="modal-body conteiner ">
+                <div class="row">
+                  <div class="input-group">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-text col-auto">
+
+                    <input
+                      class="form-check-input mt-0"
+                      v-tooltip
+                      title="Pesquisar por nome"
+                      type="checkbox"
+                      aria-label="Checkbox for following text input"
+                      v-model="inputsSearch.searchName"
+                      @change="inputSearch('name')"
+
+
+                    />
+
+
                     </div>
-                    <div class="mt-3">
-                      <span class="" style="font-size: 15px;">Nome: </span>
-                      <small>{{ dadosDoUsuario?.name }}</small>
-                      <br>
-                      <span class="" style="font-size: 15px;">Email: </span>
-                      <small>
-                      {{ dadosDoUsuario?.email }}</small>
+                    <!-- Input de pesquisa por nome -->
+                    <input
+                    type="text"
+                    class="form-control col-2"
+                    list="datalistOptions"
+                    id="exampleDataList"
+                    placeholder="Digite o nome para pesquisar"
+                    v-model="inputNameSearch"
+                    :disabled="!inputsSearch.searchName"
+                    @change="inputName(inputNameSearch, 'name', itens.label)"
+                    />
+
+
+                    <datalist id="datalistOptions">
+                    <option
+                      :value="verifiedUser.name"
+                      v-for="verifiedUser in dataStatistic?.verifiedUsers"
+                      :key="verifiedUser.id"
+                    ></option>
+                    <option
+                      :value="unverifiedUser.name"
+                      v-for="unverifiedUser in dataStatistic?.unverifiedUsers"
+                      :key="unverifiedUser.id"
+                    ></option>
+                    </datalist>
+
+
+                    <div class="input-group-text col-auto">
+                    <input
+                      class="form-check-input mt-0"
+                      v-tooltip
+                      title="Pesquisar por Email"
+                      type="checkbox"
+                      aria-label="Checkbox for following text input"
+                      v-model="inputsSearch.searchEmail"
+                      @change="inputSearch('email')"
+
+
+                    />
                     </div>
-                    </div>
-                    <div class="card-footer text-body-secondary p-0 text-start ">
-                    <span class="ms-2">Data de Criação: </span>
-                    <span>{{ dadosDoUsuario?.created_at }}</span>
-                    </div>
+                    <!-- Input de pesquisa por E-mail -->
+                    <input
+                    type="email"
+                    class="form-control col-2"
+                    placeholder="Digite E-mail para pesquisar"
+                    v-model="inputEmailSearch"
+                    :disabled="!inputsSearch.searchEmail"
+                    @change="inputEmail(inputEmailSearch, 'email', itens.label)"
+                    />
                   </div>
                   </div>
                 </div>
-                </template>
-              </CardsView>
-              </div>
-              <div class="modal-footer" >
-              <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-dismiss="modal"
-                :data-bs-target="`collapse-${itens.id}`"
-                @click="setCollapse('collapseAcoes', dadosDoUsuario, itens.label)"
-                v-if="dadosDoUsuario"
-              >
-                {{itens.label}}
-              </button>
-              </div>
-            </template>
+                <CardsView classDivFather="col-md-auto shadow-sm mt-4" :tittle="'Id do Usuario. ' + dadosDoUsuario?.id" v-if="dadosDoUsuario">
+                  <template v-slot:content>
+                  <div class=" ">
+                    <div class="col-12">
+                    <div class="card">
+                      <div class="card-body d-flex align-items-start">
+                      <div class="me-3">
+                        <img
+                        src="https://www.w3schools.com/howto/img_avatar.png"
+                        alt="Avatar"
+                        class="avatar rounded-4 "
+                        height="100"
+                        width="100"
+                        style="
+                        box-shadow: 2px 2px 5px -2px black;"
+                        />
+                      </div>
+                      <div class="mt-3">
+                        <span class="" style="font-size: 15px;">Nome: </span>
+                        <small>{{ dadosDoUsuario?.name }}</small>
+                        <br>
+                        <span class="" style="font-size: 15px;">Email: </span>
+                        <small>
+                        {{ dadosDoUsuario?.email }}</small>
+                      </div>
+                      </div>
+                      <div class="card-footer text-body-secondary p-0 text-start ">
+                      <span class="ms-2">Data de Criação: </span>
+                      <span>{{ dadosDoUsuario?.created_at }}</span>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                  </template>
+                </CardsView>
+                </div>
+                <div class="modal-footer" >
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-dismiss="modal"
+                  :data-bs-target="`collapse-${itens.id}`"
+                  @click="setCollapse('collapseAcoes', dadosDoUsuario, itens.label)"
+                  v-if="dadosDoUsuario"
+                >
+                  {{itens.label}}
+                </button>
+                </div>
+              </template>
             </ModalView>
         </div>
 
