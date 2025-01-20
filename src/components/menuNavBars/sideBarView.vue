@@ -60,6 +60,7 @@
                       :data-bs-target="`#collapse-${itensAcoes.id}`"
                       aria-expanded="false"
                       :aria-controls="`collapse-${itensAcoes.id}`"
+
                     >
                       <i :class="itensAcoes.icon"></i>
                       {{ itensAcoes.label }}
@@ -281,8 +282,8 @@ export default {
           icon: 'bi bi-search',
           idmodal: 'ModalConsultar',
           submenus: [
-            { id: 'Usuarios', label: 'Usuarios' },
-            { id: 'Atendentes', label: 'Atendentes' },
+            { id: 'Usuarios', label: 'Usuarios' }
+
           ],
         },
         {
@@ -324,6 +325,7 @@ export default {
     setCollapse(id, dadosDoUsuario, metodo) {
       if (metodo === 'Deletar') this.deleteAccount(dadosDoUsuario)
       this.$store.dispatch('user/setActiveCollapse', { id, dadosDoUsuario, metodo })
+      this.closeAndClear()
     },
     searchUserByField(field, value) {
       const searchValue = value
