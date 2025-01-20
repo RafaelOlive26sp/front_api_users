@@ -1,6 +1,5 @@
 <template>
   <div class="sidebar border border-dark col-md-3 col-lg-2 p-0 border-opacity-25">
-
     <div
       class="offcanvas-md offcanvas-end text-bg-secondary"
       tabindex="-1"
@@ -55,7 +54,6 @@
                     :key="itensAcoes.id"
                   >
                     <div
-
                       class="d-flex align-items-center"
                       style="cursor: pointer"
                       data-bs-toggle="collapse"
@@ -75,7 +73,6 @@
                     >
                       <ul class="list-unstyled submenus">
                         <li
-
                           data-bs-toggle="modal"
                           :data-bs-target="`#${itensAcoes.idmodal}`"
                           v-for="submenus in itensAcoes?.submenus"
@@ -94,128 +91,127 @@
               </div>
             </template>
           </CollapesView>
-            <ModalView :id="itens.idmodal" v-for="itens in menuItensAcoes" :key="itens.id"  @hidden="clearInputs(item.id)">
-              <template v-slot:content>
-                <div class="modal-header border">
-                  <h5 class="modal-title">{{ itens.label }}</h5>
+          <ModalView
+            :id="itens.idmodal"
+            v-for="itens in menuItensAcoes"
+            :key="itens.id"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+          >
+            <template v-slot:content>
+              <div class="modal-header border">
+                <h5 class="modal-title">{{ itens.label }}</h5>
 
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-
-                </div>
-                <div class="modal-body conteiner ">
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                  @click="closeAndClear"
+                ></button>
+              </div>
+              <div class="modal-body conteiner">
                 <div class="row">
                   <div class="input-group">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-text col-auto">
-
-                    <input
-                      class="form-check-input mt-0"
-                      v-tooltip
-                      title="Pesquisar por nome"
-                      type="checkbox"
-                      aria-label="Checkbox for following text input"
-                      v-model="inputsSearch.searchName"
-                      @change="inputSearch('name')"
-
-
-                    />
-
-
-                    </div>
-                    <!-- Input de pesquisa por nome -->
-                    <input
-                    type="text"
-                    class="form-control col-2"
-                    list="datalistOptions"
-                    id="exampleDataList"
-                    placeholder="Digite o nome para pesquisar"
-                    v-model="inputNameSearch"
-                    :disabled="!inputsSearch.searchName"
-                    @change="inputName(inputNameSearch, 'name', itens.label)"
-                    />
-
-
-                    <datalist id="datalistOptions">
-                    <option
-                      :value="verifiedUser.name"
-                      v-for="verifiedUser in dataStatistic?.verifiedUsers"
-                      :key="verifiedUser.id"
-                    ></option>
-                    <option
-                      :value="unverifiedUser.name"
-                      v-for="unverifiedUser in dataStatistic?.unverifiedUsers"
-                      :key="unverifiedUser.id"
-                    ></option>
-                    </datalist>
-
-
-                    <div class="input-group-text col-auto">
-                    <input
-                      class="form-check-input mt-0"
-                      v-tooltip
-                      title="Pesquisar por Email"
-                      type="checkbox"
-                      aria-label="Checkbox for following text input"
-                      v-model="inputsSearch.searchEmail"
-                      @change="inputSearch('email')"
-
-
-                    />
-                    </div>
-                    <!-- Input de pesquisa por E-mail -->
-                    <input
-                    type="email"
-                    class="form-control col-2"
-                    placeholder="Digite E-mail para pesquisar"
-                    v-model="inputEmailSearch"
-                    :disabled="!inputsSearch.searchEmail"
-                    @change="inputEmail(inputEmailSearch, 'email', itens.label)"
-                    />
-                  </div>
-                  </div>
-                </div>
-                <CardsView classDivFather="col-md-auto shadow-sm mt-4" :tittle="'Id do Usuario. ' + dadosDoUsuario?.id" v-if="dadosDoUsuario">
-                  <template v-slot:content>
-                  <div class=" ">
-                    <div class="col-12">
-                    <div class="card">
-                      <div class="card-body d-flex align-items-start">
-                      <div class="me-3">
-                        <img
-                        src="https://www.w3schools.com/howto/img_avatar.png"
-                        alt="Avatar"
-                        class="avatar rounded-4 "
-                        height="100"
-                        width="100"
-                        style="
-                        box-shadow: 2px 2px 5px -2px black;"
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-text col-auto">
+                        <input
+                          class="form-check-input mt-0"
+                          v-tooltip
+                          title="Pesquisar por nome"
+                          type="checkbox"
+                          aria-label="Checkbox for following text input"
+                          v-model="inputsSearch.searchName"
+                          @change="inputSearch('name')"
                         />
                       </div>
-                      <div class="mt-3">
-                        <span class="" style="font-size: 15px;">Nome: </span>
-                        <small>{{ dadosDoUsuario?.name }}</small>
-                        <br>
-                        <span class="" style="font-size: 15px;">Email: </span>
-                        <small>
-                        {{ dadosDoUsuario?.email }}</small>
+                      <!-- Input de pesquisa por nome -->
+                      <input
+                        type="text"
+                        class="form-control col-2"
+                        list="datalistOptions"
+                        id="exampleDataList"
+                        placeholder="Digite o nome para pesquisar"
+                        v-model="inputNameSearch"
+                        :disabled="!inputsSearch.searchName"
+                        @change="inputName(inputNameSearch, 'name', itens.label)"
+                      />
+
+                      <datalist id="datalistOptions">
+                        <option
+                          :value="verifiedUser.name"
+                          v-for="verifiedUser in dataStatistic?.verifiedUsers"
+                          :key="verifiedUser.id"
+                        ></option>
+                        <option
+                          :value="unverifiedUser.name"
+                          v-for="unverifiedUser in dataStatistic?.unverifiedUsers"
+                          :key="unverifiedUser.id"
+                        ></option>
+                      </datalist>
+
+                      <div class="input-group-text col-auto">
+                        <input
+                          class="form-check-input mt-0"
+                          v-tooltip
+                          title="Pesquisar por Email"
+                          type="checkbox"
+                          aria-label="Checkbox for following text input"
+                          v-model="inputsSearch.searchEmail"
+                          @change="inputSearch('email')"
+                        />
                       </div>
-                      </div>
-                      <div class="card-footer text-body-secondary p-0 text-start ">
-                      <span class="ms-2">Data de Criação: </span>
-                      <span>{{ dadosDoUsuario?.created_at }}</span>
-                      </div>
-                    </div>
+                      <!-- Input de pesquisa por E-mail -->
+                      <input
+                        type="email"
+                        class="form-control col-2"
+                        placeholder="Digite E-mail para pesquisar"
+                        v-model="inputEmailSearch"
+                        :disabled="!inputsSearch.searchEmail"
+                        @change="inputEmail(inputEmailSearch, 'email', itens.label)"
+                      />
                     </div>
                   </div>
+                </div>
+                <CardsView
+                  classDivFather="col-md-auto shadow-sm mt-4"
+                  :tittle="'Id do Usuario. ' + dadosDoUsuario?.id"
+                  v-if="dadosDoUsuario"
+                >
+                  <template v-slot:content>
+                    <div class=" ">
+                      <div class="col-12">
+                        <div class="card">
+                          <div class="card-body d-flex align-items-start">
+                            <div class="me-3">
+                              <img
+                                src="https://www.w3schools.com/howto/img_avatar.png"
+                                alt="Avatar"
+                                class="avatar rounded-4"
+                                height="100"
+                                width="100"
+                                style="box-shadow: 2px 2px 5px -2px black"
+                              />
+                            </div>
+                            <div class="mt-3">
+                              <span class="" style="font-size: 15px">Nome: </span>
+                              <small>{{ dadosDoUsuario?.name }}</small>
+                              <br />
+                              <span class="" style="font-size: 15px">Email: </span>
+                              <small> {{ dadosDoUsuario?.email }}</small>
+                            </div>
+                          </div>
+                          <div class="card-footer text-body-secondary p-0 text-start">
+                            <span class="ms-2">Data de Criação: </span>
+                            <span>{{ dadosDoUsuario?.created_at }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </template>
                 </CardsView>
-                </div>
-                <div class="modal-footer" >
+              </div>
+              <div class="modal-footer">
                 <button
                   type="button"
                   class="btn btn-primary"
@@ -224,11 +220,11 @@
                   @click="setCollapse('collapseAcoes', dadosDoUsuario, itens.label)"
                   v-if="dadosDoUsuario"
                 >
-                  {{itens.label}}
+                  {{ itens.label }}
                 </button>
-                </div>
-              </template>
-            </ModalView>
+              </div>
+            </template>
+          </ModalView>
         </div>
 
         <hr class="my-3" />
@@ -308,7 +304,7 @@ export default {
           submenus: [{ id: 'contas', label: 'Contas' }],
         },
       ],
-      inputsSearch:{
+      inputsSearch: {
         searchName: false,
         searchEmail: false,
       },
@@ -320,17 +316,17 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['logout',]),
-    ...mapActions('user', ['deleteAccounts',]),
+    ...mapActions('auth', ['logout']),
+    ...mapActions('user', ['deleteAccounts']),
     logoutUser() {
       this.logout()
     },
     setCollapse(id, dadosDoUsuario, metodo) {
-     if(metodo === 'Deletar') this.deleteAccount(dadosDoUsuario)
+      if (metodo === 'Deletar') this.deleteAccount(dadosDoUsuario)
       this.$store.dispatch('user/setActiveCollapse', { id, dadosDoUsuario, metodo })
     },
     searchUserByField(field, value) {
-      const searchValue = value;
+      const searchValue = value
 
       const unverifiedUsers = this.$store.state.user.stats.unverifiedUsers
       const verifiedUsers = this.$store.state.user.stats.verifiedUsers
@@ -339,13 +335,10 @@ export default {
       const resultado = allUsers.find((user) => user[field] === searchValue)
 
       if (resultado) {
-        this.dadosDoUsuario = resultado;
-
+        this.dadosDoUsuario = resultado
       } else {
         this.dadosDoUsuario = 'Nome nao encontrado!'
       }
-
-
     },
 
     inputName(value, field, action) {
@@ -355,40 +348,38 @@ export default {
     inputEmail(value, field, action) {
       this.searchUserByField(field, value, action)
     },
-    async deleteAccount(data){
-
+    async deleteAccount(data) {
       try {
-        const idUser = data.id;
+        const idUser = data.id
         await this.deleteAccounts(idUser)
-
       } catch (error) {
-        console.error(error);
-
+        console.error(error)
       }
-
     },
     inputSearch(field) {
-
-          if (field === "name") {
-        this.inputsSearch.searchName = true; // Ativa o campo de nome
-        this.inputsSearch.searchEmail = false; // Desativa o campo de email
+      if (field === 'name') {
+        this.inputsSearch.searchName = true // Ativa o campo de nome
+        this.inputsSearch.searchEmail = false // Desativa o campo de email
         this.inputEmailSearch = ''
-      } else if (field === "email") {
-        this.inputsSearch.searchEmail = true; // Ativa o campo de email
-        this.inputsSearch.searchName = false; // Desativa o campo de nome
+      } else if (field === 'email') {
+        this.inputsSearch.searchEmail = true // Ativa o campo de email
+        this.inputsSearch.searchName = false // Desativa o campo de nome
         this.inputNameSearch = ''
       }
     },
-    clearInputs(id) {
-      console.log(`Modal com ID ${id} foi fechado. Limpando inputs...`);
-      // Adicione aqui a lógica para limpar os inputs
+    closeAndClear() {
+          this.inputsSearch.searchName = false ;
+          this.inputsSearch.searchEmail = false;
+          this.dadosDoUsuario = '';
+          this.inputNameSearch = '';
+          this.inputEmailSearch = '';
     },
   },
-  computed:{
-    dataStatistic(){
+  computed: {
+    dataStatistic() {
       return this.$store.state.user.stats
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -402,7 +393,7 @@ export default {
   background-image: linear-gradient(120deg, #fdfbfb 10%, #ebedee 100%);
   cursor: pointer;
 }
-.card-footer >span {
+.card-footer > span {
   font-size: 12px;
 }
 </style>
