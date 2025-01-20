@@ -20,7 +20,7 @@ const userModules = {
     datas: null,
     action: null,
     deleteAccount: null,
-    errorMessage: ''
+    errorUpdate:''
   },
   mutations: {
     SET_LOADING(state, isLoading) {
@@ -47,8 +47,8 @@ const userModules = {
     DELETE_ACCOUNT(state, deleteAccount){
       state.deleteAccount = deleteAccount
     },
-    SET_ERROR_MESSAGE(state,message){
-      state.errorMessage = message
+    SET_ERROR_MESSAGE(state,errorUpdate){
+      state.errorUpdate = errorUpdate
     }
   },
   actions: {
@@ -147,7 +147,7 @@ const userModules = {
         console.log(error)
       }
     },
-    async updateAccount({ rootState,dispatch }, data) {
+    async updateAccount({ rootState,dispatch,commit }, data) {
       try {
         const token = rootState.auth.token
         const id = data.id;
@@ -168,12 +168,9 @@ const userModules = {
           id: 'collapseAcoes'
          })
       } catch (error) {
-        console.error('Request failed:', {
-          message: error.message,
-          code: error.code,
-          response: error.response ? error.response.data : null,
-          config: error.config,
-        });
+        const errorMessage = error?.response?.data?.message;
+        commit('SET_ERROR_MESSAGE', errorMessage);
+
 
       }
     },
