@@ -98,29 +98,37 @@
             <template v-slot:content>
               <div class="modal-header border">
                 <h5 class="modal-title">{{ itens.label }}</h5>
+
                 <button
                   type="button"
                   class="btn-close"
                   data-bs-dismiss="modal"
                   aria-label="Close"
                 ></button>
+
               </div>
               <div class="modal-body conteiner ">
                 <div class="row">
                   <div class="input-group">
                     <div class="input-group input-group-sm">
                       <div class="input-group-text col-auto">
+                        {{ inputsSearch.searchName }}
+                        {{ inputsSearch.searchEmail }}
                         <input
                           class="form-check-input mt-0"
                           v-tooltip
                           title="Pesquisar por nome"
                           type="checkbox"
                           aria-label="Checkbox for following text input"
-                          v-model="searchName"
+                          v-model="inputsSearch.searchName"
+                          @change="inputSearch('name')"
+
+
                         />
 
-                      </div>
 
+                      </div>
+                      <!-- Input de pesquisa por nome -->
                       <input
                         type="text"
                         class="form-control col-2"
@@ -128,7 +136,7 @@
                         id="exampleDataList"
                         placeholder="Digite o nome para pesquisar"
                         v-model="inputNameSearch"
-                        :disabled="!searchName"
+                        :disabled="!inputsSearch.searchName"
                         @change="inputName(inputNameSearch, 'name', itens.label)"
                       />
 
@@ -144,7 +152,7 @@
                           :key="unverifiedUser.id"
                         ></option>
                       </datalist>
-                      <!-- ---------------------------------------------------------------------- -->
+
 
                       <div class="input-group-text col-auto">
                         <input
@@ -153,16 +161,19 @@
                           title="Pesquisar por Email"
                           type="checkbox"
                           aria-label="Checkbox for following text input"
-                          v-model="searchEmail"
+                          v-model="inputsSearch.searchEmail"
+                          @change="inputSearch('email')"
+
+
                         />
                       </div>
-
+                      <!-- Input de pesquisa por E-mail -->
                       <input
                         type="email"
                         class="form-control col-2"
                         placeholder="Digite E-mail para pesquisar"
                         v-model="inputEmailSearch"
-                        :disabled="!searchEmail"
+                        :disabled="!inputsSearch.searchEmail"
                         @change="inputEmail(inputEmailSearch, 'email', itens.label)"
                       />
                     </div>
@@ -297,8 +308,12 @@ export default {
           submenus: [{ id: 'contas', label: 'Contas' }],
         },
       ],
-      searchName: false,
-      searchEmail: false,
+      inputsSearch:{
+        searchName: false,
+        searchEmail: false,
+      },
+      // searchName: false,
+      // searchEmail: false,
       inputNameSearch: '',
       inputEmailSearch: '',
       dadosDoUsuario: null,
@@ -350,6 +365,19 @@ export default {
         console.error(error);
 
       }
+
+    },
+    inputSearch(field) {
+
+      if (field === "name") {
+    this.inputsSearch.searchName = true; // Ativa o campo de nome
+    this.inputsSearch.searchEmail = false; // Desativa o campo de email
+  } else if (field === "email") {
+    this.inputsSearch.searchEmail = true; // Ativa o campo de email
+    this.inputsSearch.searchName = false; // Desativa o campo de nome
+  }
+
+
 
     }
   },
