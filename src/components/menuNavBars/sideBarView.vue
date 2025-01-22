@@ -1,14 +1,16 @@
 <template>
   <div class="sidebar border border-dark col-md-3 col-lg-2 p-0 border-opacity-25">
     <div
-      class="offcanvas-md offcanvas-end text-bg-secondary"
+      class="offcanvas-md offcanvas-end text-bg-secondary rounded-bottom"
       tabindex="-1"
       id="sidebarMenu"
       aria-labelledby="sidebarMenuLabel"
+
     >
-      <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+      <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto ">
         <ul class="nav flex-column t">
           <li class="nav-item" v-for="item in menuItems" :key="item.id">
+            <!-- --------------------------- Botoes do menu ------------------ -->
             <a
               v-if="item.id !== 'collapseAcoes'"
               class="nav-link mb-2 fs-6 d-flex align-items-center gap-2 link-body-emphasis"
@@ -22,12 +24,15 @@
               <i :class="item.class"></i>
               {{ item.label }}
             </a>
+            <!-- --------------------------- Botoes do menu ------------------ -->
           </li>
         </ul>
 
         <hr />
         <div class="nav flex-column mb-auto">
+          <!-- ------------------- Botao de Ações ----------------------- -->
           <a
+
             class="mx-3 nav-link gap-2 fs-6 d-flex align-items-center link-body-emphasis p-0"
             data-bs-toggle="collapse"
             href="#CollapseAcao"
@@ -38,8 +43,11 @@
             <i :class="menuItems.find((item) => item.id === 'collapseAcoes').class"></i>
             {{ menuItems.find((item) => item.id === 'collapseAcoes').label }}
           </a>
+          <!-- ------------------- Botao de Ações ----------------------- -->
 
+          <!-- Collapse Interno de Opcoes de Ações----------------------- -->
           <CollapesView
+            ref="collapseToggle"
             id="CollapseAcao"
             classCustom=" collapse card card-body col-11 mx-3 text-body-secondary"
             style="box-shadow: black 0px 1px 1px 0px inset; border: none"
@@ -53,6 +61,7 @@
                     v-for="itensAcoes in menuItensAcoes"
                     :key="itensAcoes.id"
                   >
+                  <!-- --------------- Opcões de metodos --------------- -->
                     <div
                       class="d-flex align-items-center"
                       style="cursor: pointer"
@@ -65,7 +74,9 @@
                       <i :class="itensAcoes.icon"></i>
                       {{ itensAcoes.label }}
                     </div>
+                    <!-- --------------- Opcões de metodos --------------- -->
 
+                    <!-- -------------- Opções de funções dos Metodos ---- -->
                     <div
                       class="nav flex-column collapse text-center rounded-2 p-1"
                       :id="`collapse-${itensAcoes?.id}`"
@@ -84,6 +95,7 @@
                         </li>
                       </ul>
                     </div>
+                    <!-- -------------- Opções de funções dos Metodos ---- -->
                   </li>
                 </ul>
                 <div v-else>
@@ -92,6 +104,9 @@
               </div>
             </template>
           </CollapesView>
+          <!-- Collapse Interno de Opcoes de Ações----------------------- -->
+
+          <!-- ------------ Chamada do Modal ----------------------------- -->
           <ModalView
             :id="itens.idmodal"
             v-for="itens in menuItensAcoes"
@@ -226,6 +241,7 @@
               </div>
             </template>
           </ModalView>
+          <!-- ------------ Chamada do Modal ----------------------------- -->
         </div>
 
         <hr class="my-3" />
@@ -254,11 +270,17 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import { Collapse } from 'bootstrap'
+
 import CollapesView from '@/components/CollapesView.vue'
 import ModalView from '@/components/ModalView.vue'
 import CardsView from '@/components/Cards/CardsView.vue'
 
+
 export default {
+  mounted() {
+
+  },
   name: 'sideBarView',
   components: { CardsView, ModalView, CollapesView },
   data() {
@@ -314,6 +336,7 @@ export default {
       inputNameSearch: '',
       inputEmailSearch: '',
       dadosDoUsuario: null,
+
     }
   },
   methods: {
@@ -326,6 +349,7 @@ export default {
       if (metodo === 'Deletar') this.deleteAccount(dadosDoUsuario)
       this.$store.dispatch('user/setActiveCollapse', { id, dadosDoUsuario, metodo })
       this.closeAndClear()
+      this.closeCollapse()
     },
     searchUserByField(field, value) {
       const searchValue = value
@@ -375,6 +399,17 @@ export default {
           this.dadosDoUsuario = '';
           this.inputNameSearch = '';
           this.inputEmailSearch = '';
+
+
+    },
+    closeCollapse() {
+      const collapse = document.getElementById("CollapseAcao");
+      if (collapse) {
+      const collapseInstance = Collapse.getInstance(collapse) || new Collapse(collapse);
+        collapseInstance.hide();
+      } else {
+        console.error("Elemento collapse não encontrado no DOM.");
+      }
     },
   },
   computed: {
