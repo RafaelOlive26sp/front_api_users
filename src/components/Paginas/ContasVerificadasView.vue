@@ -41,7 +41,7 @@ export default {
   },
   computed:{
     dataStatistc(){
-      return this.$store.state.user.StatisticData;
+      return this.$store.state.user.stats;
     }
   }
 
