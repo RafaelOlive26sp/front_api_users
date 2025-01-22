@@ -1,16 +1,13 @@
 <template>
   <div class="container">
     <div class="row justify-content-center text-center">
-      <CardProfileView>
+      <CardProfileView v-for="item in dataAttendents.verifiedUsers.filter(user => user.privilege_id === 2)" :key="item.id">
         <template v-slot:header>
           <div class=" ">
-            <div class="text-start">
-              <p class="m-0 fs-5 fst-italic ">Rafael de oliveira</p>
-              <p class="m-0 fw-semibold text-body-secondary " style="font-size: small">
-                Desenvolvedor web
-              </p>
+            <div class="text-start text-center">
+              <p class="m-0 fs-5 fst-italic mb-4">{{item.name}}</p>
             </div>
-<!--            <input type="file" name="" id="">-->
+
             <i class="bi bi-pencil-square " v-tooltip title="Adicionar Foto" type="file" style="position: absolute;right: 110px;top: 189px;
                   " onclick="document.getElementById('fileInput').click()"></i>
             <img src="https://www.w3schools.com/howto/img_avatar.png"
@@ -25,7 +22,7 @@
           <a
             class="btnCollapse"
             data-bs-toggle="collapse"
-            data-bs-target="#collapseExample2"
+            :data-bs-target="`#collapse${item.id}`"
             aria-expanded="false"
             aria-controls="collapseExample2"
             style="position: absolute; left: 1px; top: 197px"
@@ -38,7 +35,7 @@
         </template>
         <template v-slot:content>
 
-          <CollapesView id="collapseExample2" class="collapse">
+          <CollapesView :id="`collapse${item.id}`" class="collapse">
             <template v-slot:content>
               <div class="card card-body" style="   box-shadow: 1px 1px 3px 0px #121212 inset; border-radius: 0px;">
                 Some placeholder content for the collapse component. This panel is hidden by default
@@ -75,6 +72,11 @@ export default {
         console.log('Arquivo selecionado:', file.name);
         // Aqui você pode adicionar a lógica de upload ou pré-visualização da imagem
       }
+    }
+  },
+  computed: {
+    dataAttendents() {
+      return this.$store.state.user.stats
     }
   }
 
