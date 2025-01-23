@@ -3,7 +3,7 @@
 ## 📋 Visão Geral
 
 **Nome do Projeto:** [DashBoard - Admin]  
-**Descrição:** [O Administrador e os Atendentes, terão acesso ao DashBoard, onde podem alterar contas registradas, visualizar informações sobre usuários e demais funcionalidades administrativas]  
+**Descrição:** [O Administrador e os Atendentes, terão acesso ao DashBoard, onde podem alterar contas registradas, visualizar informações sobre usuários e demais funcionalidades administrativas. O projeto se conecta a uma API RESTful, que fornece os dados necessários para a aplicação.]  
 **Tecnologias Utilizadas:**
 - [Vue.js (3)]
 - [Vuex (4.0.2)]
@@ -73,9 +73,12 @@ src/
 
 ## 🛠️ Funcionalidades Implementadas
 
-- [Descreva cada funcionalidade principal]
-- **Exemplo:**
-    - Autenticação: Login, Logout, Registro de Usuários
-    - Painel de Controle: Exibição de estatísticas e gráficos
-    - Sistema de Tickets: Criação e gerenciamento de tickets
+- **Autenticação**
+    - [x] Login
+    - [x] Logout
+
+    - Painel de Controle: Exibição dados sobre contas registradas, e Sistema de Crud de contas
+
+📖 Boas Práticas de Desenvolvimento
+[O projeto recebe do back-end um token de autenticação, que é armazenado no Vuex e no LocalStorage, para que o usuário possa acessar as rotas protegidas.]
 
