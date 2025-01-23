@@ -3,7 +3,8 @@
 ## 📋 Visão Geral
 
 **Nome do Projeto:** [DashBoard - Admin]  
-**Descrição:** [O Administrador e os Atendentes, terão acesso ao DashBoard, onde podem alterar contas registradas, visualizar informações sobre usuários e demais funcionalidades administrativas. O projeto se conecta a uma API RESTful, que fornece os dados necessários para a aplicação.]  
+**Descrição:** [O Administrador e os Atendentes, terão acesso ao DashBoard, onde podem alterar contas registradas, visualizar informações sobre usuários e demais funcionalidades administrativas.  
+    O projeto se conecta a uma API RESTful, que fornece os dados necessários para a aplicação.]  
 **Tecnologias Utilizadas:**
 - [Vue.js (3)]
 - [Vuex (4.0.2)]
@@ -71,14 +72,39 @@ src/
 
 ```
 
-## 🛠️ Funcionalidades Implementadas
+### 🛠️ Funcionalidades Implementadas
 
-- **Autenticação**
-    - [x] Login
-    - [x] Logout
+Autenticação
 
-    - Painel de Controle: Exibição dados sobre contas registradas, e Sistema de Crud de contas
+✅ Login  
+✅ Logout  
 
-📖 Boas Práticas de Desenvolvimento
-[O projeto recebe do back-end um token de autenticação, que é armazenado no Vuex e no LocalStorage, para que o usuário possa acessar as rotas protegidas.]
+Painel de Controle
 
+Exibição de dados sobre contas registradas  
+Sistema de CRUD de contas  
+
+### 📖 Boas Práticas de Desenvolvimento
+
+\[O projeto recebe do back-end um token de autenticação, que é armazenado no Vuex e no LocalStorage, para que o usuário possa acessar as rotas protegidas.\]
+
+### 🌐 Acesso à Aplicação
+
+O projeto está hospedado na railway, e pode ser acessado através do link:  
+https://frontapiusers-production.up.railway.app/
+
+Email: admin@admin.com  
+Senha: password  \| Administrador
+
+Email: attend@admin.com  
+Senha: password  \| Atendente
+
+### 🔗 Conexão com a API
+
+Esta aplicação consome dados de uma API Restful, que fornece informações sobre usuários e contas.
+
+A documentação completa da API está disponível em:  
+https://api-users-rafael.up.railway.app/api/documentation\
+
+O github do projeto da API está disponível em:  
+https://github.com/RafaelOlive26sp/api_users.git
