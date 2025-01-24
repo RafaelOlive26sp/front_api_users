@@ -3,7 +3,7 @@
 ## 📋 Visão Geral
 
 **Nome do Projeto:** [DashBoard ]  
-**Descrição:** A aplicação é acessada somente por Atendentes e Administradores, aonde podem ver um resumo do sistema, como contas verificadas, contas nao verificadas, e todo um esquema de GRUD, aonde poderá consultar, editar e excluir. E tambem possui um relatorio de logs de acesso ao DashBoard.  
+**Descrição:** A aplicação é acessada somente por Atendentes e Administradores, aonde podem ver um resumo do sistema, como contas verificadas, contas nao verificadas, e todo um esquema de CRUD, aonde poderá consultar, editar e excluir. E tambem possui um relatorio de logs de acesso ao DashBoard.  
  O projeto se conecta a uma API RESTful, que fornece os dados necessários para a aplicação.  
 **Tecnologias Utilizadas:**
 - [Vue.js (3)]
