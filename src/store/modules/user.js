@@ -3,7 +3,6 @@ const userModules = {
   namespaced: true,
   state: {
     activeCollapse: null,
-    // StatisticData: localStorage.getItem('StatisticData') || null,
     users: localStorage.getItem('DataUser') || null,
      stats:{
       totalAccounts: 0,
@@ -52,6 +51,7 @@ const userModules = {
     }
   },
   actions: {
+           // Metodo para registrar um novo usuário
     // async register({  }, data) {
     //   try {
     //     console.log(data)
@@ -115,19 +115,11 @@ const userModules = {
         }
 
           localStorage.setItem('stats',JSON.stringify(stats))
-
-
-
         commit('SET_STATS', response.data.data)
         commit('SET_DADA_USERS', dataUsers)
-
-
-
-
       } catch (error) {
         const errorMessage = error.response?.data?.message || 'Erro Inesperado.';
         commit('SET_ERROR_MESSAGE', errorMessage);
-
       }
     },
     async fetchLogs({ commit, rootState }, url = '/stats/logs') {
@@ -160,23 +152,20 @@ const userModules = {
             Authorization: `Bearer ${token}`,
           },
         });
-        dispatch('fetchStatisticData');
+         dispatch('fetchStatisticData');
 
          dispatch('setActiveCollapse',{
-          dadosDoUsuario: response.data.data,
-          metodo: 'consultar',
-          id: 'collapseAcoes'
+            dadosDoUsuario: response.data.data,
+            metodo: 'consultar',
+            id: 'collapseAcoes'
          })
       } catch (error) {
         const errorMessage = error?.response?.data?.message;
         commit('SET_ERROR_MESSAGE', errorMessage);
-
-
       }
     },
     async  deleteAccounts({commit, rootState},idUser) {
       try {
-
         const token = rootState.auth.token
         if (!token) {
           throw new Error('No token provide')
@@ -192,7 +181,6 @@ const userModules = {
         commit('DELETE_ACCOUNT', response.data)
       } catch (error) {
         console.error(error);
-
       }
     },
 

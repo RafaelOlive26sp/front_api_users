@@ -38,8 +38,7 @@
           <CollapesView :id="`collapse${item.id}`" class="collapse">
             <template v-slot:content>
               <div class="card card-body" style="   box-shadow: 1px 1px 3px 0px #121212 inset; border-radius: 0px;">
-                Some placeholder content for the collapse component. This panel is hidden by default
-                but revealed when the user activates the relevant trigger.
+                Dados do atendente
               </div>
             </template>
           </CollapesView>
@@ -69,8 +68,8 @@ export default {
 
       const file = event.target.files[0];
       if (file) {
-        console.log('Arquivo selecionado:', file.name);
-        // Aqui você pode adicionar a lógica de upload ou pré-visualização da imagem
+        // console.log('Arquivo selecionado:', file.name);
+        // adicionar a lógica de upload ou pré-visualização da imagem
       }
     }
   },

@@ -12,10 +12,6 @@
         </div>
       </template>
     </nav-bar-top-view>
-
-
-
-
   </div>
 </template>
 <script>
