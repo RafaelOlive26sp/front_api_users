@@ -11,7 +11,7 @@
           <strong>Oops! Tivemos um erro inesperavel.</strong> Por favor, tente novamente mais tarde.
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <h1 class="h3 mb-3 fw-normal text-dark-emphasis">DashBoard - Admin</h1>
+        <h1 class="h3 mb-3 fw-normal text-dark-emphasis">DashBoard</h1>
 
         <div class="form-floating">
           <input
