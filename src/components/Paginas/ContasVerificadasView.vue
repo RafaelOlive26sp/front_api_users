@@ -7,10 +7,6 @@
           <p v-else>{{ dataStatistc.verifiedAccounts }}</p>
         </template>
       </CardsView>
-
-      <!-- <div class="col-md-3 border border-primary ">
-        <h5>{{dataStatistc.unverifiedAccounts}}</h5>
-      </div> -->
     </div>
   </div>
 </template>

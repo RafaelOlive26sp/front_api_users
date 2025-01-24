@@ -14,8 +14,6 @@
       <CardsView tittle="total de logs">
         <template v-slot:content>
           {{ isLogs?.data?.totalLogs }}
-
-          <!--            <p>{{ isLogs.totalLogs }}</p>-->
         </template>
       </CardsView>
       <div class="border d-flex dropend">
@@ -114,7 +112,7 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import CardsView from '../Cards/CardsView.vue'
 
 export default {
@@ -161,14 +159,8 @@ export default {
     }
   },
   computed: {
-    // ...mapState('user',['']),
+
     ...mapGetters('user',['isLogs']),
-
-
-
-
-
-
   },
 
 }

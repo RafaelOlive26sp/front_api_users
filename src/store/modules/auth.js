@@ -5,7 +5,6 @@ import Cookies from 'js-cookie'
 const authModules = {
   namespaced: true,
   state: {
-    // token: Cookies.get('access_token') || null,
     token: Cookies.get('access_token') || null,
     user: JSON.parse(localStorage.getItem('user')) || null,
     errorMessage:''

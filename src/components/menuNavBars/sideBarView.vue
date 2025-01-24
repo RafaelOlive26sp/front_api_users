@@ -331,8 +331,6 @@ export default {
         searchName: false,
         searchEmail: false,
       },
-      // searchName: false,
-      // searchEmail: false,
       inputNameSearch: '',
       inputEmailSearch: '',
       dadosDoUsuario: null,

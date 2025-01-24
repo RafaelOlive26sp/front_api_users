@@ -147,12 +147,6 @@ export default {
       this.inputsUpdate.name = '';
       this.inputsUpdate.email = '';
     },
-    // setCollapse(id, dadosDoUsuario, metodo){
-    //
-    //   this.$store.dispatch('user/setActiveCollapse', {id,dadosDoUsuario,metodo});
-    // },
-
-
   },
   computed: {
     ...mapState('user', ['datas', 'action','deleteAccount']),
