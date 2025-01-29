@@ -11,7 +11,7 @@
           <strong>Oops! Tivemos um erro inesperavel.</strong> Por favor, tente novamente mais tarde.
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <h1 class="h3 mb-3 fw-normal text-dark-emphasis">DashBoard</h1>
+        <h1 class="h3 mb-3 fw-normal text-dark-emphasis text-center">DashBoard</h1>
 
         <div class="form-floating">
           <input
@@ -49,8 +49,8 @@
 <!--        </small>-->
         <!-- Ação para cadastrar -->
         <h5 class="bg-danger mt-2 rounded-2"></h5>
-        <p class="mt-5 mb-3 text-light">&copy; 2017–2024</p>
-
+        <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="https://github.com/RafaelOlive26sp/front_api_users"><i class="bi bi-file-code-fill"></i>Documentação</a>
+        <span class="text-light mx-4 pe-auto" v-tooltips title="Contas de acesso: email - admin@admin.com | password - password , email - attend@admin.com | password - password">Primeiro acesso</span>
       </form>
 
         <ModalView id-modal="signUp" > <!--  Modal de Cadastro      -->
