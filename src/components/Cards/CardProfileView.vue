@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-3 ">
-    <div class="card shadow-sm">
+    <div :class="'card shadow-sm ' +classCustom">
       <div class="card-header">
         <slot name="header"></slot>
       </div>
@@ -19,7 +19,7 @@ export default {
     },
     classCustom: {
       type: String,
-      default: '',
+      // default: 'card shadow-sm',
     },
   },
 }
