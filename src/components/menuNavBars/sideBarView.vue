@@ -1,12 +1,17 @@
 <template>
-  <div class="sidebar border border-dark col-md-3 col-lg-2 p-0 border-opacity-25">
+  <div class="sidebar border border-dark col-sm-2 col-md-2 col-lg-2 p-0 border-opacity-25 ">
     <div
-      class="offcanvas-md offcanvas-end text-bg-secondary rounded-bottom"
+      class="offcanvas-md offcanvas-end text-bg-secondary rounded-bottom col-sm-2 col-md-auto col-lg-auto"
       tabindex="-1"
       id="sidebarMenu"
       aria-labelledby="sidebarMenuLabel"
 
     >
+
+      <button class="nav-link px-3 text-white d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation" >
+        <i class="bi bi-list" v-tooltips title="Fechar"></i>
+      </button>
+
       <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto ">
         <ul class="nav flex-column t">
           <li class="nav-item" v-for="item in menuItems" :key="item.id">
@@ -15,7 +20,7 @@
               v-if="item.id !== 'collapseAcoes'"
               class="nav-link mb-2 fs-6 d-flex align-items-center gap-2 link-body-emphasis"
               href="#"
-              data-bs-toggle=""
+              data-bs-toggle="modal"
               :data-bs-target="'#' + item.id"
               aria-expanded="false"
               :aria-controls="item.id"
