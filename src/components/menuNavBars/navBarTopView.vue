@@ -5,14 +5,10 @@
 
 
     <ul class="navbar-nav flex-row d-md-none">
-      <li class="nav-item text-nowrap">
-        <button class="nav-link px-3 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false" aria-label="Toggle search">
-          <svg class="bi"><use xlink:href="#search"/></svg>
-        </button>
-      </li>
-      <li class="nav-item text-nowrap">
+
+      <li class="nav-item text-nowrap ">
         <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-          <svg class="bi"><use xlink:href="#list"/></svg>
+          <i class="bi bi-list"></i>
         </button>
       </li>
     </ul>
@@ -20,7 +16,7 @@
   <div class="container-fluid  ">
     <div class="row">
       <side-bar-view></side-bar-view>
-      <div class="col-10  d-inline-block p-0">
+      <div class="col-sm-auto col-md-10 col-lg-10  d-inline-block p-0  d-flex justify-content-center">
         <slot name="content"></slot>
       </div>
 
