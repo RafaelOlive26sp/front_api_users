@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row justify-content-center text-center">
-      <CardProfileView v-for="item in dataAttendents.verifiedUsers.filter(user => user.privilege_id === 2)" :key="item.id">
+      <CardProfileView v-for="item in dataAttendents.verifiedUsers.filter(user => user.privilege_id === 2)" :key="item.id" classCustom="mb-3">
         <template v-slot:header>
           <div class=" ">
             <div class="text-start text-center">
