@@ -436,4 +436,7 @@ export default {
 .card-footer > span {
   font-size: 12px;
 }
+
+
+
 </style>
