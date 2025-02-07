@@ -1,7 +1,7 @@
 <template >
   <div class="container ">
     <div class="row justify-content-center ">
-      <CardsView tittle="Total de contas Verificadas">
+      <CardsView tittle="Total de contas Verificadas" classDivFather="col-md-12 col-lg-12" >
         <template v-slot:content>
           <PlaceHolderLoadingView v-if="isLoading"/>
           <p v-else>{{ dataStatistc.verifiedAccounts }}</p>
