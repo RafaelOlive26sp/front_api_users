@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-3 ">
+  <div class="col-md-3 col-lg-12">
     <div :class="'card shadow-sm ' +classCustom">
       <div class="card-header">
         <slot name="header"></slot>
