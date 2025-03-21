@@ -33,6 +33,12 @@ const authModules = {
        const response = await api.post('/login', credentials);
 
 
+       if (![1,2].includes(response.data.user.privilege_id)) {
+          commit('SET_ERROR_MESSAGE', 'Forbidden');
+          return
+       }
+
+
         Cookies.set('access_token', response.data.access_token, {secure: true, sameSite: 'Strict'});
 
 
