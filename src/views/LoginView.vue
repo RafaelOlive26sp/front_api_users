@@ -7,6 +7,10 @@
           <strong>Oops! Parece que a senha ou o e-mail estão incorretos.</strong> Por favor, verifique e tente novamente.
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="errorMessage === 'Forbidden' ">
+          <strong>Oops! Parece que voçê esta tentando acessar o sistema sem autorização.</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <div class="alert alert-warning alert-dismissible fade show" role="alert" v-else-if="errorMessage !== ''">
           <strong>Oops! Tivemos um erro inesperavel.</strong> Por favor, tente novamente mais tarde.
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
