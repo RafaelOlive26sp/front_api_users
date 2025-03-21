@@ -24,26 +24,35 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = store.state.auth.token;
-  const userPrivilege = store.state.auth.user?.privilege_id;
+  const authToken = store.state.auth.token;
+  const userPrivilegeId = store.state.auth.user?.privilege_id;
 
+  // console.log(authToken)
 
-
-  if (to.meta.requiresAuth && !isAuthenticated) {
+  if (to.meta.requiresAuth && !authToken) {
     return next({ name: 'login' });
   }
 
-  if (to.meta.guest && isAuthenticated) {
-    console.log('Redirecting to dashboard');
-    return next({ name: 'dashboard' });
-  }
 
-  if (to.meta.requiresAuth && isAuthenticated) {
+
+  if (to.meta.requiresAuth && authToken) {
     // Verifique se o privilégio é válido
-    if (to.name === 'dashboard' && ![1, 2].includes(userPrivilege)) {
+    if (userPrivilegeId === undefined) {
+      console.error('User privilege ID is undefined');
       return next({ name: 'login' });
     }
+    if (to.name === 'dashboard' && ![1, 2].includes(userPrivilegeId)) {
+      console.log("voce nao é admin");
+
+      return next({ name: 'login' });
+
+    }
     return next();
+  }
+
+  if (to.meta.guest && authToken && [1, 2].includes(userPrivilegeId)) {
+    console.log('Redirecting to dashboard');
+    return next({ name: 'dashboard' });
   }
 
   return next();
